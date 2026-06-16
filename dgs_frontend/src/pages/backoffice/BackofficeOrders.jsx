@@ -32,15 +32,15 @@ export default function BackofficeOrders() {
             )}
             {orders.map((order) => (
               <tr key={order._id}>
-                <td>{order.name}</td>
+                <td>{order.comment || '—'}</td>
                 <td>
                   {order.dishes?.map((d, i) => (
                     <span key={i} className={styles.dishTag}>
-                      {d.dish?.name || d.dish} × {d.quantity}
+                      {d.dish?.title || d.dish} × {d.amount}
                     </span>
                   ))}
                 </td>
-                <td>{order.total} kr.</td>
+                <td>{order.totalPrice} kr.</td>
               </tr>
             ))}
           </tbody>

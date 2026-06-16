@@ -22,7 +22,7 @@ export default function BackofficeMessages() {
           <thead>
             <tr>
               <th>Navn</th>
-              <th>E-mail</th>
+              <th>Emne</th>
               <th>Besked</th>
             </tr>
           </thead>
@@ -33,8 +33,8 @@ export default function BackofficeMessages() {
             {messages.map((msg) => (
               <tr key={msg._id}>
                 <td>{msg.name}</td>
-                <td>{msg.email}</td>
-                <td className={styles.msgCell}>{msg.message}</td>
+                <td>{msg.subject}</td>
+                <td className={styles.msgCell}>{msg.description}</td>
               </tr>
             ))}
           </tbody>

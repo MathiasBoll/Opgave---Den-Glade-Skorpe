@@ -52,6 +52,20 @@
   flex: 1;
   font-family: var(--font-heading);
   font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.sizeTag {
+  font-size: 0.75rem;
+  background-color: var(--color-dark);
+  color: var(--color-white);
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  letter-spacing: 0.03em;
 }
 
 .itemControls {

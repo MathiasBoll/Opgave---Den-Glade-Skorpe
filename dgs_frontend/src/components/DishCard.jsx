@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useBasket } from '../context/BasketContext'
 import styles from './DishCard.module.css'
 
-const BASE_URL = 'http://localhost:3042'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
 
 export default function DishCard({ dish }) {
   const { addItem } = useBasket()
@@ -11,26 +11,35 @@ export default function DishCard({ dish }) {
     ? `${BASE_URL}/${dish.image}`
     : null
 
+  function handleAdd() {
+    addItem({
+      ...dish,
+      selectedSize: 'normal',
+      selectedPrice: dish.price?.normal,
+      basketKey: `${dish._id}-normal`,
+    })
+  }
+
   return (
     <article className={styles.card}>
       <Link to={`/dish/${dish._id}`} className={styles.imgWrap}>
         {imgSrc ? (
-          <img src={imgSrc} alt={dish.name} className={styles.img} />
+          <img src={imgSrc} alt={dish.title} className={styles.img} />
         ) : (
           <div className={styles.placeholder}>🍕</div>
         )}
       </Link>
       <div className={styles.body}>
         <Link to={`/dish/${dish._id}`} className={styles.name}>
-          {dish.name}
+          {dish.title}
         </Link>
         <p className={styles.desc}>{dish.description}</p>
         <div className={styles.footer}>
-          <span className={styles.price}>{dish.price} kr.</span>
+          <span className={styles.price}>{dish.price?.normal} kr.</span>
           <button
             className={styles.addBtn}
-            onClick={() => addItem(dish)}
-            aria-label={`Tilføj ${dish.name} til kurv`}
+            onClick={handleAdd}
+            aria-label={`Tilføj ${dish.title} til kurv`}
           >
             + Tilføj
           </button>

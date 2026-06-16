@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { getEmployees } from '../services/api'
 import styles from './Employees.module.css'
 
-const BASE_URL = 'http://localhost:3042'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
 
 export default function Employees() {
   const [employees, setEmployees] = useState([])
@@ -41,7 +41,7 @@ export default function Employees() {
                 </div>
                 <div className={styles.body}>
                   <h2 className={styles.name}>{emp.name}</h2>
-                  {emp.title && <p className={styles.title}>{emp.title}</p>}
+                  {emp.position && <p className={styles.title}>{emp.position}</p>}
                   {emp.description && <p className={styles.desc}>{emp.description}</p>}
                 </div>
               </article>

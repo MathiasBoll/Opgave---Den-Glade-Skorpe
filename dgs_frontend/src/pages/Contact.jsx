@@ -5,7 +5,7 @@ import styles from './Contact.module.css'
 
 export default function Contact() {
   const navigate = useNavigate()
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const [form, setForm] = useState({ name: '', subject: '', description: '' })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
 
@@ -51,26 +51,25 @@ export default function Contact() {
           </div>
 
           <div className={styles.field}>
-            <label className={styles.label} htmlFor="email">E-mail</label>
+            <label className={styles.label} htmlFor="subject">Emne</label>
             <input
-              id="email"
-              name="email"
-              type="email"
+              id="subject"
+              name="subject"
+              type="text"
               className={styles.input}
-              value={form.email}
+              value={form.subject}
               onChange={handleChange}
               required
-              autoComplete="email"
             />
           </div>
 
           <div className={styles.field}>
-            <label className={styles.label} htmlFor="message">Besked</label>
+            <label className={styles.label} htmlFor="description">Besked</label>
             <textarea
-              id="message"
-              name="message"
+              id="description"
+              name="description"
               className={styles.textarea}
-              value={form.message}
+              value={form.description}
               onChange={handleChange}
               required
               rows={5}

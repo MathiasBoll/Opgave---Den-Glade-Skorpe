@@ -30,9 +30,9 @@ export default function Basket() {
     setError(null)
     try {
       await postOrder({
-        name,
-        dishes: items.map((i) => ({ dish: i._id, quantity: i.quantity })),
-        total,
+        dishes: items.map((i) => ({ dish: i._id, amount: i.quantity, size: i.selectedSize })),
+        comment: name,
+        totalPrice: total,
       })
       clearBasket()
       navigate('/order-confirmation')
@@ -52,26 +52,31 @@ export default function Basket() {
           {/* Item list */}
           <div className={styles.items}>
             {items.map((item) => (
-              <div key={item._id} className={styles.item}>
-                <div className={styles.itemName}>{item.name}</div>
+              <div key={item.basketKey} className={styles.item}>
+                <div className={styles.itemName}>
+                  {item.title}
+                  {item.selectedSize === 'family' && (
+                    <span className={styles.sizeTag}>Familie</span>
+                  )}
+                </div>
                 <div className={styles.itemControls}>
                   <button
                     className={styles.qtyBtn}
-                    onClick={() => updateQuantity(item._id, item.quantity - 1)}
+                    onClick={() => updateQuantity(item.basketKey, item.quantity - 1)}
                     aria-label="Færre"
                   >−</button>
                   <span className={styles.qty}>{item.quantity}</span>
                   <button
                     className={styles.qtyBtn}
-                    onClick={() => updateQuantity(item._id, item.quantity + 1)}
+                    onClick={() => updateQuantity(item.basketKey, item.quantity + 1)}
                     aria-label="Flere"
                   >+</button>
                 </div>
-                <div className={styles.itemPrice}>{item.price * item.quantity} kr.</div>
+                <div className={styles.itemPrice}>{(item.selectedPrice ?? item.price?.normal ?? 0) * item.quantity} kr.</div>
                 <button
                   className={styles.removeBtn}
-                  onClick={() => removeItem(item._id)}
-                  aria-label={`Fjern ${item.name}`}
+                  onClick={() => removeItem(item.basketKey)}
+                  aria-label={`Fjern ${item.title}`}
                 >✕</button>
               </div>
             ))}

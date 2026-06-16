@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { getDishes } from '../../services/api'
 import styles from './Backoffice.module.css'
 
-const BASE_URL = 'http://localhost:3042'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
 
 export default function BackofficeDishes() {
   const [dishes, setDishes] = useState([])
@@ -36,13 +36,13 @@ export default function BackofficeDishes() {
                 <tr key={dish._id}>
                   <td>
                     {imgSrc
-                      ? <img src={imgSrc} alt={dish.name} className={styles.thumb} />
+                      ? <img src={imgSrc} alt={dish.title} className={styles.thumb} />
                       : <span className={styles.thumbFallback}>🍕</span>
                     }
                   </td>
-                  <td>{dish.name}</td>
+                  <td>{dish.title}</td>
                   <td>{dish.category?.name || '—'}</td>
-                  <td>{dish.price} kr.</td>
+                  <td>{dish.price?.normal} kr.</td>
                 </tr>
               )
             })}

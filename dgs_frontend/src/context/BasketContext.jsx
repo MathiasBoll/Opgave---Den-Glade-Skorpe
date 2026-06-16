@@ -23,27 +23,27 @@ export function BasketProvider({ children }) {
 
   function addItem(dish) {
     setItems((prev) => {
-      const existing = prev.find((i) => i._id === dish._id)
+      const existing = prev.find((i) => i.basketKey === dish.basketKey)
       if (existing) {
         return prev.map((i) =>
-          i._id === dish._id ? { ...i, quantity: i.quantity + 1 } : i
+          i.basketKey === dish.basketKey ? { ...i, quantity: i.quantity + 1 } : i
         )
       }
       return [...prev, { ...dish, quantity: 1 }]
     })
   }
 
-  function removeItem(dishId) {
-    setItems((prev) => prev.filter((i) => i._id !== dishId))
+  function removeItem(basketKey) {
+    setItems((prev) => prev.filter((i) => i.basketKey !== basketKey))
   }
 
-  function updateQuantity(dishId, quantity) {
+  function updateQuantity(basketKey, quantity) {
     if (quantity <= 0) {
-      removeItem(dishId)
+      removeItem(basketKey)
       return
     }
     setItems((prev) =>
-      prev.map((i) => (i._id === dishId ? { ...i, quantity } : i))
+      prev.map((i) => (i.basketKey === basketKey ? { ...i, quantity } : i))
     )
   }
 
@@ -52,7 +52,7 @@ export function BasketProvider({ children }) {
   }
 
   const total = items.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + (item.selectedPrice ?? item.price?.normal ?? 0) * item.quantity,
     0
   )
 

@@ -4,7 +4,7 @@ import { getDish } from '../services/api'
 import { useBasket } from '../context/BasketContext'
 import styles from './DishDetail.module.css'
 
-const BASE_URL = 'http://localhost:3042'
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
 
 export default function DishDetail() {
   const { id } = useParams()
@@ -14,16 +14,31 @@ export default function DishDetail() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [added, setAdded] = useState(false)
+  const [selectedSize, setSelectedSize] = useState('normal')
 
   useEffect(() => {
     getDish(id)
-      .then(setDish)
+      .then((data) => {
+        setDish(data)
+        setSelectedSize('normal')
+      })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false))
   }, [id])
 
+  const selectedPrice = dish
+    ? selectedSize === 'family' && dish.price?.family
+      ? dish.price.family
+      : dish.price?.normal
+    : 0
+
   function handleAdd() {
-    addItem(dish)
+    addItem({
+      ...dish,
+      selectedSize,
+      selectedPrice,
+      basketKey: `${dish._id}-${selectedSize}`,
+    })
     setAdded(true)
     setTimeout(() => setAdded(false), 2000)
   }
@@ -32,6 +47,7 @@ export default function DishDetail() {
   if (error || !dish) return <main className={styles.main}><p className={styles.status}>Retten blev ikke fundet.</p></main>
 
   const imgSrc = dish.image ? `${BASE_URL}/${dish.image}` : null
+  const hasFamily = !!dish.price?.family
 
   return (
     <main className={styles.main}>
@@ -44,7 +60,7 @@ export default function DishDetail() {
           {/* Image */}
           <div className={styles.imgWrap}>
             {imgSrc ? (
-              <img src={imgSrc} alt={dish.name} className={styles.img} />
+              <img src={imgSrc} alt={dish.title} className={styles.img} />
             ) : (
               <div className={styles.placeholder}>🍕</div>
             )}
@@ -55,15 +71,15 @@ export default function DishDetail() {
             {dish.category?.name && (
               <span className={styles.category}>{dish.category.name}</span>
             )}
-            <h1 className={styles.title}>{dish.name}</h1>
+            <h1 className={styles.title}>{dish.title}</h1>
             <p className={styles.desc}>{dish.description}</p>
 
             {dish.ingredients?.length > 0 && (
               <div className={styles.ingredients}>
                 <h2 className={styles.ingTitle}>Ingredienser</h2>
                 <ul className={styles.ingList}>
-                  {dish.ingredients.map((ing) => (
-                    <li key={ing._id || ing} className={styles.ingItem}>
+                  {dish.ingredients.map((ing, idx) => (
+                    <li key={ing._id || idx} className={styles.ingItem}>
                       {ing.name || ing}
                     </li>
                   ))}
@@ -71,8 +87,25 @@ export default function DishDetail() {
               </div>
             )}
 
+            {hasFamily && (
+              <div className={styles.sizeRow}>
+                <button
+                  className={`${styles.sizeBtn} ${selectedSize === 'normal' ? styles.sizeActive : ''}`}
+                  onClick={() => setSelectedSize('normal')}
+                >
+                  Normal — {dish.price.normal} kr.
+                </button>
+                <button
+                  className={`${styles.sizeBtn} ${selectedSize === 'family' ? styles.sizeActive : ''}`}
+                  onClick={() => setSelectedSize('family')}
+                >
+                  Familie — {dish.price.family} kr.
+                </button>
+              </div>
+            )}
+
             <div className={styles.buyRow}>
-              <span className={styles.price}>{dish.price} kr.</span>
+              <span className={styles.price}>{selectedPrice} kr.</span>
               <button
                 className={`${styles.addBtn} ${added ? styles.added : ''}`}
                 onClick={handleAdd}

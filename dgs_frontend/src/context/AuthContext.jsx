@@ -21,11 +21,11 @@ export function AuthProvider({ children }) {
     setError(null)
     try {
       const data = await apiLogin({ email, password })
-      const tok = data.token || data.accessToken
+      const tok = data?.token
       setToken(tok)
-      setUser(data.user || { email })
+      setUser({ email })
       localStorage.setItem('bo_token', tok)
-      localStorage.setItem('bo_user', JSON.stringify(data.user || { email }))
+      localStorage.setItem('bo_user', JSON.stringify({ email }))
       return true
     } catch {
       setError('Forkert e-mail eller adgangskode.')
