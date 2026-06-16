@@ -1,6 +1,6 @@
 # Den Glade Skorpe
 
-Skoleproject — Den Glade Skorpe er en moderne pizzarestaurant med mobil-first hjemmeside, online bestilling og en lille backoffice/admin-sektion.
+Skoleproject (fagprøve) — Den Glade Skorpe er en moderne pizzarestaurant med mobil-first hjemmeside, online bestilling og en lille backoffice/admin-sektion.
 
 ---
 
@@ -8,8 +8,8 @@ Skoleproject — Den Glade Skorpe er en moderne pizzarestaurant med mobil-first 
 
 ```
 mcd_web_dengladeskorpe_server/   ← Backend API (Node.js/Express/MongoDB)
+dgs_frontend/                    ← Frontend (React + Vite)
 dgs_materialer/                  ← Assets: logo, billeder, opgavebeskrivelse
-dgs_github_md/                   ← GitHub issues, tjekliste, Copilot prompt, rapportskabelon
 ```
 
 ---
@@ -48,6 +48,116 @@ npm run "Opret Database"
 ```
 
 ### 4. Start serveren
+
+```bash
+npm run "Start Server"
+```
+
+Serveren kører nu på `http://localhost:3042`.
+
+---
+
+## Frontend — kom i gang
+
+Frontend kører på **http://localhost:5173**
+
+### 1. Installér dependencies
+
+```bash
+cd dgs_frontend
+npm install
+```
+
+### 2. Opret `.env` i frontend-roden (allerede inkluderet)
+
+```env
+VITE_API_BASE_URL=http://localhost:3042
+```
+
+### 3. Start frontend
+
+```bash
+npm run dev
+```
+
+Frontend kører nu på `http://localhost:5173`.
+
+---
+
+## Vigtige endpoints
+
+| Method | Endpoint | Beskrivelse |
+|--------|----------|-------------|
+| GET | `/categories` | Hent alle kategorier |
+| GET | `/dishes` | Hent alle retter |
+| GET | `/dish/:id` | Hent én ret |
+| GET | `/employees` | Hent alle medarbejdere |
+| GET | `/employee/:id` | Hent én medarbejder |
+| POST | `/employee` | Opret medarbejder (auth) |
+| PUT | `/employee` | Opdater medarbejder (auth) |
+| DELETE | `/employee/:id` | Slet medarbejder (auth) |
+| POST | `/message` | Send kontaktbesked |
+| GET | `/messages` | Hent alle beskeder (auth) |
+| POST | `/order` | Opret bestilling |
+| GET | `/orders` | Hent alle bestillinger (auth) |
+| POST | `/auth/signin` | Log ind |
+
+---
+
+## Testlogin (backoffice)
+
+| Rolle | Email | Adgangskode |
+|-------|-------|-------------|
+| Admin | admin@mediacollege.dk | admin |
+| Guest | guest@mediacollege.dk | guest |
+
+> Authentication er **slået fra** som standard (`USE_JWT=false`).  
+> Backoffice kan tilgås direkte på `/backoffice` uden login.  
+> Sæt `USE_JWT=true` i `.env.local` for at aktivere krav om login.
+
+---
+
+## Hvad er færdigt
+
+### Mandatory
+- [x] Backend API med alle routes
+- [x] Database seed med 18 retter, 4 medarbejdere, 3 kategorier, brugere
+- [x] Frontend setup — React 18 + Vite + React Router
+- [x] Design system — CSS variables, Just Another Hand + Kurale fonts
+- [x] Header med burger-menu, kurv-badge og footer
+- [x] Forside `/` med rettekort og kategori-filter
+- [x] Retteside `/dish/:id` med størrelsesvælger (normal/familie)
+- [x] Kurv med localStorage-persistens, antal, total og fjern
+- [x] Kontaktformular med validering — sender til `/message`
+- [x] Bestilling fra kurv — sender til `/order`, bekræftelsesside
+- [x] Personaleside `/employees` med billede og stilling
+- [x] Backoffice `/backoffice` med login og beskyttet adgang
+- [x] Backoffice medarbejdere CRUD — opret, rediger, slet med bekræftelse
+- [x] Backoffice beskeder — vis kontaktbeskeder
+- [x] Backoffice ordrer — vis bestillinger
+- [x] Backoffice retter — vis retteoversigt
+- [x] 404-side for ugyldige URL'er
+- [x] Sidehoveder (document.title) på alle sider
+- [x] Tom-tilstand for tomme lister
+
+### Optional
+- [x] Backoffice retter CRUD — opret, rediger, slet retter
+
+---
+
+## Hvad mangler
+
+- [ ] Backoffice: slet og rediger enkeltbeskeder
+- [ ] Extra ingredienser på rettesiden
+- [ ] Desktop responsivt layout over 1024px (basic er på plads)
+- [ ] Eksamensrapport (skrives separat)
+
+---
+
+## Links
+
+- [GitHub Issues](https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe/issues) — opgaveliste
+
 
 ```bash
 npm run "Start Server"

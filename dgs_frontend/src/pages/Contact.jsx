@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { postMessage } from '../services/api'
+import { usePageTitle } from '../hooks/usePageTitle'
 import styles from './Contact.module.css'
 
 export default function Contact() {
+  usePageTitle('Kontakt Os')
   const navigate = useNavigate()
   const [form, setForm] = useState({ name: '', subject: '', description: '' })
   const [submitting, setSubmitting] = useState(false)

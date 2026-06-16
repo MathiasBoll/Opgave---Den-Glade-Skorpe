@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { getEmployees } from '../services/api'
+import { usePageTitle } from '../hooks/usePageTitle'
 import styles from './Employees.module.css'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
 
 export default function Employees() {
+  usePageTitle('Mød Holdet')
   const [employees, setEmployees] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -28,6 +30,9 @@ export default function Employees() {
 
       <div className={styles.container}>
         <div className={styles.grid}>
+          {employees.length === 0 && (
+            <p className={styles.empty}>Ingen medarbejdere fundet.</p>
+          )}
           {employees.map((emp) => {
             const imgSrc = emp.image ? `${BASE_URL}/${emp.image}` : null
             return (

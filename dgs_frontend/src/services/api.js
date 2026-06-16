@@ -77,3 +77,24 @@ export const deleteEmployee = (id) =>
     method: 'DELETE',
     headers: authHeaders(),
   })
+
+// Dish CRUD (multipart/form-data for image upload)
+export const createDish = (formData) =>
+  request('/dish', {
+    method: 'POST',
+    headers: authHeaders(),
+    body: formData,
+  }).then((r) => r.data)
+
+export const updateDish = (formData) =>
+  request('/dish', {
+    method: 'PUT',
+    headers: authHeaders(),
+    body: formData,
+  }).then((r) => r.data)
+
+export const deleteDish = (id) =>
+  request(`/dish/${id}`, {
+    method: 'DELETE',
+    headers: authHeaders(),
+  })

@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useBasket } from '../context/BasketContext'
 import { postOrder } from '../services/api'
+import { usePageTitle } from '../hooks/usePageTitle'
 import styles from './Basket.module.css'
 
 export default function Basket() {
+  usePageTitle('Din Kurv')
   const { items, removeItem, updateQuantity, clearBasket, total } = useBasket()
   const navigate = useNavigate()
   const [name, setName] = useState('')

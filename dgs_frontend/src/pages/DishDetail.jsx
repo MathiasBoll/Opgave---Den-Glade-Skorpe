@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getDish } from '../services/api'
 import { useBasket } from '../context/BasketContext'
+import { usePageTitle } from '../hooks/usePageTitle'
 import styles from './DishDetail.module.css'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
@@ -15,6 +16,8 @@ export default function DishDetail() {
   const [error, setError] = useState(null)
   const [added, setAdded] = useState(false)
   const [selectedSize, setSelectedSize] = useState('normal')
+
+  usePageTitle(dish?.title)
 
   useEffect(() => {
     getDish(id)

@@ -66,3 +66,12 @@
   font-family: var(--font-heading);
   font-size: 1.5rem;
 }
+
+.emptyMsg {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--spacing-xl);
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  color: #888;
+}

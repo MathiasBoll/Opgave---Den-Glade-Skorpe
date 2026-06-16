@@ -1,0 +1,59 @@
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-cream);
+  padding: var(--spacing-xl) var(--spacing-sm);
+}
+
+.card {
+  background: var(--color-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: var(--spacing-xl);
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.icon {
+  font-size: 4rem;
+}
+
+.code {
+  font-family: var(--font-heading);
+  font-size: 6rem;
+  line-height: 1;
+  color: var(--color-dark);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--color-dark);
+}
+
+.text {
+  color: #555;
+  font-size: 1rem;
+}
+
+.homeBtn {
+  display: inline-block;
+  margin-top: var(--spacing-sm);
+  background-color: var(--color-dark);
+  color: var(--color-white);
+  padding: 0.6rem 1.8rem;
+  border-radius: 999px;
+  font-size: 1.2rem;
+  transition: opacity 0.2s;
+}
+
+.homeBtn:hover {
+  opacity: 0.8;
+}

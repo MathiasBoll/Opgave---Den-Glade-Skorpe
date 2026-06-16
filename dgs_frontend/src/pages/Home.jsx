@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { getDishes, getCategories } from '../services/api'
 import DishCard from '../components/DishCard'
+import { usePageTitle } from '../hooks/usePageTitle'
 import styles from './Home.module.css'
 
 export default function Home() {
+  usePageTitle('Vores Menu')
   const [dishes, setDishes] = useState([])
   const [categories, setCategories] = useState([])
   const [activeCategory, setActiveCategory] = useState(null)
@@ -56,6 +58,9 @@ export default function Home() {
 
         {/* Dish grid */}
         <div className={styles.grid}>
+          {filtered.length === 0 && (
+            <p className={styles.emptyMsg}>Ingen retter i denne kategori.</p>
+          )}
           {filtered.map((dish) => (
             <DishCard key={dish._id} dish={dish} />
           ))}
