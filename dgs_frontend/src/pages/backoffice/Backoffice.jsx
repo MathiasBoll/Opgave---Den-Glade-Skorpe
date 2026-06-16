@@ -1,7 +1,16 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 import styles from './Backoffice.module.css'
 
 export default function Backoffice() {
+  const { logout, user } = useAuth()
+  const navigate = useNavigate()
+
+  function handleLogout() {
+    logout()
+    navigate('/backoffice/login', { replace: true })
+  }
+
   return (
     <div>
       <nav className={styles.nav}>
@@ -31,6 +40,10 @@ export default function Backoffice() {
           >
             Retter
           </NavLink>
+          <div className={styles.userArea}>
+            {user?.email && <span className={styles.userEmail}>{user.email}</span>}
+            <button className={styles.logoutBtn} onClick={handleLogout}>Log ud</button>
+          </div>
         </div>
       </nav>
       <main className={styles.main}>

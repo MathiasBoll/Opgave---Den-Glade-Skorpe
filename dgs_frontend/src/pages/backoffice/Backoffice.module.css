@@ -37,6 +37,35 @@
   border-bottom-color: var(--color-cream);
 }
 
+.userArea {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.userEmail {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: var(--font-body);
+}
+
+.logoutBtn {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: var(--color-cream);
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  padding: 0.2rem 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logoutBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 .main {
   max-width: var(--max-width);
   margin: 0 auto;

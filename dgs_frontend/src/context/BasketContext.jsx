@@ -1,9 +1,25 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 
 const BasketContext = createContext(null)
 
+const STORAGE_KEY = 'dgs_basket'
+
+function loadBasket() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    return raw ? JSON.parse(raw) : []
+  } catch {
+    return []
+  }
+}
+
 export function BasketProvider({ children }) {
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState(loadBasket)
+
+  // Persist to localStorage on every change
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+  }, [items])
 
   function addItem(dish) {
     setItems((prev) => {

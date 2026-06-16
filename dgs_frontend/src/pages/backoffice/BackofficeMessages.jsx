@@ -1,17 +1,13 @@
 import { useState, useEffect } from 'react'
+import { getMessages } from '../../services/api'
 import styles from './Backoffice.module.css'
-
-const BASE_URL = 'http://localhost:3042'
 
 export default function BackofficeMessages() {
   const [messages, setMessages] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`${BASE_URL}/messages`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token') || ''}` },
-    })
-      .then((r) => r.json())
+    getMessages()
       .then(setMessages)
       .finally(() => setLoading(false))
   }, [])

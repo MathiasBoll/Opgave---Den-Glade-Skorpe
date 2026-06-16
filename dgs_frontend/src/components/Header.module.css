@@ -1,10 +1,9 @@
 .header {
   background-color: var(--color-dark);
   color: var(--color-white);
-  padding: var(--spacing-sm) 0;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 200;
 }
 
 .inner {
@@ -13,33 +12,55 @@
   justify-content: space-between;
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-sm);
 }
 
 .logo {
   font-family: var(--font-heading);
   font-size: 2rem;
   color: var(--color-white);
+  white-space: nowrap;
 }
 
+/* ── Desktop nav ── */
 .nav {
   display: flex;
   gap: var(--spacing-md);
+  align-items: center;
 }
 
-.nav a {
+.navLink {
   font-family: var(--font-heading);
   font-size: 1.25rem;
   color: var(--color-white);
+  opacity: 0.75;
   transition: opacity 0.2s;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
 }
 
-.nav a:hover {
-  opacity: 0.75;
+.navLink:hover {
+  opacity: 1;
+}
+
+.navActive {
+  opacity: 1;
+  border-bottom-color: var(--color-cream);
 }
 
 .basketLink {
-  position: relative;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+
+.basketLink:hover {
+  opacity: 1;
 }
 
 .badge {
@@ -53,5 +74,94 @@
   height: 1.25rem;
   font-size: 0.75rem;
   font-family: var(--font-body);
-  margin-left: 0.25rem;
 }
+
+/* ── Burger button ── */
+.burgerBtn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-white);
+  border-radius: 2px;
+  transition: transform 0.25s, opacity 0.25s;
+}
+
+/* X animation */
+.barTop {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.barMid {
+  opacity: 0;
+}
+
+.barBot {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile drawer ── */
+.drawer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background-color: var(--color-dark);
+}
+
+.drawerOpen {
+  max-height: 400px;
+}
+
+.drawerNav {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-md);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: var(--spacing-xs);
+}
+
+.drawerLink {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: var(--color-white);
+  opacity: 0.8;
+  padding: 0.4rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: opacity 0.2s;
+}
+
+.drawerLink:hover {
+  opacity: 1;
+}
+
+.drawerActive {
+  opacity: 1;
+  border-left: 3px solid var(--color-cream);
+  padding-left: 0.75rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .nav {
+    display: none;
+  }
+
+  .burgerBtn {
+    display: flex;
+  }
+}
+
