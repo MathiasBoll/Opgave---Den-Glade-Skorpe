@@ -1,0 +1,129 @@
+.nav {
+  background-color: var(--color-dark);
+  padding: 0.75rem var(--spacing-sm);
+}
+
+.navInner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--color-white);
+  margin-right: auto;
+}
+
+.navLink {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  color: var(--color-white);
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  padding: 0.3rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.navLink:hover {
+  opacity: 1;
+}
+
+.navLink.active {
+  opacity: 1;
+  border-bottom-color: var(--color-cream);
+}
+
+.main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-sm);
+}
+
+/* Shared table styles (used by all backoffice pages) */
+.pageTitle {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.tableWrap {
+  overflow-x: auto;
+  background: var(--color-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-cream);
+}
+
+.table th {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: normal;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background-color: #faf7f5;
+}
+
+.thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.thumbFallback {
+  font-size: 1.8rem;
+  display: block;
+  text-align: center;
+  width: 48px;
+}
+
+.msgCell {
+  max-width: 400px;
+  white-space: pre-wrap;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.dishTag {
+  display: inline-block;
+  background-color: var(--color-cream);
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.85rem;
+  margin: 2px;
+}
+
+.noData {
+  text-align: center;
+  color: #999;
+  padding: var(--spacing-lg) !important;
+}
+
+.status {
+  padding: var(--spacing-xl);
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  color: #777;
+}

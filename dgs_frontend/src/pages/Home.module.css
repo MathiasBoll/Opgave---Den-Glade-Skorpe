@@ -1,0 +1,68 @@
+.main {
+  flex: 1;
+  background-color: var(--color-cream);
+}
+
+.hero {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-sm);
+}
+
+.heroTitle {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.heroSub {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  opacity: 0.85;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-sm);
+}
+
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-lg);
+}
+
+.filterBtn {
+  background-color: var(--color-white);
+  color: var(--color-dark);
+  border: 2px solid var(--color-dark);
+  padding: 0.4rem 1.2rem;
+  border-radius: 999px;
+  font-size: 1.2rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.filterBtn:hover {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+}
+
+.filterBtn.active {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.status {
+  padding: var(--spacing-xl);
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+}

@@ -11,6 +11,8 @@ import Basket from './pages/Basket'
 import OrderConfirmation from './pages/OrderConfirmation'
 import NotFound from './pages/NotFound'
 
+import ContactConfirmation from './pages/ContactConfirmation'
+
 import Backoffice from './pages/backoffice/Backoffice'
 import BackofficeEmployees from './pages/backoffice/BackofficeEmployees'
 import BackofficeMessages from './pages/backoffice/BackofficeMessages'
@@ -36,6 +38,7 @@ export default function App() {
           <Route path="/dish/:id" element={<PublicLayout><DishDetail /></PublicLayout>} />
           <Route path="/employees" element={<PublicLayout><Employees /></PublicLayout>} />
           <Route path="/contact" element={<PublicLayout><Contact /></PublicLayout>} />
+          <Route path="/contact/tak" element={<PublicLayout><ContactConfirmation /></PublicLayout>} />
           <Route path="/basket" element={<PublicLayout><Basket /></PublicLayout>} />
           <Route path="/order-confirmation" element={<PublicLayout><OrderConfirmation /></PublicLayout>} />
 

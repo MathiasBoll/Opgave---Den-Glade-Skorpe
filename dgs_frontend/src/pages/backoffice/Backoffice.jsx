@@ -1,23 +1,39 @@
-import { Link, Outlet } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
+import styles from './Backoffice.module.css'
 
 export default function Backoffice() {
   return (
     <div>
-      <nav style={{ background: 'var(--color-dark)', padding: '1rem' }}>
-        <Link to="/backoffice/employees" style={{ color: 'var(--color-white)', marginRight: '1rem' }}>
-          Medarbejdere
-        </Link>
-        <Link to="/backoffice/messages" style={{ color: 'var(--color-white)', marginRight: '1rem' }}>
-          Beskeder
-        </Link>
-        <Link to="/backoffice/orders" style={{ color: 'var(--color-white)', marginRight: '1rem' }}>
-          Ordrer
-        </Link>
-        <Link to="/backoffice/dishes" style={{ color: 'var(--color-white)' }}>
-          Retter
-        </Link>
+      <nav className={styles.nav}>
+        <div className={styles.navInner}>
+          <span className={styles.logo}>Backoffice</span>
+          <NavLink
+            to="/backoffice/employees"
+            className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
+          >
+            Medarbejdere
+          </NavLink>
+          <NavLink
+            to="/backoffice/messages"
+            className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
+          >
+            Beskeder
+          </NavLink>
+          <NavLink
+            to="/backoffice/orders"
+            className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
+          >
+            Ordrer
+          </NavLink>
+          <NavLink
+            to="/backoffice/dishes"
+            className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
+          >
+            Retter
+          </NavLink>
+        </div>
       </nav>
-      <main>
+      <main className={styles.main}>
         <Outlet />
       </main>
     </div>
