@@ -112,6 +112,21 @@
   padding: 0.2rem 0.75rem;
   border-radius: 999px;
   font-size: 0.85rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background-color 0.18s, color 0.18s, opacity 0.18s;
+}
+
+.ingItem:hover {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+  border-color: var(--color-dark);
+}
+
+.ingItemOff {
+  opacity: 0.4;
+  text-decoration: line-through;
+  background-color: transparent;
 }
 
 .buyRow {
@@ -178,4 +193,14 @@
   text-align: center;
   font-family: var(--font-heading);
   font-size: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .imgWrap {
+    height: 560px;
+  }
+
+  .title {
+    font-size: 4rem;
+  }
 }

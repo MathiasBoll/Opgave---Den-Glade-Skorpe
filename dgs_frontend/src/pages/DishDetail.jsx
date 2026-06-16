@@ -16,6 +16,7 @@ export default function DishDetail() {
   const [error, setError] = useState(null)
   const [added, setAdded] = useState(false)
   const [selectedSize, setSelectedSize] = useState('normal')
+  const [selectedExtras, setSelectedExtras] = useState([])
 
   usePageTitle(dish?.title)
 
@@ -24,6 +25,9 @@ export default function DishDetail() {
       .then((data) => {
         setDish(data)
         setSelectedSize('normal')
+        // Default all ingredients checked (extras included)
+        const ings = data.ingredients?.map((i) => (typeof i === 'string' ? i : i.name)) ?? []
+        setSelectedExtras(ings)
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false))
@@ -35,11 +39,18 @@ export default function DishDetail() {
       : dish.price?.normal
     : 0
 
+  function toggleExtra(name) {
+    setSelectedExtras((prev) =>
+      prev.includes(name) ? prev.filter((e) => e !== name) : [...prev, name]
+    )
+  }
+
   function handleAdd() {
     addItem({
       ...dish,
       selectedSize,
       selectedPrice,
+      selectedExtras,
       basketKey: `${dish._id}-${selectedSize}`,
     })
     setAdded(true)
@@ -51,6 +62,7 @@ export default function DishDetail() {
 
   const imgSrc = dish.image ? `${BASE_URL}/${dish.image}` : null
   const hasFamily = !!dish.price?.family
+  const ingredients = dish.ingredients?.map((i) => (typeof i === 'string' ? i : i.name)) ?? []
 
   return (
     <main className={styles.main}>
@@ -77,15 +89,25 @@ export default function DishDetail() {
             <h1 className={styles.title}>{dish.title}</h1>
             <p className={styles.desc}>{dish.description}</p>
 
-            {dish.ingredients?.length > 0 && (
+            {ingredients.length > 0 && (
               <div className={styles.ingredients}>
-                <h2 className={styles.ingTitle}>Ingredienser</h2>
+                <h2 className={styles.ingTitle}>Tilpas ingredienser</h2>
                 <ul className={styles.ingList}>
-                  {dish.ingredients.map((ing, idx) => (
-                    <li key={ing._id || idx} className={styles.ingItem}>
-                      {ing.name || ing}
-                    </li>
-                  ))}
+                  {ingredients.map((name) => {
+                    const checked = selectedExtras.includes(name)
+                    return (
+                      <li key={name}>
+                        <button
+                          type="button"
+                          className={`${styles.ingItem} ${checked ? '' : styles.ingItemOff}`}
+                          onClick={() => toggleExtra(name)}
+                          title={checked ? 'Fjern ingrediens' : 'Tilføj ingrediens'}
+                        >
+                          {checked ? '✓ ' : '✕ '}{name}
+                        </button>
+                      </li>
+                    )
+                  })}
                 </ul>
               </div>
             )}

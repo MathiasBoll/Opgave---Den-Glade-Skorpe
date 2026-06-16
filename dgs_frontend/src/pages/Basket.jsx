@@ -55,10 +55,19 @@ export default function Basket() {
           <div className={styles.items}>
             {items.map((item) => (
               <div key={item.basketKey} className={styles.item}>
-                <div className={styles.itemName}>
-                  {item.title}
-                  {item.selectedSize === 'family' && (
-                    <span className={styles.sizeTag}>Familie</span>
+                <div className={styles.itemMeta}>
+                  <div className={styles.itemName}>
+                    {item.title}
+                    {item.selectedSize === 'family' && (
+                      <span className={styles.sizeTag}>Familie</span>
+                    )}
+                  </div>
+                  {item.selectedExtras?.length > 0 && (
+                    <div className={styles.extrasRow}>
+                      {item.selectedExtras.map((e) => (
+                        <span key={e} className={styles.extraTag}>{e}</span>
+                      ))}
+                    </div>
                   )}
                 </div>
                 <div className={styles.itemControls}>

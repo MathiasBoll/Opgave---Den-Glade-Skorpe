@@ -75,3 +75,17 @@
   font-size: 1.4rem;
   color: #888;
 }
+
+@media (min-width: 1024px) {
+  .heroTitle {
+    font-size: 6rem;
+  }
+
+  .heroSub {
+    font-size: 1.25rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

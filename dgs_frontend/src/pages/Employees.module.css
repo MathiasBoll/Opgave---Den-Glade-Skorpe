@@ -94,6 +94,20 @@
   font-size: 1.5rem;
 }
 
+@media (min-width: 1024px) {
+  .heroTitle {
+    font-size: 6rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .imgWrap {
+    height: 280px;
+  }
+}
+
 .empty {
   grid-column: 1 / -1;
   text-align: center;
