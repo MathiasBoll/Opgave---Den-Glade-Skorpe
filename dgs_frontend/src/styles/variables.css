@@ -1,0 +1,19 @@
+:root {
+  --color-dark: #4a4a4a;
+  --color-cream: #f6f0ee;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --font-heading: 'Just Another Hand', cursive;
+  --font-body: 'Kurale', serif;
+
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  --border-radius: 8px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --max-width: 1200px;
+}
