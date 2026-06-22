@@ -1,6 +1,6 @@
 .main {
   flex: 1;
-  background-color: var(--color-cream);
+  background-color: var(--color-white);
 }
 
 .hero {
@@ -22,27 +22,25 @@
 }
 
 .container {
-  max-width: var(--max-width);
+  max-width: 800px;
   margin: 0 auto;
   padding: var(--spacing-xl) var(--spacing-sm);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: var(--spacing-lg);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-xl);
 }
 
 .card {
   background-color: var(--color-white);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
   text-align: center;
 }
 
 .imgWrap {
-  height: 240px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background-color: var(--color-cream);
 }
@@ -64,27 +62,20 @@
 }
 
 .body {
-  padding: var(--spacing-sm);
+  padding: var(--spacing-sm) 0;
 }
 
 .name {
-  font-size: 1.8rem;
-  margin-bottom: 0.25rem;
+  font-size: 2rem;
+  margin-bottom: 0.2rem;
 }
 
 .title {
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--color-dark);
   font-style: italic;
-  opacity: 0.75;
-  margin-bottom: 0.5rem;
-}
-
-.desc {
-  font-size: 0.9rem;
-  color: #555;
-  line-height: 1.5;
+  opacity: 0.7;
 }
 
 .status {
@@ -94,17 +85,22 @@
   font-size: 1.5rem;
 }
 
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--spacing-xl);
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  color: #888;
+}
+
 @media (min-width: 1024px) {
   .heroTitle {
     font-size: 6rem;
   }
 
-  .grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .imgWrap {
-    height: 280px;
+  .container {
+    max-width: 900px;
   }
 }
 
