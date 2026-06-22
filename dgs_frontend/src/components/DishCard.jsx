@@ -33,17 +33,7 @@ export default function DishCard({ dish }) {
         <Link to={`/dish/${dish._id}`} className={styles.name}>
           {dish.title}
         </Link>
-        <p className={styles.desc}>{dish.description}</p>
-        <div className={styles.footer}>
-          <span className={styles.price}>{dish.price?.normal} kr.</span>
-          <button
-            className={styles.addBtn}
-            onClick={handleAdd}
-            aria-label={`Tilføj ${dish.title} til kurv`}
-          >
-            + Tilføj
-          </button>
-        </div>
+        <p className={styles.price}>{dish.price?.normal},-</p>
       </div>
     </article>
   )
