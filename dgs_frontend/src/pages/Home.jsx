@@ -23,7 +23,12 @@ export default function Home() {
   }, [])
 
   const filtered = activeCategory
-    ? dishes.filter((d) => d.category?._id === activeCategory || d.category === activeCategory)
+    ? dishes.filter((d) => {
+        const cat = d.category
+        if (!cat) return false
+        if (typeof cat === 'string') return cat === activeCategory
+        return cat._id === activeCategory || cat.name === activeCategory
+      })
     : dishes
 
   if (loading) return <main className={styles.main}><p className={styles.status}>Henter menu…</p></main>
@@ -48,8 +53,8 @@ export default function Home() {
           {categories.map((cat) => (
             <button
               key={cat._id}
-              className={`${styles.filterBtn} ${activeCategory === cat._id ? styles.active : ''}`}
-              onClick={() => setActiveCategory(cat._id)}
+              className={`${styles.filterBtn} ${activeCategory === cat.name ? styles.active : ''}`}
+              onClick={() => setActiveCategory(cat.name)}
             >
               {cat.name}
             </button>
