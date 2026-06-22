@@ -5,9 +5,26 @@
 
 .hero {
   background-color: var(--color-dark);
+  background-image: url('/headerImg.png');
+  background-size: cover;
+  background-position: center;
   color: var(--color-white);
   text-align: center;
   padding: var(--spacing-xl) var(--spacing-sm);
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.heroTitle,
+.heroSub {
+  position: relative;
+  z-index: 1;
 }
 
 .heroTitle {
