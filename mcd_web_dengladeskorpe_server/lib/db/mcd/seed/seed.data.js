@@ -142,22 +142,22 @@ export const stubMessages = [
 
 export const stubEmployees = [
   {
-    name: "Antonio",
+    name: "Andrea",
     position: "Køkkenchef",
     image: "/employees/seed_antonio.png",
   },
   {
-    name: "Martina",
+    name: "Mia",
     position: "Souschef",
     image: "/employees/seed_martina.png",
   },
   {
-    name: "Andrea",
+    name: "Kalle",
     position: "Køkkenassistent",
     image: "/employees/seed_andrea.png",
   },
   {
-    name: "Francesca",
+    name: "Birgitte",
     position: "Køkkenassistent",
     image: "/employees/seed_francesca.png",
   },
