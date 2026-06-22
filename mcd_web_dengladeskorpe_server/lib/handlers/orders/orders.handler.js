@@ -5,7 +5,7 @@ export const getOrders = async () => {
   try {
     await dbConnect();
 
-    const orders = await orderModel.find({});
+    const orders = await orderModel.find({}).populate('dishes.dish', 'title');
 
     return {
       status: "ok",

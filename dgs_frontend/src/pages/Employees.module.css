@@ -21,6 +21,29 @@
   opacity: 0.85;
 }
 
+.intro {
+  background-color: var(--color-white);
+  padding: var(--spacing-xl) var(--spacing-sm);
+}
+
+.introInner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.introTitle {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.introText {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--color-dark);
+}
+
 .container {
   max-width: 800px;
   margin: 0 auto;

@@ -36,7 +36,7 @@ export default function BackofficeOrders() {
                 <td>
                   {order.dishes?.map((d, i) => (
                     <span key={i} className={styles.dishTag}>
-                      {d.dish?.title || d.dish} × {d.amount}
+                      {d.amount} × {d.dish?.title || d.dish}
                     </span>
                   ))}
                 </td>

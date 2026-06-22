@@ -28,6 +28,15 @@ export default function Employees() {
         <p className={styles.heroSub}>De mennesker der gør Den Glade Skorpe til det den er</p>
       </section>
 
+      <section className={styles.intro}>
+        <div className={styles.introInner}>
+          <h2 className={styles.introTitle}>Personalet hos Den Glade Skorpe</h2>
+          <p className={styles.introText}>
+            Pizzaria Den Glade Skorpe har et dedikeret og venligt personale, der altid går den ekstra mil for at sikre, at kunderne får den bedste oplevelse. Teamet består af erfarne pizzabagere, der med passion tilbereder lækre pizzaer med friske råvarer. Derudover står det servicemindede serveringspersonale klar til at byde kunderne velkommen og sikre, at deres besøg er hyggeligt og uforglemmeligt.
+          </p>
+        </div>
+      </section>
+
       <div className={styles.container}>
         <div className={styles.grid}>
           {employees.length === 0 && (

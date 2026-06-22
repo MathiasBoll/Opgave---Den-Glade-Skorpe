@@ -1,15 +1,14 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { postMessage } from '../services/api'
 import { usePageTitle } from '../hooks/usePageTitle'
 import styles from './Contact.module.css'
 
 export default function Contact() {
   usePageTitle('Kontakt Os')
-  const navigate = useNavigate()
   const [form, setForm] = useState({ name: '', subject: '', description: '' })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
+  const [submitted, setSubmitted] = useState(false)
 
   function handleChange(e) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -21,7 +20,7 @@ export default function Contact() {
     setError(null)
     try {
       await postMessage(form)
-      navigate('/contact/tak')
+      setSubmitted(true)
     } catch (err) {
       setError('Noget gik galt. Prøv igen.')
     } finally {
@@ -32,8 +31,8 @@ export default function Contact() {
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
-        <h1 className={styles.heroTitle}>Kontakt Os</h1>
-        <p className={styles.heroSub}>Vi svarer hurtigst muligt</p>
+        <h1 className={styles.heroTitle}>Har du spørgsmål eller ønsker du at bestille din favoritpizza?</h1>
+        <p className={styles.heroSub}>Udfyld formularen herunder, så vender vi så hurtigt tilbage til dig. Vi glæder os til at høre fra dig!</p>
       </section>
 
       <div className={styles.container}>
@@ -66,7 +65,7 @@ export default function Contact() {
           </div>
 
           <div className={styles.field}>
-            <label className={styles.label} htmlFor="description">Besked</label>
+            <label className={styles.label} htmlFor="description">Beskrivelse</label>
             <textarea
               id="description"
               name="description"
@@ -81,10 +80,21 @@ export default function Contact() {
           {error && <p className={styles.error}>{error}</p>}
 
           <button type="submit" className={styles.submitBtn} disabled={submitting}>
-            {submitting ? 'Sender…' : 'Send besked'}
+            {submitting ? 'Sender…' : 'Send'}
           </button>
         </form>
       </div>
+
+      {/* Thank-you modal */}
+      {submitted && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modal}>
+            <button className={styles.modalClose} onClick={() => setSubmitted(false)}>×</button>
+            <p className={styles.modalText}>Tak for din besked, {form.name || 'dig'}!</p>
+            <p className={styles.modalSub}>Vi vender tilbage hurtigst muligt</p>
+          </div>
+        </div>
+      )}
     </main>
   )
 }

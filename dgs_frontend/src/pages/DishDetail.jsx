@@ -17,6 +17,7 @@ export default function DishDetail() {
   const [added, setAdded] = useState(false)
   const [selectedSize, setSelectedSize] = useState('normal')
   const [selectedExtras, setSelectedExtras] = useState([])
+  const [extrasOpen, setExtrasOpen] = useState(false)
 
   usePageTitle(dish?.title)
 
@@ -25,7 +26,6 @@ export default function DishDetail() {
       .then((data) => {
         setDish(data)
         setSelectedSize('normal')
-        // Default all ingredients checked (extras included)
         const ings = data.ingredients?.map((i) => (typeof i === 'string' ? i : i.name)) ?? []
         setSelectedExtras(ings)
       })
@@ -66,80 +66,91 @@ export default function DishDetail() {
 
   return (
     <main className={styles.main}>
+      {/* Hero with circular image */}
+      <section className={styles.hero}>
+        <div className={styles.imgWrap}>
+          {imgSrc ? (
+            <img src={imgSrc} alt={dish.title} className={styles.img} />
+          ) : (
+            <div className={styles.placeholder}>🍕</div>
+          )}
+        </div>
+      </section>
+
       <div className={styles.container}>
         <button className={styles.backBtn} onClick={() => navigate(-1)}>
           ← Tilbage
         </button>
 
-        <div className={styles.layout}>
-          {/* Image */}
-          <div className={styles.imgWrap}>
-            {imgSrc ? (
-              <img src={imgSrc} alt={dish.title} className={styles.img} />
-            ) : (
-              <div className={styles.placeholder}>🍕</div>
+        <h1 className={styles.title}>{dish.title}</h1>
+
+        {/* Base ingredients */}
+        {ingredients.length > 0 && (
+          <ul className={styles.ingList}>
+            {ingredients.map((name) => (
+              <li key={name} className={styles.ingItem}>{name}</li>
+            ))}
+          </ul>
+        )}
+
+        {/* Extras toggle */}
+        {ingredients.length > 0 && (
+          <div className={styles.extras}>
+            <button
+              className={styles.extrasToggle}
+              onClick={() => setExtrasOpen((o) => !o)}
+            >
+              Tilføj ingredienser {extrasOpen ? '▲' : '▼'}
+            </button>
+            {extrasOpen && (
+              <ul className={styles.extrasList}>
+                {ingredients.map((name) => {
+                  const checked = selectedExtras.includes(name)
+                  return (
+                    <li key={name}>
+                      <button
+                        type="button"
+                        className={`${styles.extraItem} ${checked ? styles.extraOn : styles.extraOff}`}
+                        onClick={() => toggleExtra(name)}
+                      >
+                        {checked ? '✓' : '✕'} {name}
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
             )}
           </div>
+        )}
 
-          {/* Info */}
-          <div className={styles.info}>
-            {dish.category?.name && (
-              <span className={styles.category}>{dish.category.name}</span>
-            )}
-            <h1 className={styles.title}>{dish.title}</h1>
-            <p className={styles.desc}>{dish.description}</p>
-
-            {ingredients.length > 0 && (
-              <div className={styles.ingredients}>
-                <h2 className={styles.ingTitle}>Tilpas ingredienser</h2>
-                <ul className={styles.ingList}>
-                  {ingredients.map((name) => {
-                    const checked = selectedExtras.includes(name)
-                    return (
-                      <li key={name}>
-                        <button
-                          type="button"
-                          className={`${styles.ingItem} ${checked ? '' : styles.ingItemOff}`}
-                          onClick={() => toggleExtra(name)}
-                          title={checked ? 'Fjern ingrediens' : 'Tilføj ingrediens'}
-                        >
-                          {checked ? '✓ ' : '✕ '}{name}
-                        </button>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-            )}
-
-            {hasFamily && (
-              <div className={styles.sizeRow}>
-                <button
-                  className={`${styles.sizeBtn} ${selectedSize === 'normal' ? styles.sizeActive : ''}`}
-                  onClick={() => setSelectedSize('normal')}
-                >
-                  Normal — {dish.price.normal} kr.
-                </button>
-                <button
-                  className={`${styles.sizeBtn} ${selectedSize === 'family' ? styles.sizeActive : ''}`}
-                  onClick={() => setSelectedSize('family')}
-                >
-                  Familie — {dish.price.family} kr.
-                </button>
-              </div>
-            )}
-
-            <div className={styles.buyRow}>
-              <span className={styles.price}>{selectedPrice} kr.</span>
-              <button
-                className={`${styles.addBtn} ${added ? styles.added : ''}`}
-                onClick={handleAdd}
-              >
-                {added ? '✓ Tilføjet!' : 'Læg i kurv'}
-              </button>
-            </div>
+        {/* Size selector */}
+        {hasFamily ? (
+          <div className={styles.sizeRow}>
+            <label className={styles.sizeLabel}>Vælg størrelse</label>
+            <select
+              className={styles.sizeSelect}
+              value={selectedSize}
+              onChange={(e) => setSelectedSize(e.target.value)}
+            >
+              <option value="normal">Almindelig</option>
+              <option value="family">Familie</option>
+            </select>
           </div>
+        ) : null}
+
+        {/* Price */}
+        <div className={styles.priceRow}>
+          <span className={styles.priceLabel}>Pris</span>
+          <span className={styles.price}>{selectedPrice},-</span>
         </div>
+
+        {/* Add to basket */}
+        <button
+          className={`${styles.addBtn} ${added ? styles.added : ''}`}
+          onClick={handleAdd}
+        >
+          {added ? '✓ Tilføjet!' : `Tilføj ${dish.title} til kurven`}
+        </button>
       </div>
     </main>
   )
