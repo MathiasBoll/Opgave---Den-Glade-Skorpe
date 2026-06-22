@@ -194,7 +194,7 @@ export default function BackofficeDishes() {
               <tr><td colSpan={5} className={styles.noData}>Ingen retter endnu</td></tr>
             )}
             {dishes.map((dish) => {
-              const imgSrc = dish.image ? `${BASE_URL}/${dish.image}` : null
+              const imgSrc = dish.image ? (dish.image.startsWith('http') ? dish.image : `${BASE_URL}/${dish.image}`) : null
               return (
                 <tr key={dish._id}>
                   <td>

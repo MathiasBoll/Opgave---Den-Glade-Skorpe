@@ -8,7 +8,7 @@ export default function DishCard({ dish }) {
   const { addItem } = useBasket()
 
   const imgSrc = dish.image
-    ? `${BASE_URL}/${dish.image}`
+    ? dish.image.startsWith('http') ? dish.image : `${BASE_URL}/${dish.image}`
     : null
 
   function handleAdd() {

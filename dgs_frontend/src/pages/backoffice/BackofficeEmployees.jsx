@@ -188,7 +188,7 @@ export default function BackofficeEmployees() {
               <tr><td colSpan={4} className={styles.noData}>Ingen medarbejdere endnu</td></tr>
             )}
             {employees.map((emp) => {
-              const imgSrc = emp.image ? `${BASE_URL}/${emp.image}` : null
+              const imgSrc = emp.image ? (emp.image.startsWith('http') ? emp.image : `${BASE_URL}/${emp.image}`) : null
               return (
                 <tr key={emp._id}>
                   <td>

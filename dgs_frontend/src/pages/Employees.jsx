@@ -34,7 +34,7 @@ export default function Employees() {
             <p className={styles.empty}>Ingen medarbejdere fundet.</p>
           )}
           {employees.map((emp) => {
-            const imgSrc = emp.image ? `${BASE_URL}/${emp.image}` : null
+            const imgSrc = emp.image ? (emp.image.startsWith('http') ? emp.image : `${BASE_URL}/${emp.image}`) : null
             return (
               <article key={emp._id} className={styles.card}>
                 <div className={styles.imgWrap}>

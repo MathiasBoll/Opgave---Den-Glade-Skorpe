@@ -60,7 +60,7 @@ export default function DishDetail() {
   if (loading) return <main className={styles.main}><p className={styles.status}>Henter ret…</p></main>
   if (error || !dish) return <main className={styles.main}><p className={styles.status}>Retten blev ikke fundet.</p></main>
 
-  const imgSrc = dish.image ? `${BASE_URL}/${dish.image}` : null
+  const imgSrc = dish.image ? (dish.image.startsWith('http') ? dish.image : `${BASE_URL}/${dish.image}`) : null
   const hasFamily = !!dish.price?.family
   const ingredients = dish.ingredients?.map((i) => (typeof i === 'string' ? i : i.name)) ?? []
 
