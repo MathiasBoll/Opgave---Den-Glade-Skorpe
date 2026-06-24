@@ -77,13 +77,49 @@
   color: #c0392b;
   cursor: pointer;
   padding: 0;
-  margin-top: 0.3rem;
+  margin-left: auto;
   opacity: 0.7;
   transition: opacity 0.15s;
 }
 
 .removeBtn:hover {
   opacity: 1;
+}
+
+.qtyRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.qtyBtn {
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-dark);
+  background: transparent;
+  color: var(--color-dark);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  font-family: var(--font-body);
+}
+
+.qtyBtn:hover {
+  background: var(--color-dark);
+  color: #fff;
+}
+
+.qtyCount {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  min-width: 1.5rem;
+  text-align: center;
 }
 
 /* Order item list */

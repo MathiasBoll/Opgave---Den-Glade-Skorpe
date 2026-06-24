@@ -9,7 +9,7 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
 
 export default function Basket() {
   usePageTitle('Din Kurv')
-  const { items, removeItem, clearBasket, total } = useBasket()
+  const { items, removeItem, updateQuantity, clearBasket, total } = useBasket()
   const navigate = useNavigate()
   const [comment, setComment] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -72,11 +72,26 @@ export default function Basket() {
                       }
                     </div>
                     <div className={styles.itemInfo}>
-                      <p className={styles.itemTitle}>{item.quantity} × {item.title}</p>
+                      <p className={styles.itemTitle}>{item.title}</p>
                       {extras.length > 0 && <p className={styles.itemMeta}>Ekstra: {extras.join(', ')}</p>}
                       <p className={styles.itemMeta}>Størrelse: {sizeName}</p>
                       <p className={styles.itemMeta}>Pris: {price},-</p>
-                      <button className={styles.removeBtn} onClick={() => removeItem(item.basketKey)}>Fjern</button>
+                      <div className={styles.qtyRow}>
+                        <button
+                          type="button"
+                          className={styles.qtyBtn}
+                          onClick={() => updateQuantity(item.basketKey, item.quantity - 1)}
+                          aria-label="Færre"
+                        >−</button>
+                        <span className={styles.qtyCount}>{item.quantity}</span>
+                        <button
+                          type="button"
+                          className={styles.qtyBtn}
+                          onClick={() => updateQuantity(item.basketKey, item.quantity + 1)}
+                          aria-label="Flere"
+                        >+</button>
+                        <button className={styles.removeBtn} onClick={() => removeItem(item.basketKey)}>Fjern</button>
+                      </div>
                     </div>
                   </div>
                 )
