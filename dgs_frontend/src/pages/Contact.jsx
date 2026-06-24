@@ -16,6 +16,10 @@ export default function Contact() {
 
   async function handleSubmit(e) {
     e.preventDefault()
+    if (!form.name.trim() || !form.subject.trim() || !form.description.trim()) {
+      setError('Udfyld venligst alle felter.')
+      return
+    }
     setSubmitting(true)
     setError(null)
     try {

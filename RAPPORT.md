@@ -5,7 +5,8 @@
 **Opgavenavn:** Den Glade Skorpe  
 **Navn:** Mathias Boll  
 **Skole:** Media College Denmark  
-**Afleveringsdato:** 26-06-2026
+**Afleveringsdato:** 26-06-2026  
+**Fremlæggelse:** Uge 32–35 (3. aug – 30. aug 2026)
 
 ---
 
@@ -17,7 +18,7 @@ Jeg bekræfter hermed, at denne opgave er udarbejdet af mig selv, og at jeg ikke
 
 ## Vurdering af egen indsats
 
-Jeg er overordnet tilfreds med resultatet. Jeg har formået at bygge en fungerende, mobilvenlig webapplikation med komplet forside, bestillingsflow, backoffice og API-integration. Alle mandatory-krav er implementeret. De optional-krav, der ikke er fuldført (bl.a. exam rapport og desktop responsivt layout), skyldes prioritering af kernefunktionalitet frem for polering.
+Jeg er overordnet tilfreds med resultatet. Jeg har formået at bygge en fungerende, mobilvenlig webapplikation med komplet forside, bestillingsflow, backoffice og API-integration. Alle mandatory-krav er implementeret. De optional-krav, der ikke er fuldført (bl.a. responsivt desktop-layout over 1024px), skyldes prioritering af kernefunktionalitet frem for polering.
 
 Udfordringer undervejs inkluderede korrekt håndtering af MongoDB-modellers feltnavne, JWT-auth-flow i Express samt håndtering af FormData til billede-uploads. Disse problemer løste jeg ved at læse routekoden grundigt og teste med Postman.
 
@@ -89,6 +90,8 @@ På rettesiden kan brugeren aktivere/deaktivere individuelle ingredienser. De va
 | Responsivt desktop-layout (>1024px) | ✅ Implementeret | Breakpoints i alle CSS-moduler |
 | Extra ingredienser på retteside | ✅ Implementeret | Toggle-knapper, gemt i kurv |
 | Backoffice: retter CRUD | ✅ Implementeret | Fuldt create/edit/delete |
+| Backoffice: beskeder | ✅ Implementeret | Visning og sletning af kontaktbeskeder |
+| Backoffice: ordrer | ✅ Implementeret | Visning af ordrer fra kunder |
 
 ---
 

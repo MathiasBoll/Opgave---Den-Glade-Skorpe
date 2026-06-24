@@ -9,7 +9,7 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
 
 export default function Basket() {
   usePageTitle('Din Kurv')
-  const { items, clearBasket, total } = useBasket()
+  const { items, removeItem, clearBasket, total } = useBasket()
   const [comment, setComment] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
@@ -44,6 +44,7 @@ export default function Basket() {
       </section>
 
       <div className={styles.container}>
+        <h2 className={styles.pageTitle}>Bestilling</h2>
         {items.length === 0 ? (
           <div className={styles.empty}>
             <span className={styles.emptyIcon}>🛒</span>
@@ -72,8 +73,9 @@ export default function Basket() {
                     <div className={styles.itemInfo}>
                       <p className={styles.itemTitle}>{item.quantity} × {item.title}</p>
                       {extras.length > 0 && <p className={styles.itemMeta}>Ekstra: {extras.join(', ')}</p>}
-                      <p className={styles.itemMeta}><span className={styles.itemSize}>{sizeName}</span></p>
+                      <p className={styles.itemMeta}>Størrelse: {sizeName}</p>
                       <p className={styles.itemMeta}>Pris: {price},-</p>
+                      <button className={styles.removeBtn} onClick={() => removeItem(item.basketKey)}>Fjern</button>
                     </div>
                   </div>
                 )
@@ -81,6 +83,7 @@ export default function Basket() {
             </div>
 
             <p className={styles.total}>I alt: <strong>{total},-</strong></p>
+            <button className={styles.clearBtn} onClick={clearBasket}>Ryd kurv</button>
 
             <form className={styles.form} onSubmit={handleOrder}>
               <label className={styles.label} htmlFor="comment">Kommentarer til ordren</label>
