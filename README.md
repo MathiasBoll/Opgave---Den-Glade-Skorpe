@@ -142,32 +142,24 @@ Frontend kører nu på `http://localhost:5173`.
 
 ### Optional
 - [x] Backoffice retter CRUD — opret, rediger, slet retter
+- [x] Extra ingredienser på rettesiden — toggle ingredienser gemt i kurv
+- [x] Backoffice beskeder — åbn, skift status (læst/ulæst), slet
+- [x] Backoffice ordrer — vis bestillinger, skift status, slet
+- [x] Responsivt layout — 320px / 375px / 425px / 768px / 1024px / 1440px / 2560px
 
 ---
 
 ## Hvad mangler
 
-- [ ] Backoffice: slet og rediger enkeltbeskeder
-- [ ] Extra ingredienser på rettesiden
-- [ ] Desktop responsivt layout over 1024px (basic er på plads)
-- [ ] Eksamensrapport (skrives separat)
+Alt mandatory og optional er implementeret. Eneste åbne punkt:
+
+- [ ] Mundtlig eksamenforberedelse (efter fremlæggelse, uge 32–35 2026)
 
 ---
 
 ## Links
 
 - [GitHub Issues](https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe/issues) — opgaveliste
-
-
-```bash
-npm run "Start Server"
-```
-
-Serveren kører nu på `http://localhost:3042`.
-
----
-
-## Frontend — kom i gang
 
 > Frontenden er ikke bygget endnu — se GitHub Issues for opgavelisten.
 
