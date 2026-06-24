@@ -136,54 +136,85 @@
 
 .extrasToggle {
   width: 100%;
-  background-color: var(--color-white);
-  border: 1px solid #ddd;
-  border-radius: var(--border-radius);
-  padding: 0.6rem 1rem;
+  background-color: transparent;
+  border: 2px solid var(--color-dark);
+  border-radius: 999px;
+  padding: 0.6rem 1.25rem;
   font-family: var(--font-body);
   font-size: 1rem;
-  text-align: left;
+  color: var(--color-dark);
+  text-align: center;
   cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.extrasToggle:hover {
+  background-color: var(--color-dark);
+  color: #fff;
 }
 
 .extrasList {
   list-style: none;
-  background-color: var(--color-white);
-  border: 1px solid #ddd;
-  border-top: none;
-  border-radius: 0 0 var(--border-radius) var(--border-radius);
-  padding: var(--spacing-xs) var(--spacing-sm);
+  padding: var(--spacing-sm) 0;
   display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
+/* Each ingredient is a compact pill */
 .extraItem {
   font-family: var(--font-body);
-  font-size: 0.95rem;
-  text-align: left;
-  padding: 0.2rem 0;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 2px solid transparent;
   cursor: pointer;
-  color: var(--color-dark);
-  width: 100%;
+  transition: background 0.15s, color 0.15s, opacity 0.15s, border-color 0.15s;
+  white-space: nowrap;
 }
 
-/* Base ingredient removed — muted + strikethrough */
+/* Selected — dark fill */
+.extraOn {
+  background-color: var(--color-dark);
+  border-color: var(--color-dark);
+  color: #fff;
+  opacity: 1;
+  text-decoration: none;
+}
+
+/* Base ingredient removed — outlined, muted, strikethrough */
 .extraOff {
-  opacity: 0.4;
+  background-color: transparent;
+  border-color: #bbb;
+  color: #999;
+  opacity: 0.7;
   text-decoration: line-through;
 }
 
-/* Extra ingredient not yet added — muted, no strikethrough */
+/* Extra ingredient available to add — outlined */
 .extraAvailable {
-  opacity: 0.55;
+  background-color: transparent;
+  border-color: var(--color-dark);
+  color: var(--color-dark);
+  opacity: 0.7;
   text-decoration: none;
 }
 
-/* Selected (base kept or extra added) */
-.extraOn {
+.extraAvailable:hover {
+  background-color: var(--color-dark);
+  color: #fff;
+  opacity: 1;
+}
+
+.extraOn:hover {
+  opacity: 0.8;
+}
+
+.extraOff:hover {
   opacity: 1;
   text-decoration: none;
+  border-color: var(--color-dark);
+  color: var(--color-dark);
 }
 
 /* Size selector */

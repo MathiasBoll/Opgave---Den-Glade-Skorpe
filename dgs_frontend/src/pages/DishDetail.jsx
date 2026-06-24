@@ -163,7 +163,7 @@ export default function DishDetail() {
                         className={`${styles.extraItem} ${checked ? styles.extraOn : isBase ? styles.extraOff : styles.extraAvailable}`}
                         onClick={() => toggleExtra(name)}
                       >
-                        {checked ? '✓' : isBase ? '✕' : '+'} {name}
+                        {checked ? '✓ ' : ''}{name}
                       </button>
                     </li>
                   )
