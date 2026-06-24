@@ -176,20 +176,44 @@
   color: #888;
 }
 
+@media (max-width: 374px) {
+  /* 320px phones */
+  .heroTitle { font-size: 3rem; }
+  .welcomeTitle { font-size: 1.8rem; }
+  .sectionTitle { font-size: 1.8rem; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: var(--spacing-sm); }
+  .catGrid { gap: var(--spacing-xs); }
+}
+
+@media (min-width: 768px) {
+  /* tablet */
+  .grid { grid-template-columns: repeat(4, 1fr); }
+  .catGrid { max-width: 600px; }
+}
+
 @media (min-width: 1024px) {
-  .heroTitle {
-    font-size: 6rem;
-  }
+  /* desktop */
+  .heroTitle { font-size: 6rem; }
+  .heroSub { font-size: 1.25rem; }
+  .grid { grid-template-columns: repeat(4, 1fr); }
+  .catGrid { max-width: 800px; }
+}
 
-  .heroSub {
-    font-size: 1.25rem;
-  }
+@media (min-width: 1440px) {
+  /* large desktop */
+  .heroTitle { font-size: 7.5rem; }
+  .welcomeTitle { font-size: 3rem; }
+  .sectionTitle { font-size: 2.8rem; }
+  .grid { grid-template-columns: repeat(5, 1fr); }
+  .catGrid { max-width: 900px; }
+}
 
-  .grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .catGrid {
-    max-width: 800px;
-  }
+@media (min-width: 2560px) {
+  /* ultra-wide */
+  .heroTitle { font-size: 10rem; }
+  .welcomeTitle { font-size: 4rem; }
+  .welcomeText { font-size: 1.3rem; }
+  .sectionTitle { font-size: 3.5rem; }
+  .grid { grid-template-columns: repeat(6, 1fr); }
+  .catGrid { max-width: 1200px; }
 }

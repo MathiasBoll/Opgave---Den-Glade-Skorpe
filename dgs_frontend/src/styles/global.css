@@ -8,8 +8,22 @@
   padding: 0;
 }
 
+/* Scale max-width at larger screens */
+@media (min-width: 1440px) {
+  :root {
+    --max-width: 1400px;
+  }
+}
+
+@media (min-width: 2560px) {
+  :root {
+    --max-width: 2000px;
+  }
+}
+
 html {
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
@@ -17,6 +31,7 @@ body {
   color: var(--color-black);
   background-color: var(--color-white);
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 h1,
