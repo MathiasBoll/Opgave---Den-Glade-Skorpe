@@ -13,7 +13,7 @@
   background-image: url('/headerImg.png');
   background-size: cover;
   background-position: center;
-  min-height: 100svh;
+  min-height: 55svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -261,12 +261,14 @@
 
 @media (min-width: 768px) {
   /* tablet */
+  .hero { min-height: 65svh; }
   .imgWrap { width: 320px; height: 320px; aspect-ratio: 1 / 1; }
   .title { font-size: 3.5rem; }
 }
 
 @media (min-width: 1024px) {
-  /* desktop */
+  /* desktop — restore full-screen hero */
+  .hero { min-height: 100svh; }
   .heroTitle > span:nth-child(2) { font-size: 5rem; }
   .heroTitle > span:nth-child(3) { font-size: 2.5rem; }
   .imgWrap { width: 380px; height: 380px; }
