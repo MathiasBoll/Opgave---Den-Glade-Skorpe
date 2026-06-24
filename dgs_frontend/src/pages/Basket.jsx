@@ -1,5 +1,5 @@
 ﻿import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useBasket } from '../context/BasketContext'
 import { postOrder } from '../services/api'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -10,10 +10,10 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
 export default function Basket() {
   usePageTitle('Din Kurv')
   const { items, removeItem, clearBasket, total } = useBasket()
+  const navigate = useNavigate()
   const [comment, setComment] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
-  const [ordered, setOrdered] = useState(false)
 
   async function handleOrder(e) {
     e.preventDefault()
@@ -25,7 +25,8 @@ export default function Basket() {
         comment,
         totalPrice: total,
       })
-      setOrdered(true)
+      clearBasket()
+      navigate('/order-confirmation')
     } catch {
       setError('Noget gik galt. Prøv igen.')
     } finally {
@@ -102,15 +103,6 @@ export default function Basket() {
           </>
         )}
       </div>
-
-      {ordered && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modal}>
-            <button className={styles.modalClose} onClick={() => { setOrdered(false); clearBasket() }}>×</button>
-            <p className={styles.modalText}>Tak for din bestilling!</p>
-          </div>
-        </div>
-      )}
     </main>
   )
 }

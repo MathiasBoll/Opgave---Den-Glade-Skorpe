@@ -39,7 +39,10 @@ export default function Header() {
             </NavLink>
           ))}
           <Link to="/basket" className={styles.basketLink}>
-            Kurv {count > 0 && <span className={styles.badge}>{count}</span>}
+            <span className={styles.basketIconWrap}>
+              <img src="/logo.png" alt="Kurv" className={styles.basketIcon} />
+              {count > 0 && <span className={styles.badge}>{count}</span>}
+            </span>
           </Link>
         </nav>
 

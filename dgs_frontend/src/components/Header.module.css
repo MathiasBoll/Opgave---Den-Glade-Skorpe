@@ -55,13 +55,9 @@
 }
 
 .basketLink {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  color: var(--color-white);
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  opacity: 0.75;
+  opacity: 0.85;
   transition: opacity 0.2s;
 }
 
@@ -69,17 +65,38 @@
   opacity: 1;
 }
 
+.basketIconWrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.basketIcon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
 .badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background: var(--color-cream);
   color: var(--color-dark);
   border-radius: 50%;
-  width: 1.25rem;
-  height: 1.25rem;
-  font-size: 0.75rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  font-size: 0.7rem;
   font-family: var(--font-body);
+  font-weight: bold;
+  line-height: 1;
+  pointer-events: none;
 }
 
 /* ── Burger button ── */
