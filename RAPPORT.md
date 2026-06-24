@@ -4,6 +4,7 @@
 
 **Opgavenavn:** Den Glade Skorpe  
 **Navn:** Mathias Boll  
+**Hold:** WebH125-2  
 **Skole:** Media College Denmark  
 **Afleveringsdato:** 26-06-2026  
 **Fremlæggelse:** Uge 32–35 (3. aug – 30. aug 2026)
@@ -13,6 +14,8 @@
 ## Erklæring
 
 Jeg bekræfter hermed, at denne opgave er udarbejdet af mig selv, og at jeg ikke har afleveret den eller dele af den til vurdering ved andre eksaminer. Jeg har angivet alle anvendte kilder og hjælpemidler, herunder AI-assisterede værktøjer.
+
+*Mathias Boll — 26-06-2026*
 
 ---
 
@@ -87,11 +90,13 @@ På rettesiden kan brugeren aktivere/deaktivere individuelle ingredienser. De va
 
 | Tilvalg | Status | Kommentar |
 |---------|--------|-----------|
-| Responsivt desktop-layout (>1024px) | ✅ Implementeret | Breakpoints i alle CSS-moduler |
-| Extra ingredienser på retteside | ✅ Implementeret | Toggle-knapper, gemt i kurv |
-| Backoffice: retter CRUD | ✅ Implementeret | Fuldt create/edit/delete |
+| Responsivt desktop-layout (>1024px) | ✅ Implementeret | Breakpoints ved 768/1024/1440/2560px i alle CSS-moduler |
+| Extra ingredienser på retteside | ✅ Implementeret | Pill-chip toggle, viser alle 29 ingredienser fra API, gemt i kurv |
+| Backoffice: retter CRUD | ✅ Implementeret | Fuldt create/edit/delete med billede-upload |
 | Backoffice: beskeder | ✅ Implementeret | Visning og sletning af kontaktbeskeder |
 | Backoffice: ordrer | ✅ Implementeret | Visning af ordrer fra kunder |
+| Afgiv ordre via serveren (POST) | ✅ Implementeret | Kurv sender POST til /orders, kurv tømmes og bekræftelsesside vises |
+| Authentication (backoffice login) | ✅ Implementeret | JWT-auth, /backoffice beskyttet med RequireAuth, SignIn-side |
 
 ---
 
@@ -117,7 +122,7 @@ Al kode er gennemlæst og godkendt af mig, og jeg er bevidst om indholdet af hve
 
 | Type | Oplysning |
 |------|-----------|
-| Frontend URL | http://localhost:5173 |
+| Frontend URL | http://localhost:5174 |
 | Backend URL | http://localhost:3042 |
 | Admin login | admin@mediacollege.dk / admin |
 | Guest login | guest@mediacollege.dk / guest |
