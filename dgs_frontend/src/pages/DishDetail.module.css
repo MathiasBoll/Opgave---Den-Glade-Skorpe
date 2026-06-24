@@ -165,11 +165,25 @@
   padding: 0.2rem 0;
   cursor: pointer;
   color: var(--color-dark);
+  width: 100%;
 }
 
+/* Base ingredient removed — muted + strikethrough */
 .extraOff {
-  opacity: 0.45;
+  opacity: 0.4;
   text-decoration: line-through;
+}
+
+/* Extra ingredient not yet added — muted, no strikethrough */
+.extraAvailable {
+  opacity: 0.55;
+  text-decoration: none;
+}
+
+/* Selected (base kept or extra added) */
+.extraOn {
+  opacity: 1;
+  text-decoration: none;
 }
 
 /* Size selector */

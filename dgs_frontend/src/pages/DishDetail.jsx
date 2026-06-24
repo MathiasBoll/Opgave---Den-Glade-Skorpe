@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { getDish } from '../services/api'
+import { getDish, getIngredients } from '../services/api'
 import { useBasket } from '../context/BasketContext'
 import { usePageTitle } from '../hooks/usePageTitle'
 import styles from './DishDetail.module.css'
@@ -17,17 +17,20 @@ export default function DishDetail() {
   const [added, setAdded] = useState(false)
   const [selectedSize, setSelectedSize] = useState('normal')
   const [selectedExtras, setSelectedExtras] = useState([])
+  const [allIngredients, setAllIngredients] = useState([])
   const [extrasOpen, setExtrasOpen] = useState(false)
 
   usePageTitle(dish?.title)
 
   useEffect(() => {
-    getDish(id)
-      .then((data) => {
+    Promise.all([getDish(id), getIngredients()])
+      .then(([data, ingData]) => {
         setDish(data)
         setSelectedSize('normal')
-        const ings = data.ingredients?.map((i) => (typeof i === 'string' ? i : i.name)) ?? []
-        setSelectedExtras(ings)
+        const baseNames = data.ingredients?.map((i) => (typeof i === 'string' ? i : i.name)) ?? []
+        setSelectedExtras(baseNames)
+        const allNames = (ingData ?? []).map((i) => (typeof i === 'string' ? i : i.name))
+        setAllIngredients(allNames)
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false))
@@ -139,8 +142,8 @@ export default function DishDetail() {
           {added ? '✓ Tilføjet!' : `Tilføj ${dish.title} til kurven`}
         </button>
 
-        {/* Extras toggle */}
-        {ingredients.length > 0 && (
+        {/* Extras toggle — shows ALL available ingredients */}
+        {allIngredients.length > 0 && (
           <div className={styles.extras}>
             <button
               className={styles.extrasToggle}
@@ -150,16 +153,17 @@ export default function DishDetail() {
             </button>
             {extrasOpen && (
               <ul className={styles.extrasList}>
-                {ingredients.map((name) => {
+                {allIngredients.map((name) => {
                   const checked = selectedExtras.includes(name)
+                  const isBase = ingredients.includes(name)
                   return (
                     <li key={name}>
                       <button
                         type="button"
-                        className={`${styles.extraItem} ${checked ? styles.extraOn : styles.extraOff}`}
+                        className={`${styles.extraItem} ${checked ? styles.extraOn : isBase ? styles.extraOff : styles.extraAvailable}`}
                         onClick={() => toggleExtra(name)}
                       >
-                        {checked ? '✓' : '✕'} {name}
+                        {checked ? '✓' : isBase ? '✕' : '+'} {name}
                       </button>
                     </li>
                   )
