@@ -38,6 +38,19 @@ export const postMessage = (data) =>
 export const getMessages = () =>
   request('/messages', { headers: authHeaders() }).then((r) => r.data)
 
+export const updateMessage = (id, status) =>
+  request('/message', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    body: JSON.stringify({ id, status }),
+  }).then((r) => r.data)
+
+export const deleteMessage = (id) =>
+  request(`/message/${id}`, {
+    method: 'DELETE',
+    headers: authHeaders(),
+  })
+
 // Orders
 export const postOrder = (data) =>
   request('/order', {
@@ -48,6 +61,19 @@ export const postOrder = (data) =>
 
 export const getOrders = () =>
   request('/orders', { headers: authHeaders() }).then((r) => r.data)
+
+export const updateOrder = (id, shipped) =>
+  request('/order', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    body: JSON.stringify({ id, shipped }),
+  }).then((r) => r.data)
+
+export const deleteOrder = (id) =>
+  request(`/order/${id}`, {
+    method: 'DELETE',
+    headers: authHeaders(),
+  })
 
 // Auth
 export const login = (credentials) =>

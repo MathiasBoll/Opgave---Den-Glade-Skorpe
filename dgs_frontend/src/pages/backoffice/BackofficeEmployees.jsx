@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+﻿import { useState, useEffect, useRef } from 'react'
 import { getEmployees, createEmployee, updateEmployee, deleteEmployee } from '../../services/api'
 import styles from './Backoffice.module.css'
 import empStyles from './BackofficeEmployees.module.css'
@@ -10,14 +10,17 @@ const EMPTY_FORM = { name: '', position: '' }
 export default function BackofficeEmployees() {
   const [employees, setEmployees] = useState([])
   const [loading, setLoading] = useState(true)
-  const [formOpen, setFormOpen] = useState(false)
-  const [editTarget, setEditTarget] = useState(null) // null = create, obj = edit
-  const [form, setForm] = useState(EMPTY_FORM)
-  const [imageFile, setImageFile] = useState(null)
-  const [saving, setSaving] = useState(false)
-  const [deleteConfirm, setDeleteConfirm] = useState(null) // id to confirm delete
+  const [addForm, setAddForm] = useState(EMPTY_FORM)
+  const [addImage, setAddImage] = useState(null)
+  const [addSaving, setAddSaving] = useState(false)
+  const [editTarget, setEditTarget] = useState(null)
+  const [editForm, setEditForm] = useState(EMPTY_FORM)
+  const [editImage, setEditImage] = useState(null)
+  const [editSaving, setEditSaving] = useState(false)
+  const [deleteConfirm, setDeleteConfirm] = useState(null)
   const [error, setError] = useState(null)
-  const fileRef = useRef(null)
+  const addFileRef = useRef(null)
+  const editFileRef = useRef(null)
 
   function load() {
     setLoading(true)
@@ -29,58 +32,69 @@ export default function BackofficeEmployees() {
 
   useEffect(load, [])
 
-  function openCreate() {
-    setEditTarget(null)
-    setForm(EMPTY_FORM)
-    setImageFile(null)
-    setError(null)
-    setFormOpen(true)
+  function handleAddChange(e) {
+    setAddForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  function handleEditChange(e) {
+    setEditForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
   function openEdit(emp) {
     setEditTarget(emp)
-    setForm({ name: emp.name, position: emp.position })
-    setImageFile(null)
-    setError(null)
-    setFormOpen(true)
-  }
-
-  function closeForm() {
-    setFormOpen(false)
-    setEditTarget(null)
+    setEditForm({ name: emp.name, position: emp.position })
+    setEditImage(null)
     setError(null)
   }
 
-  function handleChange(e) {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-  }
-
-  async function handleSave(e) {
+  async function handleAdd(e) {
     e.preventDefault()
-    if (!form.name.trim() || !form.position.trim()) {
+    if (!addForm.name.trim() || !addForm.position.trim()) {
       setError('Navn og stilling er påkrævet.')
       return
     }
-    setSaving(true)
+    setAddSaving(true)
     setError(null)
     try {
       const fd = new FormData()
-      fd.append('name', form.name.trim())
-      fd.append('position', form.position.trim())
-      if (imageFile) fd.append('file', imageFile)
-
-      if (editTarget) {
-        fd.append('id', editTarget._id)
-        await updateEmployee(fd)
-      } else {
-        await createEmployee(fd)
-      }
-      closeForm()
+      fd.append('name', addForm.name.trim())
+      fd.append('position', addForm.position.trim())
+      if (addImage) fd.append('file', addImage)
+      await createEmployee(fd)
+      setAddForm(EMPTY_FORM)
+      setAddImage(null)
+      if (addFileRef.current) addFileRef.current.value = ''
       load()
     } catch {
       setError('Noget gik galt. Prøv igen.')
     } finally {
-      setSaving(false)
+      setAddSaving(false)
+    }
+  }
+
+  async function handleEdit(e) {
+    e.preventDefault()
+    if (!editForm.name.trim() || !editForm.position.trim()) {
+      setError('Navn og stilling er påkrævet.')
+      return
+    }
+    setEditSaving(true)
+    setError(null)
+    try {
+      const fd = new FormData()
+      fd.append('id', editTarget._id)
+      fd.append('name', editForm.name.trim())
+      fd.append('position', editForm.position.trim())
+      if (editImage) fd.append('file', editImage)
+      await updateEmployee(fd)
+      setEditTarget(null)
+      setEditForm(EMPTY_FORM)
+      setEditImage(null)
+      load()
+    } catch {
+      setError('Noget gik galt. Prøv igen.')
+    } finally {
+      setEditSaving(false)
     }
   }
 
@@ -88,6 +102,7 @@ export default function BackofficeEmployees() {
     try {
       await deleteEmployee(id)
       setDeleteConfirm(null)
+      if (editTarget?._id === id) setEditTarget(null)
       load()
     } catch {
       setError('Kunne ikke slette medarbejderen.')
@@ -99,76 +114,15 @@ export default function BackofficeEmployees() {
 
   return (
     <section>
-      <div className={empStyles.header}>
-        <h2 className={styles.pageTitle}>Medarbejdere</h2>
-        <button className={empStyles.addBtn} onClick={openCreate}>+ Tilføj medarbejder</button>
-      </div>
+      <h2 className={styles.pageTitle}>Medarbejdere</h2>
+      {error && <p className={empStyles.errorMsg}>{error}</p>}
 
-      {error && !formOpen && <p className={empStyles.errorMsg}>{error}</p>}
-
-      {/* Create / Edit form */}
-      {formOpen && (
-        <div className={empStyles.formCard}>
-          <h3 className={empStyles.formTitle}>
-            {editTarget ? `Rediger: ${editTarget.name}` : 'Ny medarbejder'}
-          </h3>
-          <form onSubmit={handleSave} className={empStyles.form}>
-            <label className={empStyles.label}>
-              Navn
-              <input
-                name="name"
-                type="text"
-                className={empStyles.input}
-                value={form.name}
-                onChange={handleChange}
-                required
-              />
-            </label>
-            <label className={empStyles.label}>
-              Stilling
-              <input
-                name="position"
-                type="text"
-                className={empStyles.input}
-                value={form.position}
-                onChange={handleChange}
-                required
-              />
-            </label>
-            <label className={empStyles.label}>
-              Billede (valgfrit)
-              <input
-                ref={fileRef}
-                type="file"
-                accept="image/*"
-                className={empStyles.fileInput}
-                onChange={(e) => setImageFile(e.target.files[0] || null)}
-              />
-            </label>
-            {error && <p className={empStyles.errorMsg}>{error}</p>}
-            <div className={empStyles.formActions}>
-              <button type="submit" className={empStyles.saveBtn} disabled={saving}>
-                {saving ? 'Gemmer…' : 'Gem'}
-              </button>
-              <button type="button" className={empStyles.cancelBtn} onClick={closeForm}>
-                Annuller
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
-
-      {/* Delete confirmation */}
       {deleteConfirm && (
         <div className={empStyles.confirmBox}>
           <p>Er du sikker på at du vil slette denne medarbejder?</p>
           <div className={empStyles.confirmActions}>
-            <button className={empStyles.deleteConfirmBtn} onClick={() => handleDelete(deleteConfirm)}>
-              Ja, slet
-            </button>
-            <button className={empStyles.cancelBtn} onClick={() => setDeleteConfirm(null)}>
-              Annuller
-            </button>
+            <button className={empStyles.deleteConfirmBtn} onClick={() => handleDelete(deleteConfirm)}>Ja, slet</button>
+            <button className={empStyles.cancelBtn} onClick={() => setDeleteConfirm(null)}>Annuller</button>
           </div>
         </div>
       )}
@@ -177,8 +131,8 @@ export default function BackofficeEmployees() {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Foto</th>
               <th>Navn</th>
+              <th>Billede</th>
               <th>Stilling</th>
               <th>Handlinger</th>
             </tr>
@@ -191,18 +145,18 @@ export default function BackofficeEmployees() {
               const imgSrc = emp.image ? (emp.image.startsWith('http') ? emp.image : `${BASE_URL}/${emp.image}`) : null
               return (
                 <tr key={emp._id}>
+                  <td>{emp.name}</td>
                   <td>
                     {imgSrc
                       ? <img src={imgSrc} alt={emp.name} className={styles.thumb} />
                       : <span className={styles.thumbFallback}>👤</span>
                     }
                   </td>
-                  <td>{emp.name}</td>
                   <td>{emp.position || '—'}</td>
                   <td>
                     <div className={empStyles.rowActions}>
-                      <button className={empStyles.editBtn} onClick={() => openEdit(emp)}>Rediger</button>
                       <button className={empStyles.deleteBtn} onClick={() => setDeleteConfirm(emp._id)}>Slet</button>
+                      <button className={empStyles.editBtn} onClick={() => openEdit(emp)}>Rediger</button>
                     </div>
                   </td>
                 </tr>
@@ -210,6 +164,32 @@ export default function BackofficeEmployees() {
             })}
           </tbody>
         </table>
+      </div>
+
+      <div className={empStyles.inlineFormSection} style={{ marginTop: '2rem', maxWidth: '480px' }}>
+        <h3 className={empStyles.inlineFormTitle}>
+          {editTarget ? `Rediger: ${editTarget.name}` : 'Tilføj medarbejder'}
+        </h3>
+        {editTarget ? (
+          <form onSubmit={handleEdit} className={empStyles.form}>
+            <label className={empStyles.label}>Navn<input name="name" type="text" className={empStyles.input} value={editForm.name} onChange={handleEditChange} required /></label>
+            <label className={empStyles.label}>Billede (valgfrit)<input ref={editFileRef} type="file" accept="image/*" className={empStyles.fileInput} onChange={(e) => setEditImage(e.target.files[0] || null)} /></label>
+            <label className={empStyles.label}>Stilling<input name="position" type="text" className={empStyles.input} value={editForm.position} onChange={handleEditChange} required /></label>
+            <div className={empStyles.formActions}>
+              <button type="submit" className={empStyles.saveBtn} disabled={editSaving}>{editSaving ? 'Gemmer…' : 'Gem ændringer'}</button>
+              <button type="button" className={empStyles.cancelBtn} onClick={() => setEditTarget(null)}>Annuller</button>
+            </div>
+          </form>
+        ) : (
+          <form onSubmit={handleAdd} className={empStyles.form}>
+            <label className={empStyles.label}>Navn<input name="name" type="text" className={empStyles.input} value={addForm.name} onChange={handleAddChange} required /></label>
+            <label className={empStyles.label}>Billede (valgfrit)<input ref={addFileRef} type="file" accept="image/*" className={empStyles.fileInput} onChange={(e) => setAddImage(e.target.files[0] || null)} /></label>
+            <label className={empStyles.label}>Stilling<input name="position" type="text" className={empStyles.input} value={addForm.position} onChange={handleAddChange} required /></label>
+            <div className={empStyles.formActions}>
+              <button type="submit" className={empStyles.saveBtn} disabled={addSaving}>{addSaving ? 'Gemmer…' : 'Tilføj medarbejder'}</button>
+            </div>
+          </form>
+        )}
       </div>
     </section>
   )

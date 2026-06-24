@@ -176,3 +176,103 @@
   font-size: 0.9rem;
   margin-bottom: 0.75rem;
 }
+
+/* Status badges */
+.statusUnread {
+  background-color: #e8f0fe;
+  color: #1a56db;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+
+.statusRead {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+
+/* Message detail modal */
+.msgModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 400;
+  padding: var(--spacing-sm);
+}
+
+.msgModal {
+  background: var(--color-white);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  max-width: 520px;
+  width: 100%;
+  position: relative;
+}
+
+.msgModalClose {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  font-size: 1.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-dark);
+  opacity: 0.6;
+}
+
+.msgModalClose:hover { opacity: 1; }
+
+.msgModalTitle {
+  font-size: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.msgModalMeta {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.msgModalBody {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* Inline form sections */
+.inlineFormSection {
+  background: var(--color-white);
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.inlineFormTitle {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+/* Status dropdown in orders */
+.statusSelect {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  background: var(--color-cream);
+  cursor: pointer;
+}

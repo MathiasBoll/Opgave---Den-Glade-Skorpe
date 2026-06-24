@@ -24,8 +24,11 @@ export default function Employees() {
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
-        <h1 className={styles.heroTitle}>Mød Holdet</h1>
-        <p className={styles.heroSub}>De mennesker der gør Den Glade Skorpe til det den er</p>
+        <h1 className={styles.heroTitle}>
+          <span>★ Den ★</span>
+          <span>Glade</span>
+          <span>Skorpe</span>
+        </h1>
       </section>
 
       <section className={styles.intro}>

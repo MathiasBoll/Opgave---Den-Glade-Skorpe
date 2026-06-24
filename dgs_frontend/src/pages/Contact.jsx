@@ -31,11 +31,16 @@ export default function Contact() {
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
-        <h1 className={styles.heroTitle}>Har du spørgsmål eller ønsker du at bestille din favoritpizza?</h1>
-        <p className={styles.heroSub}>Udfyld formularen herunder, så vender vi så hurtigt tilbage til dig. Vi glæder os til at høre fra dig!</p>
+        <h1 className={styles.heroTitle}>
+          <span>★ Den ★</span>
+          <span>Glade</span>
+          <span>Skorpe</span>
+        </h1>
       </section>
 
       <div className={styles.container}>
+        <h2 className={styles.pageHeading}>Har du spørgsmål eller ønsker du at bestille din favoritpizza?</h2>
+        <p className={styles.pageSub}>Udfyld formularen herunder, så vender vi så hurtigt tilbage til dig. Vi glæder os til at høre fra dig!</p>
         <form className={styles.form} onSubmit={handleSubmit} noValidate>
           <div className={styles.field}>
             <label className={styles.label} htmlFor="name">Navn</label>

@@ -66,8 +66,17 @@ export default function DishDetail() {
 
   return (
     <main className={styles.main}>
-      {/* Hero with circular image */}
+      {/* Full pizza bg hero — brand merges with dish name: "Den Glade [Dish Name]" */}
       <section className={styles.hero}>
+        <h1 className={styles.heroTitle}>
+          <span>★ Den ★</span>
+          <span>Glade</span>
+          <span>{dish.title}</span>
+        </h1>
+      </section>
+
+      {/* Circular dish image sits on cream bg, below the hero */}
+      <div className={styles.dishImgSection}>
         <div className={styles.imgWrap}>
           {imgSrc ? (
             <img src={imgSrc} alt={dish.title} className={styles.img} />
@@ -75,7 +84,7 @@ export default function DishDetail() {
             <div className={styles.placeholder}>🍕</div>
           )}
         </div>
-      </section>
+      </div>
 
       <div className={styles.container}>
         <button className={styles.backBtn} onClick={() => navigate(-1)}>
@@ -92,6 +101,43 @@ export default function DishDetail() {
             ))}
           </ul>
         )}
+
+        {/* Size selector */}
+        <div className={styles.sizeRow}>
+          <span className={styles.sizeLabel}>Størrelse</span>
+          <div className={styles.sizePills}>
+            <button
+              type="button"
+              className={`${styles.sizePill} ${selectedSize === 'normal' ? styles.sizePillActive : ''}`}
+              onClick={() => setSelectedSize('normal')}
+            >
+              Almindelig
+            </button>
+            {hasFamily && (
+              <button
+                type="button"
+                className={`${styles.sizePill} ${selectedSize === 'family' ? styles.sizePillActive : ''}`}
+                onClick={() => setSelectedSize('family')}
+              >
+                Familie
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Price */}
+        <div className={styles.priceRow}>
+          <span className={styles.priceLabel}>Pris</span>
+          <span className={styles.price}>{selectedPrice},-</span>
+        </div>
+
+        {/* Add to basket */}
+        <button
+          className={`${styles.addBtn} ${added ? styles.added : ''}`}
+          onClick={handleAdd}
+        >
+          {added ? '✓ Tilføjet!' : `Tilføj ${dish.title} til kurven`}
+        </button>
 
         {/* Extras toggle */}
         {ingredients.length > 0 && (
@@ -122,35 +168,6 @@ export default function DishDetail() {
             )}
           </div>
         )}
-
-        {/* Size selector */}
-        {hasFamily ? (
-          <div className={styles.sizeRow}>
-            <label className={styles.sizeLabel}>Vælg størrelse</label>
-            <select
-              className={styles.sizeSelect}
-              value={selectedSize}
-              onChange={(e) => setSelectedSize(e.target.value)}
-            >
-              <option value="normal">Almindelig</option>
-              <option value="family">Familie</option>
-            </select>
-          </div>
-        ) : null}
-
-        {/* Price */}
-        <div className={styles.priceRow}>
-          <span className={styles.priceLabel}>Pris</span>
-          <span className={styles.price}>{selectedPrice},-</span>
-        </div>
-
-        {/* Add to basket */}
-        <button
-          className={`${styles.addBtn} ${added ? styles.added : ''}`}
-          onClick={handleAdd}
-        >
-          {added ? '✓ Tilføjet!' : `Tilføj ${dish.title} til kurven`}
-        </button>
       </div>
     </main>
   )

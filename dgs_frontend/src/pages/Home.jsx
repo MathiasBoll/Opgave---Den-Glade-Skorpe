@@ -46,8 +46,11 @@ export default function Home() {
     <main className={styles.main}>
       {/* Hero */}
       <section className={styles.hero}>
-        <h1 className={styles.heroTitle}>Vores Menu</h1>
-        <p className={styles.heroSub}>Frisklavet med kærlighed — vælg din favorit</p>
+        <h1 className={styles.heroTitle}>
+          <span>★ Den ★</span>
+          <span>Glade</span>
+          <span>Skorpe</span>
+        </h1>
       </section>
 
       {/* Welcome */}

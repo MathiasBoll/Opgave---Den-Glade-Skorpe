@@ -4,7 +4,7 @@ import { useBasket } from '../context/BasketContext'
 import styles from './Header.module.css'
 
 const navLinks = [
-  { to: '/', label: 'Menu', end: true },
+  { to: '/', label: 'Forside', end: true },
   { to: '/employees', label: 'Personalet' },
   { to: '/contact', label: 'Kontakt' },
 ]
@@ -21,7 +21,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.inner}>
         <Link to="/" className={styles.logo} onClick={close}>
-          Den Glade Skorpe
+          <img src="/logo.png" alt="Den Glade Skorpe" className={styles.logoImg} />
         </Link>
 
         {/* Desktop nav */}
@@ -56,8 +56,14 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile drawer */}
-      <div className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`} aria-hidden={!open}>
+      {/* Mobile full-screen overlay */}
+      <div
+        className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`}
+        aria-hidden={!open}
+        aria-modal={open}
+        role="dialog"
+      >
+        <button className={styles.closeBtn} onClick={close} aria-label="Luk menu">✕</button>
         <nav className={styles.drawerNav}>
           {navLinks.map(({ to, label, end }) => (
             <NavLink

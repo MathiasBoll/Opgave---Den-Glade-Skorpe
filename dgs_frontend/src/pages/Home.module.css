@@ -10,7 +10,11 @@
   background-position: center;
   color: var(--color-white);
   text-align: center;
-  padding: var(--spacing-xl) var(--spacing-sm);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   position: relative;
 }
 
@@ -18,7 +22,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .heroTitle,
@@ -28,8 +32,14 @@
 }
 
 .heroTitle {
-  font-size: 4rem;
-  margin-bottom: var(--spacing-xs);
+  font-size: 3.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  line-height: 1.1;
+  color: var(--color-white);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
 }
 
 .heroSub {
