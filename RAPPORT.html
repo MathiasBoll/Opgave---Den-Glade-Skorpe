@@ -201,8 +201,8 @@
     figure img {
       display: block;
       width: 100%;
-      object-fit: cover;
-      object-position: top;
+      height: auto;
+      object-fit: unset;
     }
 
     figcaption {
@@ -237,30 +237,6 @@
       gap: 16px;
       margin: 12px 0;
       page-break-inside: avoid;
-    }
-
-    .img-mobile {
-      height: 380px;
-    }
-
-    .img-mobile-tall {
-      height: 540px;
-    }
-
-    .img-mobile-retteside {
-      height: 620px;
-    }
-
-    .img-desktop {
-      height: 440px;
-    }
-
-    .img-desktop-wide {
-      height: 480px;
-    }
-
-    .img-backoffice {
-      height: 400px;
     }
 
     /* ── Section label above content ── */
@@ -769,11 +745,11 @@ if (items.length === 0) return &lt;p className={styles.empty}&gt;Ingen retter fu
 
 <div class="grid-2" style="margin-top:12px;">
   <figure>
-    <img src="docs/screenshots/dish-detail-mobile.png" alt="Retteside – størrelsesvælger og tilføj til kurv, mobil" class="img-mobile-retteside" />
+    <img src="docs/screenshots/dish-detail-mobile.png" alt="Retteside – størrelsesvælger og tilføj til kurv, mobil" />
     <figcaption>Retteside – størrelsesvælger &amp; tilføj til kurv (mobil)</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/dish-detail-extras-mobile.png" alt="Retteside – ingredienspanel åbent, mobil" class="img-mobile-retteside" />
+    <img src="docs/screenshots/dish-detail-extras-mobile.png" alt="Retteside – ingredienspanel åbent, mobil" />
     <figcaption>Retteside – ingredienspanel åbent (alle 29 ingredienser)</figcaption>
   </figure>
 </div>
@@ -797,11 +773,11 @@ if (items.length === 0) return &lt;p className={styles.empty}&gt;Ingen retter fu
 
 <div class="grid-2" style="margin-top:12px;">
   <figure>
-    <img src="docs/screenshots/basket-mobile.png" alt="Din Kurv – mængdekontrol, mobil" class="img-mobile-tall" />
+    <img src="docs/screenshots/basket-mobile.png" alt="Din Kurv – mængdekontrol, mobil" />
     <figcaption>Kurv – mængdekontrol, extras og afgiv ordre (mobil)</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/basket-desktop.png" alt="Din Kurv – desktop" class="img-mobile-tall" />
+    <img src="docs/screenshots/basket-desktop.png" alt="Din Kurv – desktop" />
     <figcaption>Din Kurv (desktop)</figcaption>
   </figure>
 </div>
@@ -820,11 +796,11 @@ if (items.length === 0) return &lt;p className={styles.empty}&gt;Ingen retter fu
 
 <div class="grid-2" style="margin-top:12px;">
   <figure>
-    <img src="docs/screenshots/order-confirmation-mobile.png" alt="Ordrebekræftelse, mobil" class="img-mobile-tall" />
+    <img src="docs/screenshots/order-confirmation-mobile.png" alt="Ordrebekræftelse, mobil" />
     <figcaption>Ordrebekræftelse (mobil)</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/contact-mobile.png" alt="Kontaktformular, mobil" class="img-mobile-tall" />
+    <img src="docs/screenshots/contact-mobile.png" alt="Kontaktformular, mobil" />
     <figcaption>Kontaktformular (mobil)</figcaption>
   </figure>
 </div>
@@ -1082,15 +1058,15 @@ Desktop: 1440 px viewport.</p>
 
 <div class="grid-3">
   <figure>
-    <img src="docs/screenshots/menu-mobile.png" alt="Vores Menu — mobil" class="img-mobile" />
+    <img src="docs/screenshots/menu-mobile.png" alt="Vores Menu — mobil" />
     <figcaption>Vores Menu — mobil</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/menu-mobile-nav-open.png" alt="Burger-menu åben" class="img-mobile" />
+    <img src="docs/screenshots/menu-mobile-nav-open.png" alt="Burger-menu åben" />
     <figcaption>Burger-menu åben</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/employees-mobile.png" alt="Mød Holdet — mobil" class="img-mobile" />
+    <img src="docs/screenshots/employees-mobile.png" alt="Mød Holdet — mobil" />
     <figcaption>Mød Holdet — mobil</figcaption>
   </figure>
 </div>
@@ -1099,11 +1075,11 @@ Desktop: 1440 px viewport.</p>
 
 <div class="grid-2">
   <figure>
-    <img src="docs/screenshots/dish-detail-mobile.png" alt="Retteside – størrelsesvælger og tilføj til kurv" class="img-mobile-retteside" />
+    <img src="docs/screenshots/dish-detail-mobile.png" alt="Retteside – størrelsesvælger og tilføj til kurv" />
     <figcaption>Retteside – størrelsesvælger &amp; tilføj til kurv</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/dish-detail-extras-mobile.png" alt="Retteside – ingredienspanel åbent (alle 29 ingredienser)" class="img-mobile-retteside" />
+    <img src="docs/screenshots/dish-detail-extras-mobile.png" alt="Retteside – ingredienspanel åbent (alle 29 ingredienser)" />
     <figcaption>Retteside – ingredienspanel åbent (alle 29 ingredienser)</figcaption>
   </figure>
 </div>
@@ -1112,11 +1088,11 @@ Desktop: 1440 px viewport.</p>
 
 <div class="grid-2">
   <figure>
-    <img src="docs/screenshots/basket-mobile.png" alt="Kurv – mængdekontrol, extras og afgiv ordre" class="img-mobile-tall" />
+    <img src="docs/screenshots/basket-mobile.png" alt="Kurv – mængdekontrol, extras og afgiv ordre" />
     <figcaption>Kurv – mængdekontrol, extras og afgiv ordre</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/order-confirmation-mobile.png" alt="Ordrebekræftelse" class="img-mobile-tall" />
+    <img src="docs/screenshots/order-confirmation-mobile.png" alt="Ordrebekræftelse" />
     <figcaption>Ordrebekræftelse</figcaption>
   </figure>
 </div>
@@ -1125,15 +1101,15 @@ Desktop: 1440 px viewport.</p>
 
 <div class="grid-3">
   <figure>
-    <img src="docs/screenshots/contact-mobile.png" alt="Kontaktformular — mobil" class="img-mobile" />
+    <img src="docs/screenshots/contact-mobile.png" alt="Kontaktformular — mobil" />
     <figcaption>Kontaktformular — mobil</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/contact-mobile-nav-open.png" alt="Kontaktside alt" class="img-mobile" />
+    <img src="docs/screenshots/contact-mobile-nav-open.png" alt="Kontaktside alt" />
     <figcaption>Kontaktside alt</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/employees-mobile-nav-open.png" alt="Medarbejderside alt" class="img-mobile" />
+    <img src="docs/screenshots/employees-mobile-nav-open.png" alt="Medarbejderside alt" />
     <figcaption>Medarbejderside alt</figcaption>
   </figure>
 </div>
@@ -1142,19 +1118,19 @@ Desktop: 1440 px viewport.</p>
 
 <div class="grid-2-tall">
   <figure>
-    <img src="docs/screenshots/home-desktop.png" alt="Forside (desktop 1440px)" class="img-desktop-wide" />
+    <img src="docs/screenshots/home-desktop.png" alt="Forside (desktop 1440px)" />
     <figcaption>Forside (desktop 1440px)</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/menu-desktop.png" alt="Vores Menu (desktop)" class="img-desktop-wide" />
+    <img src="docs/screenshots/menu-desktop.png" alt="Vores Menu (desktop)" />
     <figcaption>Vores Menu (desktop)</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/employees-desktop.png" alt="Mød Holdet (desktop)" class="img-desktop-wide" />
+    <img src="docs/screenshots/employees-desktop.png" alt="Mød Holdet (desktop)" />
     <figcaption>Mød Holdet (desktop)</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/contact-desktop.png" alt="Kontakt Os (desktop)" class="img-desktop-wide" />
+    <img src="docs/screenshots/contact-desktop.png" alt="Kontakt Os (desktop)" />
     <figcaption>Kontakt Os (desktop)</figcaption>
   </figure>
 </div>
@@ -1163,11 +1139,11 @@ Desktop: 1440 px viewport.</p>
 
 <div class="grid-2">
   <figure>
-    <img src="docs/screenshots/basket-desktop.png" alt="Din Kurv (desktop)" class="img-desktop" />
+    <img src="docs/screenshots/basket-desktop.png" alt="Din Kurv (desktop)" />
     <figcaption>Din Kurv (desktop)</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/404-desktop.png" alt="404 – Siden findes ikke (desktop)" class="img-desktop" />
+    <img src="docs/screenshots/404-desktop.png" alt="404 – Siden findes ikke (desktop)" />
     <figcaption>404 – Siden findes ikke (desktop)</figcaption>
   </figure>
 </div>
@@ -1176,19 +1152,19 @@ Desktop: 1440 px viewport.</p>
 
 <div class="grid-2">
   <figure>
-    <img src="docs/screenshots/backoffice-employees-desktop.png" alt="Backoffice – Medarbejdere CRUD og billede-upload" class="img-backoffice" />
+    <img src="docs/screenshots/backoffice-employees-desktop.png" alt="Backoffice – Medarbejdere CRUD og billede-upload" />
     <figcaption>Backoffice – Medarbejdere CRUD &amp; billede-upload</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/backoffice-messages-desktop.png" alt="Backoffice – Beskeder fra kontaktformular" class="img-backoffice" />
+    <img src="docs/screenshots/backoffice-messages-desktop.png" alt="Backoffice – Beskeder fra kontaktformular" />
     <figcaption>Backoffice – Beskeder fra kontaktformular</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/backoffice-orders-desktop.png" alt="Backoffice – Indkomne ordrer" class="img-backoffice" />
+    <img src="docs/screenshots/backoffice-orders-desktop.png" alt="Backoffice – Indkomne ordrer" />
     <figcaption>Backoffice – Indkomne ordrer</figcaption>
   </figure>
   <figure>
-    <img src="docs/screenshots/backoffice-dishes-desktop.png" alt="Backoffice – Retter CRUD" class="img-backoffice" />
+    <img src="docs/screenshots/backoffice-dishes-desktop.png" alt="Backoffice – Retter CRUD" />
     <figcaption>Backoffice – Retter CRUD</figcaption>
   </figure>
 </div>
