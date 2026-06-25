@@ -1,3 +1,5 @@
+// Global auth-kontekst der håndterer JWT-login-tilstand for backoffice.
+// Token gemmes i localStorage (nøgle: bo_token) så login overlever sidereloads.
 import { createContext, useContext, useState } from 'react'
 import { login as apiLogin } from '../services/api'
 
@@ -16,6 +18,8 @@ export function AuthProvider({ children }) {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
+  // Logger ind mod serveren, gemmer JWT i state og localStorage.
+  // Returnerer true ved success, false ved forkerte credentials.
   async function login(email, password) {
     setLoading(true)
     setError(null)
@@ -35,6 +39,7 @@ export function AuthProvider({ children }) {
     }
   }
 
+  // Fjerner token fra state og localStorage og sender brugeren væk fra backoffice.
   function logout() {
     setToken(null)
     setUser(null)

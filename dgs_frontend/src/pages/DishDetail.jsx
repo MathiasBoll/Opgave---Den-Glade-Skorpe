@@ -1,3 +1,5 @@
+// Retteside: viser én ret med størrelsesvælger, ingredienspanel og "Læg i kurv".
+// Henter ret og alle ingredienser parallelt med Promise.all for hurtigere load.
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getDish, getIngredients } from '../services/api'
@@ -22,6 +24,9 @@ export default function DishDetail() {
 
   usePageTitle(dish?.title)
 
+  // Henter ret og ALLE ingredienser parallelt (Promise.all).
+  // Base-ingredienser præ-vælges i selectedExtras så brugeren kan fravælge.
+  // allIngredients indeholder alle 29 ingredienser — brugeren kan også tilføje nye.
   useEffect(() => {
     Promise.all([getDish(id), getIngredients()])
       .then(([data, ingData]) => {
@@ -36,18 +41,23 @@ export default function DishDetail() {
       .finally(() => setLoading(false))
   }, [id])
 
+  // Beregner prisen ud fra valgt størrelse.
+  // Family-pris bruges kun hvis retten har en family-pris defineret.
   const selectedPrice = dish
     ? selectedSize === 'family' && dish.price?.family
       ? dish.price.family
       : dish.price?.normal
     : 0
 
+  // Slår en ingrediens til/fra i selectedExtras-arrayet
   function toggleExtra(name) {
     setSelectedExtras((prev) =>
       prev.includes(name) ? prev.filter((e) => e !== name) : [...prev, name]
     )
   }
 
+  // Bygger kurv-objektet og tilføjer det til BasketContext.
+  // basketKey kombinerer ret-id og størrelse så Normal og Familie er separate linjer.
   function handleAdd() {
     addItem({
       ...dish,

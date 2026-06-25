@@ -1,4 +1,6 @@
-﻿import { useState } from 'react'
+﻿// Kurv-side: viser kurv-indhold fra BasketContext med mængdekontrol.
+// Ordrens data postes til serveren og kurven tømmes ved success.
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useBasket } from '../context/BasketContext'
 import { postOrder } from '../services/api'
@@ -15,6 +17,8 @@ export default function Basket() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
 
+  // Bygger ordre-payload og poster til POST /order.
+  // Ved success: tøm kurven og naviger til ordrebekræftelse.
   async function handleOrder(e) {
     e.preventDefault()
     setSubmitting(true)

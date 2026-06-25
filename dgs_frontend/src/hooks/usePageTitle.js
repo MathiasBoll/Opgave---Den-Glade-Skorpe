@@ -1,3 +1,6 @@
+// Custom hook der sætter document.title dynamisk pr. side.
+// Format: "<title> — Den Glade Skorpe" — bruges til korrekt SEO og fane-tekst.
+// Cleanup-funktionen nulstiller titlen når komponenten unmountes.
 import { useEffect } from 'react'
 
 export function usePageTitle(title) {

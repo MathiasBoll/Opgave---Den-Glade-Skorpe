@@ -1,3 +1,5 @@
+// Rutebeskytter-komponent: tjekker om et gyldigt JWT-token findes i AuthContext.
+// Mangler token — omdiriger til /backoffice/login uden at efterlade browser-historik.
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 

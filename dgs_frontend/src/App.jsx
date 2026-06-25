@@ -1,4 +1,6 @@
-﻿import { BrowserRouter, Routes, Route } from 'react-router-dom'
+﻿// Rod-komponent: definerer alle ruter og wrapper dem i context-providers.
+// AuthProvider skal være øverst så BasketContext kan bruge auth-token hvis nødvendigt.
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { BasketProvider } from './context/BasketContext'
 import { AuthProvider } from './context/AuthContext'
 import Header from './components/Header'
@@ -21,6 +23,7 @@ import BackofficeMessages from './pages/backoffice/BackofficeMessages'
 import BackofficeOrders from './pages/backoffice/BackofficeOrders'
 import BackofficeDishes from './pages/backoffice/BackofficeDishes'
 
+// Layout-wrapper til offentlige sider: sætter Header og Footer om sidens indhold.
 function PublicLayout({ children }) {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
