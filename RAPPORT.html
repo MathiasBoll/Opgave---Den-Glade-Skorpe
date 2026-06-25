@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Den Glade Skorpe — Fagprøverapport — Mathias Boll</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+    @page {
+      size: A4;
+      margin: 2.2cm 2cm 2.5cm 2cm;
+      @top-center {
+        content: "DEN GLADE SKORPE \00B7 FAGPR\00D8VERAPPORT \00B7 MATHIAS BOLL \00B7 WEBH125-2";
+        font-size: 7.5px;
+        color: #aaa;
+        letter-spacing: 0.04em;
+      }
+      @bottom-center {
+        content: counter(page) " / " counter(pages);
+        font-size: 7.5px;
+        color: #aaa;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: "Segoe UI", "Inter", Arial, Helvetica, sans-serif;
+      font-size: 10.5pt;
+      line-height: 1.7;
+      color: #222;
+      background: #fff;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* ── Title block ── */
+    h1 {
+      font-size: 28pt;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.15em 0;
+      padding: 0;
+      border: none;
+      line-height: 1.15;
+    }
+
+    /* ── Section headings ── */
+    h2 {
+      font-size: 13pt;
+      font-weight: 700;
+      color: #fff;
+      background: #4A4A4A;
+      padding: 6px 14px;
+      border-radius: 4px;
+      margin: 2.2em 0 0.7em 0;
+      page-break-after: avoid;
+      letter-spacing: 0.01em;
+    }
+
+    h3 {
+      font-size: 11pt;
+      font-weight: 600;
+      color: #4A4A4A;
+      margin: 1.5em 0 0.4em 0;
+      padding-bottom: 3px;
+      border-bottom: 1.5px solid #e8e3e0;
+      page-break-after: avoid;
+    }
+
+    h4 {
+      font-weight: 600;
+      color: #555;
+      margin: 1.1em 0 0.3em 0;
+      page-break-after: avoid;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 8.5pt;
+    }
+
+    /* ── Code ── */
+    code {
+      font-family: "Consolas", "Cascadia Code", "Courier New", monospace;
+      font-size: 8.5pt;
+      background: #f3f2f0;
+      padding: 2px 5px;
+      border-radius: 3px;
+      color: #b5340c;
+    }
+
+    pre {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-family: "Consolas", "Cascadia Code", "Courier New", monospace;
+      font-size: 8pt;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-all;
+      page-break-inside: avoid;
+      margin: 0.8em 0;
+    }
+
+    pre code {
+      background: none;
+      color: #d4d4d4;
+      padding: 0;
+      border-radius: 0;
+      font-size: inherit;
+    }
+
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.9em 0 1.2em 0;
+      font-size: 9.5pt;
+      page-break-inside: avoid;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    thead tr {
+      background: #4A4A4A;
+    }
+
+    th {
+      color: #fff;
+      padding: 8px 13px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 9pt;
+      letter-spacing: 0.02em;
+    }
+
+    td {
+      padding: 6px 13px;
+      border-bottom: 1px solid #ece9e6;
+      vertical-align: top;
+      color: #333;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #faf8f7; }
+
+    /* ── Links ── */
+    a {
+      color: #4A4A4A;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+
+    /* ── Horizontal rules ── */
+    hr {
+      border: none;
+      border-top: 1px solid #e0dbd8;
+      margin: 1.8em 0;
+    }
+
+    /* ── Lists ── */
+    ul, ol {
+      padding-left: 1.5em;
+      margin: 0.4em 0 0.8em 0;
+    }
+
+    li { margin-bottom: 0.25em; }
+
+    /* ── Bold / inline ── */
+    strong { font-weight: 600; color: #111; }
+    em { color: #555; }
+
+    /* ── Blockquote ── */
+    blockquote {
+      border-left: 3px solid #c8c0bb;
+      margin: 0 0 1em 0;
+      padding: 6px 14px;
+      color: #666;
+      background: #faf8f7;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* ── Figures / screenshots ── */
+    figure {
+      margin: 0;
+      page-break-inside: avoid;
+      background: #f8f6f4;
+      border: 1px solid #e0dbd8;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    figcaption {
+      font-size: 8pt;
+      color: #666;
+      text-align: center;
+      padding: 5px 8px 7px;
+      background: #f0ece9;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Screenshot grids ── */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin: 12px 0;
+      page-break-inside: avoid;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 12px 0;
+      page-break-inside: avoid;
+    }
+
+    .grid-2-tall {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 12px 0;
+      page-break-inside: avoid;
+    }
+
+    .img-mobile {
+      height: 320px;
+    }
+
+    .img-mobile-tall {
+      height: 480px;
+    }
+
+    .img-mobile-retteside {
+      height: 560px;
+    }
+
+    .img-desktop {
+      height: 380px;
+    }
+
+    .img-desktop-wide {
+      height: 420px;
+    }
+
+    .img-backoffice {
+      height: 340px;
+    }
+
+    /* ── Section label above content ── */
+    .section-intro {
+      background: #faf8f6;
+      border-left: 3px solid #4A4A4A;
+      padding: 8px 14px;
+      margin-bottom: 1em;
+      border-radius: 0 4px 4px 0;
+      font-size: 9.5pt;
+      color: #555;
+    }
+
+    /* ── Title block meta ── */
+    .title-block {
+      margin-bottom: 2rem;
+    }
+
+    .title-block .meta {
+      margin-top: 0.5rem;
+      font-size: 10pt;
+      color: #555;
+      line-height: 1.9;
+    }
+
+    /* ── TOC ── */
+    .toc ol {
+      font-size: 10.5pt;
+    }
+
+    .toc li {
+      margin-bottom: 0.3em;
+    }
+
+    /* ── Print ── */
+    @media print {
+      body {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      h2, h3, h4 { page-break-after: avoid; }
+      figure, table, pre { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     TITLE BLOCK
+══════════════════════════════════════════════════════════ -->
+<div class="title-block">
+  <h1>Den Glade Skorpe</h1>
+  <p style="font-size:16pt;font-weight:600;color:#4A4A4A;margin:0 0 0.8em 0;">Fagprøverapport</p>
+  <div class="meta">
+    <strong>Opgavenavn:</strong> Den Glade Skorpe<br />
+    <strong>Navn:</strong> Mathias Boll<br />
+    <strong>Hold:</strong> WebH125-2<br />
+    <strong>Skole:</strong> Media College Denmark<br />
+    <strong>Afleveringsdato:</strong> 26-06-2026<br />
+    <strong>Fremlæggelse:</strong> Uge 32–35 (3. aug – 30. aug 2026)
+  </div>
+</div>
+
+<hr />
+
+<!-- ══════════════════════════════════════════════════════════
+     ERKLÆRING
+══════════════════════════════════════════════════════════ -->
+<h2 id="erklaering">Erklæring</h2>
+
+<p>Jeg bekræfter hermed, at denne opgave er udarbejdet af mig selv, og at jeg ikke har afleveret den eller dele af den til vurdering ved andre eksaminer. Jeg har angivet alle anvendte kilder og hjælpemidler, herunder AI-assisterede værktøjer.</p>
+
+<p><em>Mathias Boll — 26-06-2026</em></p>
+
+<hr />
+
+<!-- ══════════════════════════════════════════════════════════
+     INDHOLDSFORTEGNELSE
+══════════════════════════════════════════════════════════ -->
+<h2 id="indholdsfortegnelse">Indholdsfortegnelse</h2>
+
+<div class="toc">
+  <ol>
+    <li><a href="#1-vurdering-af-egen-indsats">Vurdering af egen indsats</a></li>
+    <li><a href="#2-tidsplan-og-proces">Tidsplan og proces</a></li>
+    <li><a href="#3-tech-stack">Tech stack</a></li>
+    <li><a href="#4-faglige-valg-og-dokumentation">Faglige valg og dokumentation</a></li>
+    <li><a href="#5-designbeslutninger-og-afvigelser-fra-figma">Designbeslutninger og afvigelser fra Figma</a></li>
+    <li><a href="#6-tilvalgsopgaver">Tilvalgsopgaver</a></li>
+    <li><a href="#7-anvendelse-af-tredjepart-og-ai">Anvendelse af tredjepart og AI</a></li>
+    <li><a href="#8-testoplysninger">Testoplysninger</a></li>
+    <li><a href="#9-saerlige-punkter-til-bedoemmelse">Særlige punkter til bedømmelse</a></li>
+    <li><a href="#10-bilag">Bilag</a></li>
+  </ol>
+</div>
+
+<hr />
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 1 — VURDERING AF EGEN INDSATS
+══════════════════════════════════════════════════════════ -->
+<h2 id="1-vurdering-af-egen-indsats">1. Vurdering af egen indsats</h2>
+
+<h3>Hvad gik godt</h3>
+
+<p>Jeg er overordnet tilfreds med resultatet. Det lykkedes mig at bygge en komplet, mobilvenlig webapplikation med et sammenhængende brugerflow fra forside til afgivet ordre. Alle obligatoriske krav er implementeret, og jeg nåede at gennemføre samtlige 7 tilvalgsopgaver — også authentication og POST af ordrer til serveren.</p>
+
+<p>Det, jeg er mest stolt af, er den røde tråd i brugeroplevelsen: en bruger kan gå fra forsiden, vælge en ret, tilpasse ingredienserne, vælge størrelse, lægge den i kurven og afgive en ordre — alt i én sammenhængende, intuitiv rækkefølge uden tekniske fejl.</p>
+
+<p>Komponentstrukturen er overskuelig og genbrugelig. <code>DishCard</code> bruges på forsiden, CSS Modules holder styling-scope rent pr. komponent, og <code>BasketContext</code> fungerer pålideligt som global tilstandsstyring med localStorage-persistens.</p>
+
+<p>Responsiviteten fungerer godt i alle testede skærmstørrelser — fra 320px (lille Android) til 2560px (ultrawide monitor) — og mobiludgaven er tydeligt prioriteret som primær platform.</p>
+
+<h3>Hvad var udfordrende</h3>
+
+<p><strong>MongoDB-felter og API-envelope:</strong> Serveren returnerede data i formatet <code>{ status, message, data: [...] }</code>. Jeg opdagede undervejs, at visse endpoints returnerede direkte arrays mens andre brugte <code>.data</code>-wrapperen. Det krævede grundig gennemlæsning af routekoden og systematisk test i Postman for at afstemme.</p>
+
+<p><strong>FormData til billedupload:</strong> Backoffice medarbejder- og retteopret bruger <code>multipart/form-data</code> fordi der skal uploades billeder. <code>fetch</code> skal have <code>Content-Type</code> udeladt — browseren sætter den automatisk med korrekt boundary. Det er ikke intuitivt og kostede fejlretning.</p>
+
+<p><strong>JWT-auth-flow:</strong> Selvom auth er valgfrit, valgte jeg at implementere det. Det kræver at tokenet gemmes korrekt i <code>localStorage</code>, sendes som <code>Authorization: ******;token&gt;</code> header på beskyttede endpoints, og at frontend håndterer 401-svar ved at logge ud og sende brugeren til login.</p>
+
+<p><strong>Hero-højde på mobil:</strong> Det originale Figma-design har en hero der fylder <code>100svh</code> på alle enheder. På mobil betød det at brugeren ikke kunne se indhold "above the fold". Jeg reducerede til 55svh (mobil), 65svh (tablet), 100svh (desktop) — se <a href="#5-designbeslutninger-og-afvigelser-fra-figma">afsnit 5</a>.</p>
+
+<h3>Hvad ville jeg gøre anderledes</h3>
+
+<p>Jeg ville kortlægge alle API-endpointernes eksakte responsformat (wrapped/ikke-wrapped) i en tabel inden integrationen begyndte. Det ville have sparet fejlretningstid.</p>
+
+<p>Jeg ville også gennemgå Figma-designet for alle sider systematisk fra start — inklusive backoffice-frames — frem for én side ad gangen.</p>
+
+<h3>Faglig udvikling</h3>
+
+<p>Projektet har givet mig solid erfaring med:</p>
+<ul>
+  <li>End-to-end React-applikationsarkitektur (kontekst, routing, service-lag)</li>
+  <li>Arbejde mod et rigtigt REST API med auth og filupload</li>
+  <li>Mobile-first CSS med CSS Modules og custom design tokens</li>
+  <li>Git-disciplin: hyppige, beskrivende commits og GitHub Issues som projektstyringsværktøj</li>
+</ul>
+
+<hr />
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 2 — TIDSPLAN OG PROCES
+══════════════════════════════════════════════════════════ -->
+<h2 id="2-tidsplan-og-proces">2. Tidsplan og proces</h2>
+
+<p>Projektet er styret via <strong>GitHub Issues</strong> og <strong>GitHub Projects</strong> (Kanban-board). Alle opgaver er oprettet som issues med labels, estimater og beskrivelser inden arbejdet begyndte.</p>
+
+<p>GitHub repository: <a href="https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe">https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe</a></p>
+
+<h3>Dagsoversigt</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dag</th>
+      <th>Aktiviteter</th>
+      <th>Tid</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dag 1 — Planlægning</td>
+      <td>Gennemlæsning af kravspec, Figma-studium, oprettelse af GitHub Issues #1–#16 (mandatory) og #17–#20 (optional)</td>
+      <td>~2 t</td>
+    </tr>
+    <tr>
+      <td>Dag 2 — Projektopsætning</td>
+      <td>Vite-projekt, React Router v6, CSS variables, fonts, header, footer, grundlæggende routes</td>
+      <td>~3 t</td>
+    </tr>
+    <tr>
+      <td>Dag 3 — Forside + retteside</td>
+      <td>DishCard-komponent, kategorifilter (GET /categories), dynamisk filtrering uden reload, /dish/:id med størrelsesvælger</td>
+      <td>~4 t</td>
+    </tr>
+    <tr>
+      <td>Dag 4 — Kurv + bestilling</td>
+      <td>BasketContext med localStorage, Basket-side, mængdekontrol, postOrder til /order, OrderConfirmation-side</td>
+      <td>~3 t</td>
+    </tr>
+    <tr>
+      <td>Dag 5 — Personale + kontakt</td>
+      <td>Employees-side med GET /employees, ContactForm med validering og POST /message, ContactConfirmation</td>
+      <td>~2 t</td>
+    </tr>
+    <tr>
+      <td>Dag 6 — Backoffice</td>
+      <td>BackofficeLogin, AuthContext + JWT, RequireAuth, BackofficeEmployees CRUD med billede-upload</td>
+      <td>~4 t</td>
+    </tr>
+    <tr>
+      <td>Dag 7 — Backoffice tilvalg</td>
+      <td>BackofficeMessages, BackofficeOrders, BackofficeDishes CRUD</td>
+      <td>~2 t</td>
+    </tr>
+    <tr>
+      <td>Dag 8 — API-fejlretning</td>
+      <td>Response-envelope mismatch, FormData-håndtering, endpoints verificeret i Postman</td>
+      <td>~3 t</td>
+    </tr>
+    <tr>
+      <td>Dag 9 — UX-polish</td>
+      <td>404-side, loading/error/empty states, document.title hooks, responsivt CSS (alle breakpoints)</td>
+      <td>~2 t</td>
+    </tr>
+    <tr>
+      <td>Dag 10 — Tilvalg + rapport</td>
+      <td>Extra ingredienser (pill-chip), pizza-ikon badge, mængdekontrol i kurv, designfixes, RAPPORT.md</td>
+      <td>~2 t</td>
+    </tr>
+    <tr>
+      <td><strong>Total</strong></td>
+      <td></td>
+      <td><strong>~27 t</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Estimat vs. faktisk tid</h3>
+
+<p>Overordnet holdt estimaterne. De faser der tog længere:</p>
+<ul>
+  <li><strong>API-fejlretning</strong> (+1 t) — Mismatch i response-format på tværs af endpoints</li>
+  <li><strong>Auth-flow</strong> (+1 t) — JWT-headers, 401-håndtering og token-persistens krævede mere end forventet</li>
+</ul>
+
+<h3>Projektstyringsværktøj</h3>
+
+<p>Alle tasks tracket som GitHub Issues — se: <a href="https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe/issues">https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe/issues</a></p>
+
+<p>Issues fordelt i grupper:</p>
+<ul>
+  <li><strong>Mandatory</strong> — #4–#16</li>
+  <li><strong>Optional</strong> — #17–#20</li>
+  <li><strong>Fixes/polish</strong> — #24–#41</li>
+</ul>
+
+<hr />
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 3 — TECH STACK
+══════════════════════════════════════════════════════════ -->
+<h2 id="3-tech-stack">3. Tech stack</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Teknologi</th>
+      <th>Rolle</th>
+      <th>Begrundelse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>React 18</strong></td>
+      <td>UI-framework</td>
+      <td>Komponent-baseret arkitektur matcher kravene om genanvendelige komponenter. Hooks giver ren tilstandsstyring.</td>
+    </tr>
+    <tr>
+      <td><strong>Vite</strong></td>
+      <td>Bundler og dev-server</td>
+      <td>Hurtig HMR vs. CRA. Officielt anbefalet til nye React-projekter.</td>
+    </tr>
+    <tr>
+      <td><strong>React Router v6</strong></td>
+      <td>Klient-routing</td>
+      <td>Deklarativ routing. <code>RequireAuth</code>-wrapper beskytter backoffice-routes. <code>useNavigate</code> og <code>useParams</code> bruges i flow.</td>
+    </tr>
+    <tr>
+      <td><strong>CSS Modules</strong></td>
+      <td>Scoped styling</td>
+      <td>Automatisk navne-scoping forhindrer stilklasser i at lække på tværs af komponenter. Ren CSS — ingen ekstra dependency.</td>
+    </tr>
+    <tr>
+      <td><strong>@fontsource</strong></td>
+      <td>Lokale fonts</td>
+      <td>Just Another Hand og Kurale indlæses lokalt. Ingen Google Fonts CDN-request — hurtigere og ingen GDPR-problematik.</td>
+    </tr>
+    <tr>
+      <td><strong>Node.js + Express</strong></td>
+      <td>Backend API</td>
+      <td>Udleveret — bruges som-is</td>
+    </tr>
+    <tr>
+      <td><strong>MongoDB + Mongoose</strong></td>
+      <td>Database</td>
+      <td>Udleveret — fleksibelt dokumentschema</td>
+    </tr>
+    <tr>
+      <td><strong>Multer</strong></td>
+      <td>Billedupload</td>
+      <td>Udleveret — håndterer multipart/form-data</td>
+    </tr>
+    <tr>
+      <td><strong>bcryptjs</strong></td>
+      <td>Password-hashing</td>
+      <td>Udleveret</td>
+    </tr>
+    <tr>
+      <td><strong>JSON Web Tokens</strong></td>
+      <td>Auth</td>
+      <td>Udleveret — stateless JWT gemt i localStorage, sendt som Bearer-header</td>
+    </tr>
+    <tr>
+      <td><strong>Postman</strong></td>
+      <td>API-testning</td>
+      <td>Verificering af alle endpoints manuelt inden frontend-integration</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Valg: CSS Modules frem for Tailwind/Sass</h3>
+
+<p>Opgavebeskrivelsen kræver "overskuelig mappestruktur og læsbar kode". CSS Modules opfylder dette: styling er samlokaliseret med komponenten i en <code>.module.css</code>-fil, klasserne er scoped automatisk, og der er ingen build-overhead. Sass ville give nesting men ingen scope-fordel. Tailwind ville gøre JSX sværere at læse ved en mundtlig gennemgang.</p>
+
+<hr />
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 4 — FAGLIGE VALG OG DOKUMENTATION
+══════════════════════════════════════════════════════════ -->
+<h2 id="4-faglige-valg-og-dokumentation">4. Faglige valg og dokumentation</h2>
+
+<h3>4.1 Mappestruktur og komponentarkitektur</h3>
+
+<pre><code>dgs_frontend/src/
+├── components/       ← Delte: Header, Footer, DishCard, RequireAuth
+├── context/          ← Global tilstand: BasketContext, AuthContext
+├── hooks/            ← Custom hooks: usePageTitle
+├── pages/            ← Én fil pr. route
+│   ├── Home.jsx + Home.module.css
+│   ├── DishDetail.jsx + DishDetail.module.css
+│   ├── Employees.jsx + Employees.module.css
+│   ├── Contact.jsx + Contact.module.css
+│   ├── Basket.jsx + Basket.module.css
+│   └── backoffice/
+│       ├── Backoffice.jsx          ← Shell med sidebar-nav
+│       ├── BackofficeEmployees.jsx
+│       ├── BackofficeMessages.jsx
+│       ├── BackofficeOrders.jsx
+│       └── BackofficeDishes.jsx
+├── services/
+│   └── api.js        ← Centralt API-lag (alle fetch-kald)
+└── styles/
+    ├── variables.css ← CSS custom properties
+    └── global.css    ← Reset og body-styles</code></pre>
+
+<p><code>services/api.js</code> er det eneste sted der laves <code>fetch</code>-kald. Ændres API-URL'en, ændres den kun ét sted.</p>
+
+<h3>4.2 Design tokens (CSS custom properties)</h3>
+
+<pre><code>:root {
+  --color-dark:    #4A4A4A;  /* header, footer, knapper */
+  --color-cream:   #F6F0EE;  /* sektion- og kortbaggrunde */
+  --color-white:   #ffffff;
+  --font-heading:  'Just Another Hand', cursive;
+  --font-body:     'Kurale', serif;
+  --max-width:     1200px;
+  --border-radius: 8px;
+  --spacing-xs:    0.5rem;
+  --spacing-sm:    1rem;
+  --spacing-md:    1.5rem;
+  --spacing-lg:    2rem;
+  --spacing-xl:    3rem;
+}</code></pre>
+
+<p>Ændres <code>--color-dark</code> opdateres samtlige knapper, header, footer og ingrediens-pills automatisk.</p>
+
+<h3>4.3 Mobile-first og breakpoints</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Breakpoint</th>
+      <th>Target</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Standard (ingen query)</td>
+      <td>375px smartphones</td>
+    </tr>
+    <tr>
+      <td><code>max-width: 374px</code></td>
+      <td>320px (gamle iPhones)</td>
+    </tr>
+    <tr>
+      <td><code>min-width: 768px</code></td>
+      <td>Tablets</td>
+    </tr>
+    <tr>
+      <td><code>min-width: 1024px</code></td>
+      <td>Laptop/desktop</td>
+    </tr>
+    <tr>
+      <td><code>min-width: 1440px</code></td>
+      <td>Store skærme</td>
+    </tr>
+    <tr>
+      <td><code>min-width: 2560px</code></td>
+      <td>Ultrawide/4K</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Eksempel — Forside grid skalerer fra 2–3 kolonner (mobil) til 6 kolonner (ultrawide) udelukkende via CSS.</p>
+
+<h3>4.4 Kurv med localStorage og React Context</h3>
+
+<p><code>BasketContext</code> giver Header, DishDetail og Basket adgang til samme kurvtilstand uden prop-drilling.</p>
+
+<p>Nøglebeslutninger:</p>
+<ul>
+  <li><code>basketKey = "${_id}-${selectedSize}"</code> — Normal og Familie af samme ret er separate kurvelinjer</li>
+  <li>localStorage under nøglen <code>dgs_basket</code> — kurven overlever sidereloads</li>
+  <li><code>updateQuantity(key, 0)</code> kalder automatisk <code>removeItem</code> — ingen ekstra logik ved 0</li>
+  <li><code>count</code> (sum af quantity) drives kurv-badge i Header</li>
+</ul>
+
+<pre><code>function addItem(dish) {
+  setItems((prev) =&gt; {
+    const existing = prev.find((i) =&gt; i.basketKey === dish.basketKey)
+    if (existing) {
+      return prev.map((i) =&gt;
+        i.basketKey === dish.basketKey ? { ...i, quantity: i.quantity + 1 } : i
+      )
+    }
+    return [...prev, { ...dish, quantity: 1 }]
+  })
+}</code></pre>
+
+<h3>4.5 Centralt API-lag (services/api.js)</h3>
+
+<pre><code>const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
+
+async function request(path, options = {}) {
+  const res = await fetch(`${BASE_URL}${path}`, options)
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  return res.json()
+}
+
+export const getDishes      = () =&gt; request('/dishes').then((r) =&gt; r.data)
+export const getDish        = (id) =&gt; request(`/dish/${id}`).then((r) =&gt; r.data)
+export const getEmployees   = () =&gt; request('/employees').then((r) =&gt; r.data)
+export const getIngredients = () =&gt; request('/ingredients').then((r) =&gt; r.data)
+export const postOrder      = (body) =&gt; request('/order', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(body),
+})</code></pre>
+
+<h3>4.6 Authentication (backoffice)</h3>
+
+<p>Alle <code>/backoffice</code>-routes er pakket i <code>RequireAuth</code>:</p>
+
+<pre><code>&lt;Route path="/backoffice" element={&lt;RequireAuth&gt;&lt;Backoffice /&gt;&lt;/RequireAuth&gt;}&gt;
+  &lt;Route index element={&lt;BackofficeEmployees /&gt;} /&gt;
+  &lt;Route path="employees" element={&lt;BackofficeEmployees /&gt;} /&gt;
+  &lt;Route path="messages" element={&lt;BackofficeMessages /&gt;} /&gt;
+  &lt;Route path="orders" element={&lt;BackofficeOrders /&gt;} /&gt;
+  &lt;Route path="dishes" element={&lt;BackofficeDishes /&gt;} /&gt;
+&lt;/Route&gt;</code></pre>
+
+<p>Flow: Login → <code>POST /auth/signin</code> → JWT-token → gemmes i localStorage → redirect til <code>/backoffice</code>. <code>USE_JWT=false</code> i <code>.env.local</code> deaktiverer krav under udvikling.</p>
+
+<h3>4.7 Loading-, error- og empty states</h3>
+
+<p>Alle sider med API-kald implementerer tre tilstande konsekvent:</p>
+
+<pre><code>if (loading) return &lt;main&gt;&lt;p className={styles.status}&gt;Henter retter…&lt;/p&gt;&lt;/main&gt;
+if (error)   return &lt;main&gt;&lt;p className={styles.status}&gt;Noget gik galt: {error}&lt;/p&gt;&lt;/main&gt;
+if (items.length === 0) return &lt;p className={styles.empty}&gt;Ingen retter fundet.&lt;/p&gt;</code></pre>
+
+<h3>4.8 SEO og tilgængelighed</h3>
+
+<ul>
+  <li><code>usePageTitle(title)</code> — custom hook sætter <code>document.title</code> dynamisk på alle sider</li>
+  <li>Semantisk HTML — <code>&lt;main&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code></li>
+  <li><code>aria-label</code> på burger-knap og luk-knap i mobilmenuen</li>
+  <li><code>alt</code>-tekst på alle billeder</li>
+  <li>Kontrast — hvid tekst på <code>#4A4A4A</code> giver tilstrækkelig ratio</li>
+  <li><code>overflow-x: hidden</code> på <code>html</code> og <code>body</code> forhindrer vandret scroll på mobil</li>
+</ul>
+
+<hr />
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 5 — DESIGNBESLUTNINGER OG AFVIGELSER FRA FIGMA
+══════════════════════════════════════════════════════════ -->
+<h2 id="5-designbeslutninger-og-afvigelser-fra-figma">5. Designbeslutninger og afvigelser fra Figma</h2>
+
+<p class="section-intro">Designet er fulgt så tæt som muligt. Alle afvigelser er begrundede med forbedret brugeroplevelse, tilgængelighed eller funktionalitet — som tilladt i opgavebeskrivelsen.</p>
+
+<h3>5.1 Hero-højde på mobil (DishDetail)</h3>
+
+<p><strong>Figma:</strong> Hero fylder <code>100svh</code> på alle enheder.</p>
+<p><strong>Implementeret:</strong> 55svh (telefon) · 65svh (tablet) · 100svh (desktop).</p>
+<p><strong>Begrundelse:</strong> En fuld-skærms hero på mobil skjuler alt indhold "below the fold" — brugeren ser hverken ingredienser, størrelsesvælger eller "Tilføj til kurv" knap uden at scrolle. 55svh signalerer det visuelle udtryk og lader brugeren se at der er mere at scrolle til.</p>
+
+<pre><code>.hero { min-height: 55svh; }
+@media (min-width: 768px)  { .hero { min-height: 65svh; } }
+@media (min-width: 1024px) { .hero { min-height: 100svh; } }</code></pre>
+
+<div class="grid-2" style="margin-top:12px;">
+  <figure>
+    <img src="docs/screenshots/dish-detail-mobile.png" alt="Retteside – størrelsesvælger og tilføj til kurv, mobil" class="img-mobile-retteside" />
+    <figcaption>Retteside – størrelsesvælger &amp; tilføj til kurv (mobil)</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/dish-detail-extras-mobile.png" alt="Retteside – ingredienspanel åbent, mobil" class="img-mobile-retteside" />
+    <figcaption>Retteside – ingredienspanel åbent (alle 29 ingredienser)</figcaption>
+  </figure>
+</div>
+
+<h3>5.2 Ingredient-toggle: pill-chip grid frem for simpel liste</h3>
+
+<p><strong>Figma:</strong> Ingredienspanelet viser en lodret liste med check-bokse.</p>
+<p><strong>Implementeret:</strong> Flex-wrap pill-chip grid. Tre visuelle tilstande:</p>
+<ul>
+  <li>Mørk udfyldt pill (✓) — ingrediens er valgt</li>
+  <li>Outlined med gennemstregning — basisingrediens fravalgt</li>
+  <li>Outlined normal — ekstra ingrediens klar til at tilføjes</li>
+</ul>
+<p><strong>Begrundelse:</strong> 29 ingredienser i en lodret liste er svær at scanne. Pill-grid er kompakt og giver hurtig visuel feedback. Implementeringen er mere ambitiøs end Figma-eksemplet: vi henter <strong>alle 29 ingredienser fra serveren</strong> (<code>GET /ingredients</code>) med <code>Promise.all</code>, så brugeren kan tilføje noget der ikke er på pizzaen i forvejen — ikke kun fjerne basisingredienser.</p>
+
+<h3>5.3 Kurv: mængdekontrol (−/antal/+)</h3>
+
+<p><strong>Figma:</strong> Kurvsiden viser kun navn, pris og "Fjern"-knap.</p>
+<p><strong>Implementeret:</strong> <code>[−] [antal] [+]  Fjern</code> pr. kurvelinje.</p>
+<p><strong>Begrundelse:</strong> Standard UX i alle webshops. Opgavebeskrivelsen kræver "intuitiv interaktion og tydelig feedback" — mængdekontrol opfylder begge uden at brugeren skal tilbage til menuen.</p>
+
+<div class="grid-2" style="margin-top:12px;">
+  <figure>
+    <img src="docs/screenshots/basket-mobile.png" alt="Din Kurv – mængdekontrol, mobil" class="img-mobile-tall" />
+    <figcaption>Kurv – mængdekontrol, extras og afgiv ordre (mobil)</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/basket-desktop.png" alt="Din Kurv – desktop" class="img-mobile-tall" />
+    <figcaption>Din Kurv (desktop)</figcaption>
+  </figure>
+</div>
+
+<h3>5.4 Kurv-badge: pizza-ikon frem for tekst</h3>
+
+<p><strong>Figma:</strong> "Kurv" som tekstlink med tal-badge.</p>
+<p><strong>Implementeret:</strong> Logo-billedet (<code>logo.png</code>) som cirkulær pizza-ikon med count-badge overlay.</p>
+<p><strong>Begrundelse:</strong> Et ikon kommunikerer formålet hurtigere end tekst, bruger mindre plads i nav-baren, og er konsistent med pizzeriaets brand-visual.</p>
+
+<h3>5.5 Bekræftelsessider: fuld-skærms pizza-baggrund</h3>
+
+<p><strong>Figma:</strong> Hvide kort-modaler ved order/kontakt-bekræftelse.</p>
+<p><strong>Implementeret:</strong> Dedikerede sider (<code>/order-confirmation</code>, <code>/contact/tak</code>) med pizza-headerbilledet som fuld-skærms baggrund og hvid tekst.</p>
+<p><strong>Begrundelse:</strong> En dedikeret route er mere stabil end en modal (ingen scroll-position-problemer), og den visuelle "brand moment" med pizza-baggrunden matcher sitedesignet bedre end et hvidt kort.</p>
+
+<div class="grid-2" style="margin-top:12px;">
+  <figure>
+    <img src="docs/screenshots/order-confirmation-mobile.png" alt="Ordrebekræftelse, mobil" class="img-mobile-tall" />
+    <figcaption>Ordrebekræftelse (mobil)</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/contact-mobile.png" alt="Kontaktformular, mobil" class="img-mobile-tall" />
+    <figcaption>Kontaktformular (mobil)</figcaption>
+  </figure>
+</div>
+
+<hr />
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 6 — TILVALGSOPGAVER
+══════════════════════════════════════════════════════════ -->
+<h2 id="6-tilvalgsopgaver">6. Tilvalgsopgaver</h2>
+
+<p>Alle 7 tilvalgsopgaver er implementeret (minimum 1 krævet).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nr.</th>
+      <th>Tilvalg</th>
+      <th>Status</th>
+      <th>Detaljer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Responsivt desktop-layout (&gt;1024px)</td>
+      <td>✅</td>
+      <td>Breakpoints ved 768/1024/1440/2560px. Grid: 3-kol mobil → 6-kol ultrawide.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Extra ingredienser på retteside</td>
+      <td>✅</td>
+      <td>Promise.all henter dish + alle 29 ingredienser parallelt. Pill-chip grid, 3 tilstande, selectedExtras gemmes i kurv.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Backoffice: Retter CRUD</td>
+      <td>✅</td>
+      <td>Opret/rediger/slet med billede-upload via FormData. Kategori og ingredienser kan sættes.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Backoffice: Beskeder</td>
+      <td>✅</td>
+      <td>Viser alle beskeder fra kontaktformularen, sletning understøttes.</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Backoffice: Ordrer</td>
+      <td>✅</td>
+      <td>Viser alle indkomne ordrer med detaljer.</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Afgiv ordre via serveren (POST)</td>
+      <td>✅</td>
+      <td>Kurv sender POST /order med retter, størrelser og total. Kurv tømmes → redirect til /order-confirmation.</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Authentication — backoffice login</td>
+      <td>✅</td>
+      <td>JWT via POST /auth/signin. Token i localStorage. RequireAuth beskytter alle /backoffice-routes. 401 logger ud automatisk.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Uddybning: Extra ingredienser (tilvalg 2)</h3>
+
+<pre><code>// DishDetail.jsx — henter dish og ingredienser parallelt
+useEffect(() =&gt; {
+  Promise.all([getDish(id), getIngredients()])
+    .then(([data, ingData]) =&gt; {
+      setDish(data)
+      const baseNames = data.ingredients?.map((i) =&gt;
+        typeof i === 'string' ? i : i.name) ?? []
+      setSelectedExtras(baseNames)           // basisingredienset pre-checked
+      const allNames = (ingData ?? []).map((i) =&gt;
+        typeof i === 'string' ? i : i.name)
+      setAllIngredients(allNames)            // alle 29 tilgængelige
+    })
+    .catch((err) =&gt; setError(err.message))
+    .finally(() =&gt; setLoading(false))
+}, [id])</code></pre>
+
+<h3>Uddybning: Authentication (tilvalg 7)</h3>
+
+<p><code>USE_JWT=true</code> aktiverer fuld JWT-beskyttelse på serveren. Frontend sender altid <code>Authorization: ******;token&gt;</code> — serveren ignorerer det bare når JWT er slået fra. Det betyder at koden fungerer identisk uanset serverindstilling.</p>
+
+<hr />
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 7 — ANVENDELSE AF TREDJEPART OG AI
+══════════════════════════════════════════════════════════ -->
+<h2 id="7-anvendelse-af-tredjepart-og-ai">7. Anvendelse af tredjepart og AI</h2>
+
+<h3>Tredjepartsbiblioteker</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pakke</th>
+      <th>Formål</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>react</code> + <code>react-dom</code></td>
+      <td>UI-framework</td>
+    </tr>
+    <tr>
+      <td><code>react-router-dom</code></td>
+      <td>Klient-sidenavigation</td>
+    </tr>
+    <tr>
+      <td><code>@fontsource/just-another-hand</code></td>
+      <td>Lokal font — overskrifter</td>
+    </tr>
+    <tr>
+      <td><code>@fontsource/kurale</code></td>
+      <td>Lokal font — brødtekst</td>
+    </tr>
+    <tr>
+      <td><code>vite</code> + <code>@vitejs/plugin-react</code></td>
+      <td>Build-tool og dev-server</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Alle øvrige afhængigheder (Express, Mongoose, Multer, bcryptjs, jsonwebtoken) er del af det udleverede backend-projekt og er ikke tilføjet af mig.</p>
+
+<h3>AI-assisterede værktøjer</h3>
+
+<p>Jeg har anvendt <strong>GitHub Copilot</strong> (Claude Sonnet 4.6) som kodningsassistent i VS Code under hele projektet.</p>
+
+<p><strong>Hvad Copilot hjalp med:</strong></p>
+<ul>
+  <li>At skrive og fejlfinde React-komponenter og CSS-moduler</li>
+  <li>At forstå Express-routes og MongoDB-modellernes forventede feltnavne</li>
+  <li>At opdage mismatch mellem frontend-requests og backend-forventninger (fx response-envelope)</li>
+  <li>At strukturere GitHub Issues, tidsplan og projektdokumentation</li>
+  <li>At designe pill-chip ingredient-toggles og mængdekontrol i kurven</li>
+</ul>
+
+<p><strong>Hvad jeg selv besluttede og kan forklare:</strong></p>
+<ul>
+  <li>Alle arkitekturvalg (komponentopdeling, context vs. props, routestruktur)</li>
+  <li>Alle designafvigelser fra Figma og begrundelserne for dem</li>
+  <li>Valget af CSS Modules frem for Tailwind/Sass</li>
+  <li><code>basketKey</code>-strategien for størrelsesopdeling i kurven</li>
+  <li><code>Promise.all</code>-mønsteret til parallel datahentning i DishDetail</li>
+  <li>At hente alle ingredienser fra serveren frem for at hårdkode dem</li>
+</ul>
+
+<p>Al kode er gennemlæst og godkendt af mig. Jeg er bevidst om indholdet af hvert eneste fil og kan redegøre for dem mundtligt.</p>
+
+<hr />
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 8 — TESTOPLYSNINGER
+══════════════════════════════════════════════════════════ -->
+<h2 id="8-testoplysninger">8. Testoplysninger</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Oplysning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Frontend URL</td>
+      <td>http://localhost:5174</td>
+    </tr>
+    <tr>
+      <td>Backend URL</td>
+      <td>http://localhost:3042</td>
+    </tr>
+    <tr>
+      <td>Admin login</td>
+      <td>admin@mediacollege.dk / admin</td>
+    </tr>
+    <tr>
+      <td>Guest login</td>
+      <td>guest@mediacollege.dk / guest</td>
+    </tr>
+    <tr>
+      <td>MongoDB database</td>
+      <td>mcd-dengladeskorpe</td>
+    </tr>
+    <tr>
+      <td>USE_JWT</td>
+      <td>false (login valgfrit — sæt true for at aktivere)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Start backend</h4>
+
+<pre><code>cd mcd_web_dengladeskorpe_server
+npm install
+npm run "Opret Database"
+npm run "Start Server"</code></pre>
+
+<h4>Start frontend</h4>
+
+<pre><code>cd dgs_frontend
+npm install
+npm run dev</code></pre>
+
+<hr />
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 9 — SÆRLIGE PUNKTER TIL BEDØMMELSE
+══════════════════════════════════════════════════════════ -->
+<h2 id="9-saerlige-punkter-til-bedoemmelse">9. Særlige punkter til bedømmelse</h2>
+
+<h3>1. Komplet bestillingsflow</h3>
+<p>Bruger kan gennemføre et fuldt bestillingsforløb: vælge ret → tilpasse ingredienser → vælge størrelse → lægge i kurv → justere antal → afgive ordre → se bekræftelse. Alt fungerer i én sammenhængende brugerrejse uden fejl.</p>
+
+<h3>2. Backoffice employees CRUD med billede-upload</h3>
+<p>Komplet opret/rediger/slet med billede-upload via FormData. Bekræftelsesdialog ved sletning. Live opdatering af tabel efter hver operation.</p>
+
+<h3>3. Backoffice dishes CRUD</h3>
+<p>Retter kan oprettes med titel, priser (normal + familie), ingredienser og kategori. Billede-upload understøttes. Eksisterende retter kan redigeres og slettes.</p>
+
+<h3>4. Extra ingredienser med serverkald</h3>
+<p>Alle 29 tilgængelige ingredienser hentes fra serveren — ikke hårdkodet. Brugeren kan tilføje hvad som helst til pizzaen, ikke kun fjerne basisingredienser. Valgte ingredienser vises i kurven under "Ekstra:".</p>
+
+<h3>5. Responsivt layout — 7 breakpoints</h3>
+<p>Layout skalerer fra 320px (ultrasmalle telefoner) til 2560px (ultrawide). Hvert breakpoint er testet og har meningsfulde layoutændringer (antal kolonner, fontstørrelser, hero-højder).</p>
+
+<h3>6. Mobile-first implementering</h3>
+<p>Alle sider er designet mobile-first. Burger-menu, fluid grids og kompakte layouts er udgangspunktet — desktop er en progressiv forbedring.</p>
+
+<h3>7. Fejlhåndtering og loading-tilstande</h3>
+<p>Alle API-kald har loading-indikatorer, fejlbeskeder og tomme-tilstande. Ingen side viser en blank skærm under indlæsning eller ved fejl.</p>
+
+<hr />
+
+<!-- ══════════════════════════════════════════════════════════
+     SECTION 10 — BILAG
+══════════════════════════════════════════════════════════ -->
+<h2 id="10-bilag">10. Bilag</h2>
+
+<h3>10.1 Skærmbilleder</h3>
+
+<p>Alle screenshots er taget automatisk med Playwright / headless Chromium.<br />
+Mobil: 390 × 844 px · DeviceScaleFactor 2 (svarende til iPhone 14 Pro).<br />
+Desktop: 1440 × 900 px · viewport-snapshot.</p>
+
+<h4>Mobil — Menu og Navigation</h4>
+
+<div class="grid-3">
+  <figure>
+    <img src="docs/screenshots/menu-mobile.png" alt="Vores Menu — mobil" class="img-mobile" />
+    <figcaption>Vores Menu — mobil</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/menu-mobile-nav-open.png" alt="Burger-menu åben" class="img-mobile" />
+    <figcaption>Burger-menu åben</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/employees-mobile.png" alt="Mød Holdet — mobil" class="img-mobile" />
+    <figcaption>Mød Holdet — mobil</figcaption>
+  </figure>
+</div>
+
+<h4>Mobil — Retteside</h4>
+
+<div class="grid-2">
+  <figure>
+    <img src="docs/screenshots/dish-detail-mobile.png" alt="Retteside – størrelsesvælger og tilføj til kurv" class="img-mobile-retteside" />
+    <figcaption>Retteside – størrelsesvælger &amp; tilføj til kurv</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/dish-detail-extras-mobile.png" alt="Retteside – ingredienspanel åbent (alle 29 ingredienser)" class="img-mobile-retteside" />
+    <figcaption>Retteside – ingredienspanel åbent (alle 29 ingredienser)</figcaption>
+  </figure>
+</div>
+
+<h4>Mobil — Kurv og Bestilling</h4>
+
+<div class="grid-2">
+  <figure>
+    <img src="docs/screenshots/basket-mobile.png" alt="Kurv – mængdekontrol, extras og afgiv ordre" class="img-mobile-tall" />
+    <figcaption>Kurv – mængdekontrol, extras og afgiv ordre</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/order-confirmation-mobile.png" alt="Ordrebekræftelse" class="img-mobile-tall" />
+    <figcaption>Ordrebekræftelse</figcaption>
+  </figure>
+</div>
+
+<h4>Mobil — Øvrige sider</h4>
+
+<div class="grid-3">
+  <figure>
+    <img src="docs/screenshots/contact-mobile.png" alt="Kontaktformular — mobil" class="img-mobile" />
+    <figcaption>Kontaktformular — mobil</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/contact-mobile-nav-open.png" alt="Kontaktside alt" class="img-mobile" />
+    <figcaption>Kontaktside alt</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/employees-mobile-nav-open.png" alt="Medarbejderside alt" class="img-mobile" />
+    <figcaption>Medarbejderside alt</figcaption>
+  </figure>
+</div>
+
+<h4>Desktop — Offentlige sider</h4>
+
+<div class="grid-2-tall">
+  <figure>
+    <img src="docs/screenshots/home-desktop.png" alt="Forside (desktop 1440px)" class="img-desktop-wide" />
+    <figcaption>Forside (desktop 1440px)</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/menu-desktop.png" alt="Vores Menu (desktop)" class="img-desktop-wide" />
+    <figcaption>Vores Menu (desktop)</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/employees-desktop.png" alt="Mød Holdet (desktop)" class="img-desktop-wide" />
+    <figcaption>Mød Holdet (desktop)</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/contact-desktop.png" alt="Kontakt Os (desktop)" class="img-desktop-wide" />
+    <figcaption>Kontakt Os (desktop)</figcaption>
+  </figure>
+</div>
+
+<h4>Desktop — Kurv og 404</h4>
+
+<div class="grid-2">
+  <figure>
+    <img src="docs/screenshots/basket-desktop.png" alt="Din Kurv (desktop)" class="img-desktop" />
+    <figcaption>Din Kurv (desktop)</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/404-desktop.png" alt="404 – Siden findes ikke (desktop)" class="img-desktop" />
+    <figcaption>404 – Siden findes ikke (desktop)</figcaption>
+  </figure>
+</div>
+
+<h4>Backoffice — Desktop</h4>
+
+<div class="grid-2">
+  <figure>
+    <img src="docs/screenshots/backoffice-employees-desktop.png" alt="Backoffice – Medarbejdere CRUD og billede-upload" class="img-backoffice" />
+    <figcaption>Backoffice – Medarbejdere CRUD &amp; billede-upload</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/backoffice-messages-desktop.png" alt="Backoffice – Beskeder fra kontaktformular" class="img-backoffice" />
+    <figcaption>Backoffice – Beskeder fra kontaktformular</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/backoffice-orders-desktop.png" alt="Backoffice – Indkomne ordrer" class="img-backoffice" />
+    <figcaption>Backoffice – Indkomne ordrer</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/backoffice-dishes-desktop.png" alt="Backoffice – Retter CRUD" class="img-backoffice" />
+    <figcaption>Backoffice – Retter CRUD</figcaption>
+  </figure>
+</div>
+
+<hr />
+
+<h3>10.2 Links</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ressource</th>
+      <th>URL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GitHub repository</td>
+      <td><a href="https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe">https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe</a></td>
+    </tr>
+    <tr>
+      <td>Figma design</td>
+      <td><a href="https://www.figma.com/design/yzjuDfwFzngz8EySrOXSf6/Den-Glade-Skorpe">https://www.figma.com/design/yzjuDfwFzngz8EySrOXSf6/Den-Glade-Skorpe</a></td>
+    </tr>
+    <tr>
+      <td>GitHub Issues</td>
+      <td><a href="https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe/issues">https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe/issues</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>10.3 Opgavebeskrivelse</h3>
+
+<p><code>mcd_web_dengladeskorpe_server/[mcd]/assignment/den_glade_skorpe.md</code></p>
+
+</body>
+</html>
