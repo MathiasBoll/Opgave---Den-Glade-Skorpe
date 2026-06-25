@@ -377,7 +377,7 @@
 
 <p><strong>FormData til billedupload:</strong> Backoffice medarbejder- og retteopret bruger <code>multipart/form-data</code> fordi der skal uploades billeder. <code>fetch</code> skal have <code>Content-Type</code> udeladt — browseren sætter den automatisk med korrekt boundary. Det er ikke intuitivt og kostede fejlretning.</p>
 
-<p><strong>JWT-auth-flow:</strong> Selvom auth er valgfrit, valgte jeg at implementere det. Det kræver at tokenet gemmes korrekt i <code>localStorage</code>, sendes som <code>Authorization: ******;token&gt;</code> header på beskyttede endpoints, og at frontend håndterer 401-svar ved at logge ud og sende brugeren til login.</p>
+<p><strong>JWT-auth-flow:</strong> Selvom auth er valgfrit, valgte jeg at implementere det. Det kræver at tokenet gemmes korrekt i <code>localStorage</code>, sendes som <code>Authorization: Bearer &lt;token&gt;</code> header på beskyttede endpoints, og at frontend håndterer 401-svar ved at logge ud og sende brugeren til login.</p>
 
 <p><strong>Hero-højde på mobil:</strong> Det originale Figma-design har en hero der fylder <code>100svh</code> på alle enheder. På mobil betød det at brugeren ikke kunne se indhold "above the fold". Jeg reducerede til 55svh (mobil), 65svh (tablet), 100svh (desktop) — se <a href="#5-designbeslutninger-og-afvigelser-fra-figma">afsnit 5</a>.</p>
 
@@ -907,7 +907,7 @@ useEffect(() =&gt; {
 
 <h3>Uddybning: Authentication (tilvalg 7)</h3>
 
-<p><code>USE_JWT=true</code> aktiverer fuld JWT-beskyttelse på serveren. Frontend sender altid <code>Authorization: ******;token&gt;</code> — serveren ignorerer det bare når JWT er slået fra. Det betyder at koden fungerer identisk uanset serverindstilling.</p>
+<p><code>USE_JWT=true</code> aktiverer fuld JWT-beskyttelse på serveren. Frontend sender altid <code>Authorization: Bearer &lt;token&gt;</code> — serveren ignorerer det bare når JWT er slået fra. Det betyder at koden fungerer identisk uanset serverindstilling.</p>
 
 <hr />
 
@@ -1068,9 +1068,9 @@ npm run dev</code></pre>
 
 <h3>10.1 Skærmbilleder</h3>
 
-<p>Alle screenshots er taget automatisk med Playwright / headless Chromium.<br />
-Mobil: 390 × 844 px · DeviceScaleFactor 2 (svarende til iPhone 14 Pro).<br />
-Desktop: 1440 × 900 px · viewport-snapshot.</p>
+<p>Alle screenshots er taget med FireShot browser-udvidelse.<br />
+Mobil: screenshots vist i Chrome DevTools mobilvisning.<br />
+Desktop: 1440 px viewport.</p>
 
 <h4>Mobil — Menu og Navigation</h4>
 
