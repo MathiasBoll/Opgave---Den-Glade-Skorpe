@@ -355,6 +355,55 @@
     .toc a:hover { color: var(--accent); text-decoration: underline; }
 
     /* ── Print ── */
+    /* ── Tooltips on technical terms ── */
+    code.tip {
+      position: relative;
+      cursor: help;
+      text-decoration: underline dotted;
+      text-decoration-color: rgba(181, 52, 12, 0.5);
+      text-underline-offset: 3px;
+    }
+
+    code.tip::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e1e1e;
+      color: #e8e8e8;
+      font-family: "Segoe UI", "Inter", Arial, sans-serif;
+      font-size: 8pt;
+      font-weight: 400;
+      font-style: normal;
+      line-height: 1.5;
+      white-space: normal;
+      width: 230px;
+      padding: 7px 11px;
+      border-radius: 5px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      z-index: 100;
+    }
+
+    code.tip::before {
+      content: "";
+      position: absolute;
+      bottom: calc(100% + 2px);
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #1e1e1e;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease;
+      z-index: 100;
+    }
+
+    code.tip:hover::after,
+    code.tip:hover::before { opacity: 1; }
+
     @media print {
       body {
         max-width: 100%;
@@ -363,6 +412,7 @@
 
       h2, h3, h4 { page-break-after: avoid; }
       figure, table, pre { page-break-inside: avoid; }
+      code.tip::after, code.tip::before { display: none; }
     }
   </style>
 </head>
@@ -434,7 +484,7 @@
 
 <p>Det, jeg er mest stolt af, er den røde tråd i brugeroplevelsen: en bruger kan gå fra forsiden, vælge en ret, tilpasse ingredienserne, vælge størrelse, lægge den i kurven og afgive en ordre — alt i én sammenhængende, intuitiv rækkefølge uden tekniske fejl.</p>
 
-<p>Komponentstrukturen er overskuelig og genbrugelig. <code>DishCard</code> bruges på forsiden, CSS Modules holder styling-scope rent pr. komponent, og <code>BasketContext</code> fungerer pålideligt som global tilstandsstyring med localStorage-persistens.</p>
+<p>Komponentstrukturen er overskuelig og genbrugelig. <code class="tip" data-tooltip="React-komponent der viser én ret med billede, navn og pris — genanvendes på menu-siden.">DishCard</code> bruges på forsiden, <code class="tip" data-tooltip="Fil-scoped CSS: klasser gælder kun for den komponent de er defineret i — ingen utilsigtede CSS-kollisioner.">CSS Modules</code> holder styling-scope rent pr. komponent, og <code class="tip" data-tooltip="Global React Context der holder kurven og deler den med hele appen via useContext.">BasketContext</code> fungerer pålideligt som global tilstandsstyring med localStorage-persistens.</p>
 
 <p>Responsiviteten fungerer godt i alle testede skærmstørrelser — fra 320px (lille Android) til 2560px (ultrawide monitor) — og mobiludgaven er tydeligt prioriteret som primær platform.</p>
 
@@ -442,9 +492,9 @@
 
 <p><strong>MongoDB-felter og API-envelope:</strong> Serveren returnerede data i formatet <code>{ status, message, data: [...] }</code>. Jeg opdagede undervejs, at visse endpoints returnerede direkte arrays mens andre brugte <code>.data</code>-wrapperen. Det krævede grundig gennemlæsning af routekoden og systematisk test i Postman for at afstemme.</p>
 
-<p><strong>FormData til billedupload:</strong> Backoffice medarbejder- og retteopret bruger <code>multipart/form-data</code> fordi der skal uploades billeder. <code>fetch</code> skal have <code>Content-Type</code> udeladt — browseren sætter den automatisk med korrekt boundary. Det er ikke intuitivt og kostede fejlretning.</p>
+<p><strong>FormData til billedupload:</strong> Backoffice medarbejder- og retteopret bruger <code class="tip" data-tooltip="HTTP content-type til filupload — boundary sættes automatisk af browseren, må ikke angives manuelt.">multipart/form-data</code> fordi der skal uploades billeder. <code class="tip" data-tooltip="Native browser-API til HTTP-kald der returnerer et Promise.">fetch</code> skal have <code class="tip" data-tooltip="HTTP-header der fortæller serveren hvilket format data er sendt i — udelades ved multipart/form-data.">Content-Type</code> udeladt — browseren sætter den automatisk med korrekt boundary. Det er ikke intuitivt og kostede fejlretning.</p>
 
-<p><strong>JWT-auth-flow:</strong> Selvom auth er valgfrit, valgte jeg at implementere det. Det kræver at tokenet gemmes korrekt i <code>localStorage</code>, sendes som <code>Authorization: Bearer &lt;token&gt;</code> header på beskyttede endpoints, og at frontend håndterer 401-svar ved at logge ud og sende brugeren til login.</p>
+<p><strong>JWT-auth-flow:</strong> Selvom auth er valgfrit, valgte jeg at implementere det. Det kræver at tokenet gemmes korrekt i <code class="tip" data-tooltip="Browser-lager der bevarer data (kurv, JWT) på tværs af sideindlæsninger.">localStorage</code>, sendes som <code class="tip" data-tooltip="HTTP-header der sender JWT til serveren for at bevise identitet på beskyttede endpoints.">Authorization: Bearer &lt;token&gt;</code> header på beskyttede endpoints, og at frontend håndterer 401-svar ved at logge ud og sende brugeren til login.</p>
 
 <p><strong>Hero-højde på mobil:</strong> Det originale Figma-design har en hero der fylder <code>100svh</code> på alle enheder. På mobil betød det at brugeren ikke kunne se indhold "above the fold". Jeg reducerede til 55svh (mobil), 65svh (tablet), 100svh (desktop) — se <a href="#5-designbeslutninger-og-afvigelser-fra-figma">afsnit 5</a>.</p>
 
@@ -592,7 +642,7 @@
     <tr>
       <td><strong>React Router v6</strong></td>
       <td>Klient-routing</td>
-      <td>Deklarativ routing. <code>RequireAuth</code>-wrapper beskytter backoffice-routes. <code>useNavigate</code> og <code>useParams</code> bruges i flow.</td>
+      <td>Deklarativ routing. <code class="tip" data-tooltip="Wrapper der tjekker JWT og omdirigerer til login ved manglende adgang.">RequireAuth</code>-wrapper beskytter backoffice-routes. <code class="tip" data-tooltip="React Router hook til programmatisk navigation, f.eks. redirect efter login.">useNavigate</code> og <code class="tip" data-tooltip="React Router hook der læser URL-parametre, f.eks. :id på rettesiden.">useParams</code> bruges i flow.</td>
     </tr>
     <tr>
       <td><strong>CSS Modules</strong></td>
@@ -672,7 +722,7 @@
     ├── variables.css ← CSS custom properties
     └── global.css    ← Reset og body-styles</code></pre>
 
-<p><code>services/api.js</code> er det eneste sted der laves <code>fetch</code>-kald. Ændres API-URL'en, ændres den kun ét sted.</p>
+<p><code class="tip" data-tooltip="Centralt service-lag: alle fetch-kald samlet ét sted — ændres base-URL kun én gang.">services/api.js</code> er det eneste sted der laves <code class="tip" data-tooltip="Native browser-API til HTTP-kald der returnerer et Promise.">fetch</code>-kald. Ændres API-URL'en, ændres den kun ét sted.</p>
 
 <h3>4.2 Design tokens (CSS custom properties)</h3>
 
@@ -734,7 +784,7 @@
 
 <h3>4.4 Kurv med localStorage og React Context</h3>
 
-<p><code>BasketContext</code> giver Header, DishDetail og Basket adgang til samme kurvtilstand uden prop-drilling.</p>
+<p><code class="tip" data-tooltip="Global React Context der holder kurven og deler den med hele appen via useContext.">BasketContext</code> giver Header, DishDetail og Basket adgang til samme kurvtilstand uden prop-drilling.</p>
 
 <p>Nøglebeslutninger:</p>
 <ul>
@@ -778,7 +828,7 @@ export const postOrder      = (body) =&gt; request('/order', {
 
 <h3>4.6 Authentication (backoffice)</h3>
 
-<p>Alle <code>/backoffice</code>-routes er pakket i <code>RequireAuth</code>:</p>
+<p>Alle <code>/backoffice</code>-routes er pakket i <code class="tip" data-tooltip="Wrapper der tjekker JWT og omdirigerer til login ved manglende adgang.">RequireAuth</code>:</p>
 
 <pre><code>&lt;Route path="/backoffice" element={&lt;RequireAuth&gt;&lt;Backoffice /&gt;&lt;/RequireAuth&gt;}&gt;
   &lt;Route index element={&lt;BackofficeEmployees /&gt;} /&gt;
@@ -1108,7 +1158,7 @@ Desktop: 1440 px viewport.</p>
 
 <h4>Mobil — Offentlige sider</h4>
 
-<p class="section-intro">Alle tre offentlige sider er designet mobile-first. Navigationen ligger bag et burger-ikon øverst til højre og åbner en fullscreen-menu. <code>DishCard</code>-komponenten genanvendes på menusiden med kategorifilter. Kontaktformularen validerer alle felter klient-side og poster til <code>POST /api/messages</code>.</p>
+<p class="section-intro">Alle tre offentlige sider er designet mobile-first. Navigationen ligger bag et burger-ikon øverst til højre og åbner en fullscreen-menu. <code class="tip" data-tooltip="React-komponent der viser én ret med billede, navn og pris — genanvendes på menu-siden.">DishCard</code>-komponenten genanvendes på menusiden med kategorifilter. Kontaktformularen validerer alle felter klient-side og poster til <code class="tip" data-tooltip="Server-endpoint der gemmer beskeder fra kontaktformularen i MongoDB.">POST /api/messages</code>.</p>
 
 <div class="grid-3">
   <figure>
@@ -1127,7 +1177,7 @@ Desktop: 1440 px viewport.</p>
 
 <h4>Mobil — Retteside</h4>
 
-<p class="section-intro">Rettesiden henter retten via <code>GET /api/dishes/:id</code> og viser en størrelsesvælger med dynamisk prisopdatering. Det højre screenshot viser ingredienspanelet åbent — brugeren kan fravælge eller tilføje ekstra ingredienser. Den valgte kombination gemmes samlet i <code>localStorage</code> via <code>BasketContext</code>.</p>
+<p class="section-intro">Rettesiden henter retten via <code class="tip" data-tooltip="Henter én ret fra MongoDB ud fra dens unikke id.">GET /api/dishes/:id</code> og viser en størrelsesvælger med dynamisk prisopdatering. Det højre screenshot viser ingredienspanelet åbent — brugeren kan fravælge eller tilføje ekstra ingredienser. Den valgte kombination gemmes samlet i <code class="tip" data-tooltip="Browser-lager der bevarer data (kurv, JWT) på tværs af sideindlæsninger.">localStorage</code> via <code class="tip" data-tooltip="Global React Context der holder kurven og deler den med hele appen via useContext.">BasketContext</code>.</p>
 
 <div class="grid-2">
   <figure>
@@ -1142,7 +1192,7 @@ Desktop: 1440 px viewport.</p>
 
 <h4>Mobil — Kurv og Bestilling</h4>
 
-<p class="section-intro">Kurvsiden læser indholdet fra <code>localStorage</code> via <code>BasketContext</code>. Mængden kan justeres inline og ordren postes til <code>POST /api/orders</code> med JWT Bearer-token i headeren. Ordrebekræftelsen viser ordrenummer og et resumé af alle valgte retter med priser.</p>
+<p class="section-intro">Kurvsiden læser indholdet fra <code class="tip" data-tooltip="Browser-lager der bevarer data (kurv, JWT) på tværs af sideindlæsninger.">localStorage</code> via <code class="tip" data-tooltip="Global React Context der holder kurven og deler den med hele appen via useContext.">BasketContext</code>. Mængden kan justeres inline og ordren postes til <code class="tip" data-tooltip="Server-endpoint der opretter en ny ordre og returnerer ordrenummer.">POST /api/orders</code> med JWT Bearer-token i headeren. Ordrebekræftelsen viser ordrenummer og et resumé af alle valgte retter med priser.</p>
 
 <div class="grid-2">
   <figure>
@@ -1157,7 +1207,7 @@ Desktop: 1440 px viewport.</p>
 
 <h4>Desktop — Offentlige sider</h4>
 
-<p class="section-intro">På desktop (1440px) aktiveres et fullwidth-layout med hero på <code>100svh</code> og vandret navigationsmenu. <code>DishCard</code>-grid skifter til tre kolonner via et enkelt CSS-breakpoint ved 1024px. Medarbejder-siden henter data fra <code>GET /api/employees</code> og viser kort med billede, navn og titel.</p>
+<p class="section-intro">På desktop (1440px) aktiveres et fullwidth-layout med hero på <code>100svh</code> og vandret navigationsmenu. <code class="tip" data-tooltip="React-komponent der viser én ret med billede, navn og pris — genanvendes på menu-siden.">DishCard</code>-grid skifter til tre kolonner via et enkelt CSS-breakpoint ved 1024px. Medarbejder-siden henter data fra <code class="tip" data-tooltip="Henter alle medarbejdere fra MongoDB-databasen.">GET /api/employees</code> og viser kort med billede, navn og titel.</p>
 
 <div class="grid-2-tall">
   <figure>
@@ -1180,7 +1230,7 @@ Desktop: 1440 px viewport.</p>
 
 <h4>Desktop — Kurv og 404</h4>
 
-<p class="section-intro">Kurven på desktop benytter et to-kolonne-layout — reteliste til venstre og ordreopsummering til højre. 404-siden fanger alle ukendte routes via <code>&lt;Route path="*"&gt;</code> i React Router og tilbyder et direkte link tilbage til forsiden.</p>
+<p class="section-intro">Kurven på desktop benytter et to-kolonne-layout — reteliste til venstre og ordreopsummering til højre. 404-siden fanger alle ukendte routes via <code class="tip" data-tooltip="React Router catch-all: matcher alle ukendte URL'er — bruges til 404-siden.">&lt;Route path="*"&gt;</code> i React Router og tilbyder et direkte link tilbage til forsiden.</p>
 
 <div class="grid-2">
   <figure>
@@ -1195,7 +1245,7 @@ Desktop: 1440 px viewport.</p>
 
 <h4>Backoffice — Desktop</h4>
 
-<p class="section-intro">Backoffice kræver JWT-login. <code>RequireAuth</code>-komponenten beskytter alle <code>/backoffice/*</code>-routes og omdirigerer ved udløbet token. Medarbejder- og retteoprettelse bruger <code>multipart/form-data</code> til billedupload — <code>Content-Type</code> udelades bevidst så browseren sætter korrekt boundary. Besked- og ordrevisningerne er read-only tabeller sorteret efter dato.</p>
+<p class="section-intro">Backoffice kræver JWT-login. <code class="tip" data-tooltip="Wrapper der tjekker JWT og omdirigerer til login ved manglende adgang.">RequireAuth</code>-komponenten beskytter alle <code>/backoffice/*</code>-routes og omdirigerer ved udløbet token. Medarbejder- og retteoprettelse bruger <code class="tip" data-tooltip="HTTP content-type til filupload — boundary sættes automatisk af browseren, må ikke angives manuelt.">multipart/form-data</code> til billedupload — <code class="tip" data-tooltip="HTTP-header der fortæller serveren hvilket format data er sendt i — udelades ved multipart/form-data.">Content-Type</code> udelades bevidst så browseren sætter korrekt boundary. Besked- og ordrevisningerne er read-only tabeller sorteret efter dato.</p>
 
 <div class="grid-2">
   <figure>
