@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getDish, getIngredients } from '../services/api'
 import { useBasket } from '../context/BasketContext'
 import { usePageTitle } from '../hooks/usePageTitle'
@@ -57,7 +57,7 @@ export default function DishDetail() {
       basketKey: `${dish._id}-${selectedSize}`,
     })
     setAdded(true)
-    setTimeout(() => setAdded(false), 2000)
+    setTimeout(() => setAdded(false), 5000)
   }
 
   if (loading) return <main className={styles.main}><p className={styles.status}>Henter ret…</p></main>
@@ -141,6 +141,11 @@ export default function DishDetail() {
         >
           {added ? '✓ Tilføjet!' : `Tilføj ${dish.title} til kurven`}
         </button>
+        {added && (
+          <Link to="/basket" className={styles.goToBasket}>
+            Gå til kurv →
+          </Link>
+        )}
 
         {/* Extras toggle — shows ALL available ingredients */}
         {allIngredients.length > 0 && (

@@ -793,7 +793,7 @@ Desktop: 1440 × 900 px · viewport-snapshot.
 </figure>
 
 <figure>
-<img src="docs/screenshots/home-desktop-grid.png" style="height:420px;object-fit:cover;object-position:top;" />
+<img src="docs/screenshots/home-desktop-dishes.png" style="height:420px;object-fit:cover;object-position:top;" />
 <figcaption>Forside – rettegrid og kategorifilter (desktop)</figcaption>
 </figure>
 

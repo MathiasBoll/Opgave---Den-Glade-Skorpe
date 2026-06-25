@@ -10,7 +10,7 @@
   background-position: center;
   color: var(--color-white);
   text-align: center;
-  min-height: 100svh;
+  min-height: 55svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -187,12 +187,14 @@
 
 @media (min-width: 768px) {
   /* tablet */
+  .hero { min-height: 65svh; }
   .grid { grid-template-columns: repeat(4, 1fr); }
   .catGrid { max-width: 600px; }
 }
 
 @media (min-width: 1024px) {
   /* desktop */
+  .hero { min-height: 100svh; }
   .heroTitle { font-size: 6rem; }
   .heroSub { font-size: 1.25rem; }
   .grid { grid-template-columns: repeat(4, 1fr); }

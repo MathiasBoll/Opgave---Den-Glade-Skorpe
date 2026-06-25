@@ -297,6 +297,28 @@
 
 .addBtn.added { background-color: #4caf50; }
 
+.goToBasket {
+  display: block;
+  text-align: center;
+  margin-top: 0.6rem;
+  margin-bottom: 1.2rem;
+  padding: 0.55rem 1.2rem;
+  background: #fff;
+  color: var(--color-dark);
+  border: 2px solid var(--color-dark);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+}
+
+.goToBasket:hover {
+  background: var(--color-dark);
+  color: #fff;
+}
+
 .status {
   padding: var(--spacing-xl);
   text-align: center;
