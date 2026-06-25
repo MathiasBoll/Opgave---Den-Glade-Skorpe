@@ -1268,7 +1268,34 @@ Desktop: 1440 px viewport.</p>
 
 <hr />
 
-<h3>10.2 Links</h3>
+<h3>10.2 Postman — API-testsamling</h3>
+
+<p class="section-intro">Alle endpoints er testet og dokumenteret i Postman-samlingen <strong>MCD - Den Glade Skorpe</strong>. Kør <code class="tip" data-tooltip="Server-endpoint der modtager brugernavn og adgangskode og returnerer en JWT-token ved gyldigt login.">POST /auth/signin</code> først — den gemmer automatisk <code>{{token}}</code> til brug i efterfølgende beskyttede kald.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ressource</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Postman workspace (kræver Postman-konto)</td>
+      <td><a href="https://mcdmviborg.postman.co/workspace/webmcdm.dk---Server-Projects~f1ca1e4d-4cb3-49f6-9664-7a010d498024/collection/17346811-fa37c48f-76f4-46eb-b92b-8d0f7e221d1c?action=share&amp;source=collection_link&amp;creator=38584738">Åbn MCD - Den Glade Skorpe i Postman</a></td>
+    </tr>
+    <tr>
+      <td>Collection JSON (importér i Postman lokalt)</td>
+      <td><a href="https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe/blob/main/mcd_web_dengladeskorpe_server/%5Bmcd%5D/postman/postman_collection.json">postman_collection.json på GitHub</a></td>
+    </tr>
+    <tr>
+      <td>Lokalt miljø brugt under test</td>
+      <td><code>Den Glade Skorpe - Local</code> — <code>server_path = http://localhost:3042</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>10.3 Links</h3>
 
 <table>
   <thead>
@@ -1283,6 +1310,10 @@ Desktop: 1440 px viewport.</p>
       <td><a href="https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe">https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe</a></td>
     </tr>
     <tr>
+      <td>Postman — API collection (MCD - Den Glade Skorpe)</td>
+      <td><a href="https://mcdmviborg.postman.co/workspace/webmcdm.dk---Server-Projects~f1ca1e4d-4cb3-49f6-9664-7a010d498024/collection/17346811-fa37c48f-76f4-46eb-b92b-8d0f7e221d1c?action=share&amp;source=collection_link&amp;creator=38584738">Postman workspace</a> &nbsp;·&nbsp; <a href="https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe/blob/main/mcd_web_dengladeskorpe_server/%5Bmcd%5D/postman/postman_collection.json">collection JSON</a></td>
+    </tr>
+    <tr>
       <td>Figma design</td>
       <td><a href="https://www.figma.com/design/yzjuDfwFzngz8EySrOXSf6/Den-Glade-Skorpe">https://www.figma.com/design/yzjuDfwFzngz8EySrOXSf6/Den-Glade-Skorpe</a></td>
     </tr>
@@ -1293,7 +1324,7 @@ Desktop: 1440 px viewport.</p>
   </tbody>
 </table>
 
-<h3>10.3 Opgavebeskrivelse</h3>
+<h3>10.4 Opgavebeskrivelse</h3>
 
 <p><code>mcd_web_dengladeskorpe_server/[mcd]/assignment/den_glade_skorpe.md</code></p>
 
