@@ -802,12 +802,12 @@ Desktop: 1440 × 900 px · viewport-snapshot.
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;">
 
 <figure>
-<img src="docs/screenshots/dish-detail-desktop.png" style="width:100%;height:380px;object-fit:cover;object-position:top;" />
+<img src="docs/screenshots/dish-detail-desktop.png" style="width:100%;height:380px;object-fit:cover;object-position:50% 25%;" />
 <figcaption>Retteside (desktop)</figcaption>
 </figure>
 
 <figure>
-<img src="docs/screenshots/employees-desktop.png" style="width:100%;height:380px;object-fit:cover;object-position:top;" />
+<img src="docs/screenshots/employees-desktop.png" style="width:100%;height:380px;object-fit:cover;object-position:50% 22%;" />
 <figcaption>Personaleside (desktop)</figcaption>
 </figure>
 
