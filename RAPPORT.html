@@ -490,13 +490,13 @@
 
 <h3>Hvad var udfordrende</h3>
 
-<p><strong>MongoDB-felter og API-envelope:</strong> Serveren returnerede data i formatet <code>{ status, message, data: [...] }</code>. Jeg opdagede undervejs, at visse endpoints returnerede direkte arrays mens andre brugte <code>.data</code>-wrapperen. Det krævede grundig gennemlæsning af routekoden og systematisk test i Postman for at afstemme.</p>
+<p><strong>MongoDB-felter og API-envelope:</strong> Serveren returnerede data i formatet <code class="tip" data-tooltip="API-svaret er pakket i en envelope — data-arrayet er i .data-feltet, ikke direkte i response-body.">{ status, message, data: [...] }</code>. Jeg opdagede undervejs, at visse endpoints returnerede direkte arrays mens andre brugte <code class="tip" data-tooltip="Egenskaben på API-envelope-svaret der indeholder selve data-arrayet eller objektet.">.data</code>-wrapperen. Det krævede grundig gennemlæsning af routekoden og systematisk test i Postman for at afstemme.</p>
 
 <p><strong>FormData til billedupload:</strong> Backoffice medarbejder- og retteopret bruger <code class="tip" data-tooltip="HTTP content-type til filupload — boundary sættes automatisk af browseren, må ikke angives manuelt.">multipart/form-data</code> fordi der skal uploades billeder. <code class="tip" data-tooltip="Native browser-API til HTTP-kald der returnerer et Promise.">fetch</code> skal have <code class="tip" data-tooltip="HTTP-header der fortæller serveren hvilket format data er sendt i — udelades ved multipart/form-data.">Content-Type</code> udeladt — browseren sætter den automatisk med korrekt boundary. Det er ikke intuitivt og kostede fejlretning.</p>
 
 <p><strong>JWT-auth-flow:</strong> Selvom auth er valgfrit, valgte jeg at implementere det. Det kræver at tokenet gemmes korrekt i <code class="tip" data-tooltip="Browser-lager der bevarer data (kurv, JWT) på tværs af sideindlæsninger.">localStorage</code>, sendes som <code class="tip" data-tooltip="HTTP-header der sender JWT til serveren for at bevise identitet på beskyttede endpoints.">Authorization: Bearer &lt;token&gt;</code> header på beskyttede endpoints, og at frontend håndterer 401-svar ved at logge ud og sende brugeren til login.</p>
 
-<p><strong>Hero-højde på mobil:</strong> Det originale Figma-design har en hero der fylder <code>100svh</code> på alle enheder. På mobil betød det at brugeren ikke kunne se indhold "above the fold". Jeg reducerede til 55svh (mobil), 65svh (tablet), 100svh (desktop) — se <a href="#5-designbeslutninger-og-afvigelser-fra-figma">afsnit 5</a>.</p>
+<p><strong>Hero-højde på mobil:</strong> Det originale Figma-design har en hero der fylder <code class="tip" data-tooltip="100% af den synlige viewport-højde. svh er dynamisk og medregner ikke browserbaren på mobil.">100svh</code> på alle enheder. På mobil betød det at brugeren ikke kunne se indhold "above the fold". Jeg reducerede til 55svh (mobil), 65svh (tablet), 100svh (desktop) — se <a href="#5-designbeslutninger-og-afvigelser-fra-figma">afsnit 5</a>.</p>
 
 <h3>Hvad ville jeg gøre anderledes</h3>
 
@@ -689,7 +689,7 @@
 
 <h3>Valg: CSS Modules frem for Tailwind/Sass</h3>
 
-<p>Opgavebeskrivelsen kræver "overskuelig mappestruktur og læsbar kode". CSS Modules opfylder dette: styling er samlokaliseret med komponenten i en <code>.module.css</code>-fil, klasserne er scoped automatisk, og der er ingen build-overhead. Sass ville give nesting men ingen scope-fordel. Tailwind ville gøre JSX sværere at læse ved en mundtlig gennemgang.</p>
+<p>Opgavebeskrivelsen kræver "overskuelig mappestruktur og læsbar kode". CSS Modules opfylder dette: styling er samlokaliseret med komponenten i en <code class="tip" data-tooltip="CSS Modules-fil der giver automatisk scopede klasser — bundleren navngiver dem unikt, ingen kollisioner.">.module.css</code>-fil, klasserne er scoped automatisk, og der er ingen build-overhead. Sass ville give nesting men ingen scope-fordel. Tailwind ville gøre JSX sværere at læse ved en mundtlig gennemgang.</p>
 
 <hr />
 
@@ -741,7 +741,7 @@
   --spacing-xl:    3rem;
 }</code></pre>
 
-<p>Ændres <code>--color-dark</code> opdateres samtlige knapper, header, footer og ingrediens-pills automatisk.</p>
+<p>Ændres <code class="tip" data-tooltip="CSS custom property (variabel) — ændres ét sted og opdaterer alle knapper, header og footer automatisk.">--color-dark</code> opdateres samtlige knapper, header, footer og ingrediens-pills automatisk.</p>
 
 <h3>4.3 Mobile-first og breakpoints</h3>
 
@@ -788,10 +788,10 @@
 
 <p>Nøglebeslutninger:</p>
 <ul>
-  <li><code>basketKey = "${_id}-${selectedSize}"</code> — Normal og Familie af samme ret er separate kurvelinjer</li>
-  <li>localStorage under nøglen <code>dgs_basket</code> — kurven overlever sidereloads</li>
-  <li><code>updateQuantity(key, 0)</code> kalder automatisk <code>removeItem</code> — ingen ekstra logik ved 0</li>
-  <li><code>count</code> (sum af quantity) drives kurv-badge i Header</li>
+  <li><code class="tip" data-tooltip="Unik nøgle pr. ret+størrelse — Normal og Familie af samme ret er to separate kurvelinjer.">basketKey = "${_id}-${selectedSize}"</code> — Normal og Familie af samme ret er separate kurvelinjer</li>
+  <li>localStorage under nøglen <code class="tip" data-tooltip="Nøglen der bruges til at gemme og hente kurv-data i localStorage på tværs af sideindlæsninger.">dgs_basket</code> — kurven overlever sidereloads</li>
+  <li><code class="tip" data-tooltip="Opdaterer antallet af en vare — værdi 0 udløser automatisk sletning af varen fra kurven.">updateQuantity(key, 0)</code> kalder automatisk <code class="tip" data-tooltip="Fjerner en vare fra kurven baseret på dens basketKey.">removeItem</code> — ingen ekstra logik ved 0</li>
+  <li><code class="tip" data-tooltip="Sum af alle quantity-værdier i kurven — vises som badge-tal på kurv-ikonet i headeren.">count</code> (sum af quantity) drives kurv-badge i Header</li>
 </ul>
 
 <pre><code>function addItem(dish) {
@@ -838,7 +838,7 @@ export const postOrder      = (body) =&gt; request('/order', {
   &lt;Route path="dishes" element={&lt;BackofficeDishes /&gt;} /&gt;
 &lt;/Route&gt;</code></pre>
 
-<p>Flow: Login → <code>POST /auth/signin</code> → JWT-token → gemmes i localStorage → redirect til <code>/backoffice</code>. <code>USE_JWT=false</code> i <code>.env.local</code> deaktiverer krav under udvikling.</p>
+<p>Flow: Login → <code class="tip" data-tooltip="Server-endpoint der modtager brugernavn og adgangskode og returnerer en JWT-token ved gyldigt login.">POST /auth/signin</code> → JWT-token → gemmes i localStorage → redirect til <code>/backoffice</code>. <code class="tip" data-tooltip="Env-variabel der deaktiverer JWT-krav på serveren — nyttigt under lokal udvikling og test.">USE_JWT=false</code> i <code class="tip" data-tooltip="Lokal konfigurationsfil med miljøvariabler — indlæses automatisk af Vite og ignoreres af Git.">.env.local</code> deaktiverer krav under udvikling.</p>
 
 <h3>4.7 Loading-, error- og empty states</h3>
 
@@ -851,9 +851,9 @@ if (items.length === 0) return &lt;p className={styles.empty}&gt;Ingen retter fu
 <h3>4.8 SEO og tilgængelighed</h3>
 
 <ul>
-  <li><code>usePageTitle(title)</code> — custom hook sætter <code>document.title</code> dynamisk på alle sider</li>
+  <li><code class="tip" data-tooltip="Custom React hook der sætter sidetitlen dynamisk — sikrer korrekt SEO og fane-tekst pr. side.">usePageTitle(title)</code> — custom hook sætter <code class="tip" data-tooltip="Browser-egenskab der styrer teksten i fanen og i søgemaskineresultater.">document.title</code> dynamisk på alle sider</li>
   <li>Semantisk HTML — <code>&lt;main&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;li&gt;</code></li>
-  <li><code>aria-label</code> på burger-knap og luk-knap i mobilmenuen</li>
+  <li><code class="tip" data-tooltip="ARIA-attribut der giver skærmlæsere et beskrivende navn til interaktive elementer uden synlig tekst.">aria-label</code> på burger-knap og luk-knap i mobilmenuen</li>
   <li><code>alt</code>-tekst på alle billeder</li>
   <li>Kontrast — hvid tekst på <code>#4A4A4A</code> giver tilstrækkelig ratio</li>
   <li><code>overflow-x: hidden</code> på <code>html</code> og <code>body</code> forhindrer vandret scroll på mobil</li>
@@ -870,7 +870,7 @@ if (items.length === 0) return &lt;p className={styles.empty}&gt;Ingen retter fu
 
 <h3>5.1 Hero-højde på mobil (DishDetail)</h3>
 
-<p><strong>Figma:</strong> Hero fylder <code>100svh</code> på alle enheder.</p>
+<p><strong>Figma:</strong> Hero fylder <code class="tip" data-tooltip="100% af den synlige viewport-højde. svh er dynamisk og medregner ikke browserbaren på mobil.">100svh</code> på alle enheder.</p>
 <p><strong>Implementeret:</strong> 55svh (telefon) · 65svh (tablet) · 100svh (desktop).</p>
 <p><strong>Begrundelse:</strong> En fuld-skærms hero på mobil skjuler alt indhold "below the fold" — brugeren ser hverken ingredienser, størrelsesvælger eller "Tilføj til kurv" knap uden at scrolle. 55svh signalerer det visuelle udtryk og lader brugeren se at der er mere at scrolle til.</p>
 
@@ -887,7 +887,7 @@ if (items.length === 0) return &lt;p className={styles.empty}&gt;Ingen retter fu
   <li>Outlined med gennemstregning — basisingrediens fravalgt</li>
   <li>Outlined normal — ekstra ingrediens klar til at tilføjes</li>
 </ul>
-<p><strong>Begrundelse:</strong> 29 ingredienser i en lodret liste er svær at scanne. Pill-grid er kompakt og giver hurtig visuel feedback. Implementeringen er mere ambitiøs end Figma-eksemplet: vi henter <strong>alle 29 ingredienser fra serveren</strong> (<code>GET /ingredients</code>) med <code>Promise.all</code>, så brugeren kan tilføje noget der ikke er på pizzaen i forvejen — ikke kun fjerne basisingredienser.</p>
+<p><strong>Begrundelse:</strong> 29 ingredienser i en lodret liste er svær at scanne. Pill-grid er kompakt og giver hurtig visuel feedback. Implementeringen er mere ambitiøs end Figma-eksemplet: vi henter <strong>alle 29 ingredienser fra serveren</strong> (<code class="tip" data-tooltip="Server-endpoint der returnerer alle 29 tilgængelige ingredienser til ingredienspanelet på rettesiden.">GET /ingredients</code>) med <code class="tip" data-tooltip="Kører flere async-kald parallelt og venter til alle er færdige — hurtigere end sekventielle await-kald.">Promise.all</code>, så brugeren kan tilføje noget der ikke er på pizzaen i forvejen — ikke kun fjerne basisingredienser.</p>
 
 <h3>5.3 Kurv: mængdekontrol (−/antal/+)</h3>
 
@@ -991,7 +991,7 @@ useEffect(() =&gt; {
 
 <h3>Uddybning: Authentication (tilvalg 7)</h3>
 
-<p><code>USE_JWT=true</code> aktiverer fuld JWT-beskyttelse på serveren. Frontend sender altid <code>Authorization: Bearer &lt;token&gt;</code> — serveren ignorerer det bare når JWT er slået fra. Det betyder at koden fungerer identisk uanset serverindstilling.</p>
+<p><code class="tip" data-tooltip="Env-variabel der aktiverer fuld JWT-beskyttelse på alle beskyttede server-endpoints.">USE_JWT=true</code> aktiverer fuld JWT-beskyttelse på serveren. Frontend sender altid <code class="tip" data-tooltip="HTTP-header der sender JWT til serveren for at bevise identitet på beskyttede endpoints.">Authorization: Bearer &lt;token&gt;</code> — serveren ignorerer det bare når JWT er slået fra. Det betyder at koden fungerer identisk uanset serverindstilling.</p>
 
 <hr />
 
@@ -1015,7 +1015,7 @@ useEffect(() =&gt; {
       <td>UI-framework</td>
     </tr>
     <tr>
-      <td><code>react-router-dom</code></td>
+      <td><code class="tip" data-tooltip="React Router-bibliotek der tilbyder klient-side routing via BrowserRouter og Route — ingen sideindlæsning.">react-router-dom</code></td>
       <td>Klient-sidenavigation</td>
     </tr>
     <tr>
@@ -1027,7 +1027,7 @@ useEffect(() =&gt; {
       <td>Lokal font — brødtekst</td>
     </tr>
     <tr>
-      <td><code>vite</code> + <code>@vitejs/plugin-react</code></td>
+      <td><code class="tip" data-tooltip="Hurtig build-tool og dev-server med instant HMR (hot module replacement).">vite</code> + <code class="tip" data-tooltip="Vite-plugin der tilføjer React-support med JSX-transformation og Fast Refresh.">@vitejs/plugin-react</code></td>
       <td>Build-tool og dev-server</td>
     </tr>
   </tbody>
@@ -1053,8 +1053,8 @@ useEffect(() =&gt; {
   <li>Alle arkitekturvalg (komponentopdeling, context vs. props, routestruktur)</li>
   <li>Alle designafvigelser fra Figma og begrundelserne for dem</li>
   <li>Valget af CSS Modules frem for Tailwind/Sass</li>
-  <li><code>basketKey</code>-strategien for størrelsesopdeling i kurven</li>
-  <li><code>Promise.all</code>-mønsteret til parallel datahentning i DishDetail</li>
+  <li><code class="tip" data-tooltip="Unik nøgle pr. ret+størrelse — Normal og Familie af samme ret optræder som separate kurvelinjer.">basketKey</code>-strategien for størrelsesopdeling i kurven</li>
+  <li><code class="tip" data-tooltip="Kører flere async-kald parallelt og venter til alle er færdige — hurtigere end sekventielle await-kald.">Promise.all</code>-mønsteret til parallel datahentning i DishDetail</li>
   <li>At hente alle ingredienser fra serveren frem for at hårdkode dem</li>
 </ul>
 
@@ -1207,7 +1207,7 @@ Desktop: 1440 px viewport.</p>
 
 <h4>Desktop — Offentlige sider</h4>
 
-<p class="section-intro">På desktop (1440px) aktiveres et fullwidth-layout med hero på <code>100svh</code> og vandret navigationsmenu. <code class="tip" data-tooltip="React-komponent der viser én ret med billede, navn og pris — genanvendes på menu-siden.">DishCard</code>-grid skifter til tre kolonner via et enkelt CSS-breakpoint ved 1024px. Medarbejder-siden henter data fra <code class="tip" data-tooltip="Henter alle medarbejdere fra MongoDB-databasen.">GET /api/employees</code> og viser kort med billede, navn og titel.</p>
+<p class="section-intro">På desktop (1440px) aktiveres et fullwidth-layout med hero på <code class="tip" data-tooltip="100% af den synlige viewport-højde. svh er dynamisk og medregner ikke browserbaren på mobil.">100svh</code> og vandret navigationsmenu. <code class="tip" data-tooltip="React-komponent der viser én ret med billede, navn og pris — genanvendes på menu-siden.">DishCard</code>-grid skifter til tre kolonner via et enkelt CSS-breakpoint ved 1024px. Medarbejder-siden henter data fra <code class="tip" data-tooltip="Henter alle medarbejdere fra MongoDB-databasen.">GET /api/employees</code> og viser kort med billede, navn og titel.</p>
 
 <div class="grid-2-tall">
   <figure>
