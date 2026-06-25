@@ -1,3 +1,212 @@
+---
+pdf_options:
+  format: A4
+  margin:
+    top: "2.2cm"
+    bottom: "2.5cm"
+    left: "2cm"
+    right: "2cm"
+  displayHeaderFooter: true
+  headerTemplate: '<div style="font-size:7.5px;color:#aaa;width:100%;text-align:center;padding-top:6px;letter-spacing:0.04em;">DEN GLADE SKORPE &nbsp;·&nbsp; FAGPRØVERAPPORT &nbsp;·&nbsp; MATHIAS BOLL &nbsp;·&nbsp; WEBH125-2</div>'
+  footerTemplate: '<div style="font-size:7.5px;color:#aaa;width:100%;text-align:center;padding-bottom:6px;"><span class="pageNumber"></span> / <span class="totalPages"></span></div>'
+css: |
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: "Segoe UI", "Inter", Arial, Helvetica, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.7;
+    color: #222;
+    background: #fff;
+  }
+
+  /* ── Title block ── */
+  h1 {
+    font-size: 28pt;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.15em 0;
+    padding: 0;
+    border: none;
+    line-height: 1.15;
+  }
+
+  /* ── Section headings ── */
+  h2 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: #fff;
+    background: #4A4A4A;
+    padding: 6px 14px;
+    border-radius: 4px;
+    margin: 2.2em 0 0.7em 0;
+    page-break-after: avoid;
+    letter-spacing: 0.01em;
+  }
+
+  h3 {
+    font-size: 11pt;
+    font-weight: 600;
+    color: #4A4A4A;
+    margin: 1.5em 0 0.4em 0;
+    padding-bottom: 3px;
+    border-bottom: 1.5px solid #e8e3e0;
+    page-break-after: avoid;
+  }
+
+  h4 {
+    font-size: 10pt;
+    font-weight: 600;
+    color: #555;
+    margin: 1.1em 0 0.3em 0;
+    page-break-after: avoid;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 8.5pt;
+  }
+
+  /* ── Code ── */
+  code {
+    font-family: "Consolas", "Cascadia Code", "Courier New", monospace;
+    font-size: 8.5pt;
+    background: #f3f2f0;
+    padding: 2px 5px;
+    border-radius: 3px;
+    color: #b5340c;
+  }
+
+  pre {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-family: "Consolas", "Cascadia Code", "Courier New", monospace;
+    font-size: 8pt;
+    line-height: 1.55;
+    white-space: pre-wrap;
+    word-break: break-all;
+    page-break-inside: avoid;
+    margin: 0.8em 0;
+  }
+
+  pre code {
+    background: none;
+    color: #d4d4d4;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+  }
+
+  /* ── Tables ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.9em 0 1.2em 0;
+    font-size: 9.5pt;
+    page-break-inside: avoid;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  thead tr {
+    background: #4A4A4A;
+  }
+
+  th {
+    color: #fff;
+    padding: 8px 13px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 9pt;
+    letter-spacing: 0.02em;
+  }
+
+  td {
+    padding: 6px 13px;
+    border-bottom: 1px solid #ece9e6;
+    vertical-align: top;
+    color: #333;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #faf8f7; }
+
+  /* ── Links ── */
+  a {
+    color: #4A4A4A;
+    text-decoration: underline;
+    word-break: break-all;
+  }
+
+  /* ── Horizontal rules ── */
+  hr {
+    border: none;
+    border-top: 1px solid #e0dbd8;
+    margin: 1.8em 0;
+  }
+
+  /* ── Lists ── */
+  ul, ol {
+    padding-left: 1.5em;
+    margin: 0.4em 0 0.8em 0;
+  }
+
+  li { margin-bottom: 0.25em; }
+
+  /* ── Bold / inline ── */
+  strong { font-weight: 600; color: #111; }
+  em { color: #555; }
+
+  /* ── Blockquote ── */
+  blockquote {
+    border-left: 3px solid #c8c0bb;
+    margin: 0 0 1em 0;
+    padding: 6px 14px;
+    color: #666;
+    background: #faf8f7;
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* ── Figures / screenshots ── */
+  figure {
+    margin: 0;
+    page-break-inside: avoid;
+    background: #f8f6f4;
+    border: 1px solid #e0dbd8;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  figure img {
+    display: block;
+    width: 100%;
+  }
+
+  figcaption {
+    font-size: 8pt;
+    color: #666;
+    text-align: center;
+    padding: 5px 8px 7px;
+    background: #f0ece9;
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Section label above content ── */
+  .section-intro {
+    background: #faf8f6;
+    border-left: 3px solid #4A4A4A;
+    padding: 8px 14px;
+    margin-bottom: 1em;
+    border-radius: 0 4px 4px 0;
+    font-size: 9.5pt;
+    color: #555;
+  }
+---
+
 # Den Glade Skorpe — Fagprøverapport
 
 ---
@@ -484,31 +693,164 @@ Alle API-kald har loading-indikatorer, fejlbeskeder og tomme-tilstande. Ingen si
 
 ## 10. Bilag
 
-### Screenshots (se GitHub repository)
+### 10.1 Skærmbilleder
 
-Screenshots tages og tilføjes i `docs/screenshots/` iht. GitHub issue #41:
-https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe/issues/41
+Alle screenshots er taget automatisk med Playwright / headless Chromium.
+Mobil: 390 × 844 px · DeviceScaleFactor 2 (svarende til iPhone 14 Pro).
+Desktop: 1440 × 900 px · viewport-snapshot.
 
-Planlagte screenshots:
-- Forside med rettegrid og kategori-filter (mobil + desktop)
-- Retteside med størrelsesvælger og ingredient pill-chip panel
-- Kurv med mængdekontrol og total
-- Tom kurv
-- Ordre-bekræftelsesside
-- Personaleside med cirkulære billeder
-- Kontaktformular og bekræftelsesside
-- 404-siden
-- Burger-menu åben (mobil)
-- Backoffice: medarbejdere CRUD, beskeder, ordrer, retter
+---
 
-### Figma-design
+#### Forside — Mobil (390 px)
 
-https://www.figma.com/design/yzjuDfwFzngz8EySrOXSf6/Den-Glade-Skorpe?node-id=0-1
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:12px 0;">
 
-### GitHub repository
+<figure>
+<img src="docs/screenshots/home-hero-mobile.png" style="height:300px;object-fit:cover;object-position:top;" />
+<figcaption>Forside – hero &amp; navigation</figcaption>
+</figure>
 
-https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe
+<figure>
+<img src="docs/screenshots/home-menu-mobile.png" style="height:300px;object-fit:cover;object-position:top;" />
+<figcaption>Forside – kategorifilter</figcaption>
+</figure>
 
-### Opgavebeskrivelse
+<figure>
+<img src="docs/screenshots/mobile-menu-open.png" style="height:300px;object-fit:cover;object-position:top;" />
+<figcaption>Burger-menu åben</figcaption>
+</figure>
+
+</div>
+
+---
+
+#### Retteside — Mobil
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;">
+
+<figure>
+<img src="docs/screenshots/dish-detail-mobile.png" style="height:560px;object-fit:contain;" />
+<figcaption>Retteside – størrelsesvælger &amp; tilføj til kurv</figcaption>
+</figure>
+
+<figure>
+<img src="docs/screenshots/dish-detail-extras-mobile.png" style="height:560px;object-fit:contain;" />
+<figcaption>Retteside – ingredienspanel åbent (alle 29 ingredienser)</figcaption>
+</figure>
+
+</div>
+
+---
+
+#### Kurv og Bestilling — Mobil
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;">
+
+<figure>
+<img src="docs/screenshots/basket-mobile.png" style="height:480px;object-fit:contain;" />
+<figcaption>Kurv – mængdekontrol, extras og afgiv ordre</figcaption>
+</figure>
+
+<figure>
+<img src="docs/screenshots/order-confirmation-mobile.png" style="height:480px;object-fit:cover;object-position:top;" />
+<figcaption>Ordrebekræftelse</figcaption>
+</figure>
+
+</div>
+
+---
+
+#### Øvrige sider — Mobil
+
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:12px 0;">
+
+<figure>
+<img src="docs/screenshots/employees-mobile.png" style="height:320px;object-fit:contain;" />
+<figcaption>Personaleside</figcaption>
+</figure>
+
+<figure>
+<img src="docs/screenshots/contact-mobile.png" style="height:320px;object-fit:contain;" />
+<figcaption>Kontaktformular</figcaption>
+</figure>
+
+<figure>
+<img src="docs/screenshots/404-mobile.png" style="height:320px;object-fit:cover;object-position:top;" />
+<figcaption>404 – Siden findes ikke</figcaption>
+</figure>
+
+</div>
+
+---
+
+#### Forside og Retter — Desktop (1440 px)
+
+<div style="display:grid;grid-template-columns:1fr;gap:12px;margin:12px 0;">
+
+<figure>
+<img src="docs/screenshots/home-desktop.png" style="height:420px;object-fit:cover;object-position:top;" />
+<figcaption>Forside – hero og navigation (desktop 1440 px)</figcaption>
+</figure>
+
+<figure>
+<img src="docs/screenshots/home-desktop-grid.png" style="height:420px;object-fit:cover;object-position:top;" />
+<figcaption>Forside – rettegrid og kategorifilter (desktop)</figcaption>
+</figure>
+
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;">
+
+<figure>
+<img src="docs/screenshots/dish-detail-desktop.png" style="height:380px;object-fit:cover;object-position:top;" />
+<figcaption>Retteside (desktop)</figcaption>
+</figure>
+
+<figure>
+<img src="docs/screenshots/employees-desktop.png" style="height:380px;object-fit:cover;object-position:top;" />
+<figcaption>Personaleside (desktop)</figcaption>
+</figure>
+
+</div>
+
+---
+
+#### Backoffice — Desktop
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;">
+
+<figure>
+<img src="docs/screenshots/backoffice-employees-desktop.png" style="height:340px;object-fit:cover;object-position:top;" />
+<figcaption>Backoffice – Medarbejdere CRUD &amp; billede-upload</figcaption>
+</figure>
+
+<figure>
+<img src="docs/screenshots/backoffice-messages-desktop.png" style="height:340px;object-fit:cover;object-position:top;" />
+<figcaption>Backoffice – Beskeder fra kontaktformular</figcaption>
+</figure>
+
+<figure>
+<img src="docs/screenshots/backoffice-orders-desktop.png" style="height:340px;object-fit:cover;object-position:top;" />
+<figcaption>Backoffice – Indkomne ordrer</figcaption>
+</figure>
+
+<figure>
+<img src="docs/screenshots/backoffice-dishes-desktop.png" style="height:340px;object-fit:cover;object-position:top;" />
+<figcaption>Backoffice – Retter CRUD</figcaption>
+</figure>
+
+</div>
+
+---
+
+### 10.2 Links
+
+| Ressource | URL |
+|-----------|-----|
+| GitHub repository | https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe |
+| Figma design | https://www.figma.com/design/yzjuDfwFzngz8EySrOXSf6/Den-Glade-Skorpe |
+| GitHub Issues | https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe/issues |
+
+### 10.3 Opgavebeskrivelse
 
 `mcd_web_dengladeskorpe_server/[mcd]/assignment/den_glade_skorpe.md`
