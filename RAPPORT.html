@@ -1108,6 +1108,8 @@ Desktop: 1440 px viewport.</p>
 
 <h4>Mobil — Offentlige sider</h4>
 
+<p class="section-intro">Alle tre offentlige sider er designet mobile-first. Navigationen ligger bag et burger-ikon øverst til højre og åbner en fullscreen-menu. <code>DishCard</code>-komponenten genanvendes på menusiden med kategorifilter. Kontaktformularen validerer alle felter klient-side og poster til <code>POST /api/messages</code>.</p>
+
 <div class="grid-3">
   <figure>
     <img src="docs/screenshots/menu-mobile.png" alt="Vores Menu — mobil" />
@@ -1125,6 +1127,8 @@ Desktop: 1440 px viewport.</p>
 
 <h4>Mobil — Retteside</h4>
 
+<p class="section-intro">Rettesiden henter retten via <code>GET /api/dishes/:id</code> og viser en størrelsesvælger med dynamisk prisopdatering. Det højre screenshot viser ingredienspanelet åbent — brugeren kan fravælge eller tilføje ekstra ingredienser. Den valgte kombination gemmes samlet i <code>localStorage</code> via <code>BasketContext</code>.</p>
+
 <div class="grid-2">
   <figure>
     <img src="docs/screenshots/dish-detail-mobile.png" alt="Retteside – størrelsesvælger og tilføj til kurv" />
@@ -1138,6 +1142,8 @@ Desktop: 1440 px viewport.</p>
 
 <h4>Mobil — Kurv og Bestilling</h4>
 
+<p class="section-intro">Kurvsiden læser indholdet fra <code>localStorage</code> via <code>BasketContext</code>. Mængden kan justeres inline og ordren postes til <code>POST /api/orders</code> med JWT Bearer-token i headeren. Ordrebekræftelsen viser ordrenummer og et resumé af alle valgte retter med priser.</p>
+
 <div class="grid-2">
   <figure>
     <img src="docs/screenshots/basket-mobile.png" alt="Kurv – mængdekontrol, extras og afgiv ordre" />
@@ -1150,6 +1156,8 @@ Desktop: 1440 px viewport.</p>
 </div>
 
 <h4>Desktop — Offentlige sider</h4>
+
+<p class="section-intro">På desktop (1440px) aktiveres et fullwidth-layout med hero på <code>100svh</code> og vandret navigationsmenu. <code>DishCard</code>-grid skifter til tre kolonner via et enkelt CSS-breakpoint ved 1024px. Medarbejder-siden henter data fra <code>GET /api/employees</code> og viser kort med billede, navn og titel.</p>
 
 <div class="grid-2-tall">
   <figure>
@@ -1172,6 +1180,8 @@ Desktop: 1440 px viewport.</p>
 
 <h4>Desktop — Kurv og 404</h4>
 
+<p class="section-intro">Kurven på desktop benytter et to-kolonne-layout — reteliste til venstre og ordreopsummering til højre. 404-siden fanger alle ukendte routes via <code>&lt;Route path="*"&gt;</code> i React Router og tilbyder et direkte link tilbage til forsiden.</p>
+
 <div class="grid-2">
   <figure>
     <img src="docs/screenshots/basket-desktop.png" alt="Din Kurv (desktop)" />
@@ -1184,6 +1194,8 @@ Desktop: 1440 px viewport.</p>
 </div>
 
 <h4>Backoffice — Desktop</h4>
+
+<p class="section-intro">Backoffice kræver JWT-login. <code>RequireAuth</code>-komponenten beskytter alle <code>/backoffice/*</code>-routes og omdirigerer ved udløbet token. Medarbejder- og retteoprettelse bruger <code>multipart/form-data</code> til billedupload — <code>Content-Type</code> udelades bevidst så browseren sætter korrekt boundary. Besked- og ordrevisningerne er read-only tabeller sorteret efter dato.</p>
 
 <div class="grid-2">
   <figure>
