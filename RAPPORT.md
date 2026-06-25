@@ -729,12 +729,12 @@ Desktop: 1440 × 900 px · viewport-snapshot.
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;">
 
 <figure>
-<img src="docs/screenshots/dish-detail-mobile.png" style="width:100%;height:560px;object-fit:contain;" />
+<img src="docs/screenshots/dish-detail-mobile.png" style="width:100%;height:560px;object-fit:cover;object-position:top;" />
 <figcaption>Retteside – størrelsesvælger &amp; tilføj til kurv</figcaption>
 </figure>
 
 <figure>
-<img src="docs/screenshots/dish-detail-extras-mobile.png" style="width:100%;height:560px;object-fit:contain;" />
+<img src="docs/screenshots/dish-detail-extras-mobile.png" style="width:100%;height:560px;object-fit:cover;object-position:top;" />
 <figcaption>Retteside – ingredienspanel åbent (alle 29 ingredienser)</figcaption>
 </figure>
 
@@ -747,7 +747,7 @@ Desktop: 1440 × 900 px · viewport-snapshot.
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;">
 
 <figure>
-<img src="docs/screenshots/basket-mobile.png" style="width:100%;height:480px;object-fit:contain;" />
+<img src="docs/screenshots/basket-mobile.png" style="width:100%;height:480px;object-fit:cover;object-position:top;" />
 <figcaption>Kurv – mængdekontrol, extras og afgiv ordre</figcaption>
 </figure>
 
@@ -765,12 +765,12 @@ Desktop: 1440 × 900 px · viewport-snapshot.
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:12px 0;">
 
 <figure>
-<img src="docs/screenshots/employees-mobile.png" style="width:100%;height:320px;object-fit:contain;" />
+<img src="docs/screenshots/employees-mobile.png" style="width:100%;height:320px;object-fit:cover;object-position:top;" />
 <figcaption>Personaleside</figcaption>
 </figure>
 
 <figure>
-<img src="docs/screenshots/contact-mobile.png" style="width:100%;height:320px;object-fit:contain;" />
+<img src="docs/screenshots/contact-mobile.png" style="width:100%;height:320px;object-fit:cover;object-position:top;" />
 <figcaption>Kontaktformular</figcaption>
 </figure>
 
