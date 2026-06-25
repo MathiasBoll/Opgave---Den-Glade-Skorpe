@@ -746,17 +746,6 @@ if (items.length === 0) return &lt;p className={styles.empty}&gt;Ingen retter fu
 @media (min-width: 768px)  { .hero { min-height: 65svh; } }
 @media (min-width: 1024px) { .hero { min-height: 100svh; } }</code></pre>
 
-<div class="grid-2" style="margin-top:12px;">
-  <figure>
-    <img src="docs/screenshots/dish-detail-mobile.png" alt="Retteside – størrelsesvælger og tilføj til kurv, mobil" />
-    <figcaption>Retteside – størrelsesvælger &amp; tilføj til kurv (mobil)</figcaption>
-  </figure>
-  <figure>
-    <img src="docs/screenshots/dish-detail-extras-mobile.png" alt="Retteside – ingredienspanel åbent, mobil" />
-    <figcaption>Retteside – ingredienspanel åbent (alle 29 ingredienser)</figcaption>
-  </figure>
-</div>
-
 <h3>5.2 Ingredient-toggle: pill-chip grid frem for simpel liste</h3>
 
 <p><strong>Figma:</strong> Ingredienspanelet viser en lodret liste med check-bokse.</p>
@@ -774,13 +763,6 @@ if (items.length === 0) return &lt;p className={styles.empty}&gt;Ingen retter fu
 <p><strong>Implementeret:</strong> <code>[−] [antal] [+]  Fjern</code> pr. kurvelinje.</p>
 <p><strong>Begrundelse:</strong> Standard UX i alle webshops. Opgavebeskrivelsen kræver "intuitiv interaktion og tydelig feedback" — mængdekontrol opfylder begge uden at brugeren skal tilbage til menuen.</p>
 
-<div style="margin-top:12px;">
-  <figure>
-    <img src="docs/screenshots/basket-mobile.png" alt="Din Kurv – mængdekontrol, mobil" />
-    <figcaption>Kurv – mængdekontrol, extras og afgiv ordre (mobil)</figcaption>
-  </figure>
-</div>
-
 <h3>5.4 Kurv-badge: pizza-ikon frem for tekst</h3>
 
 <p><strong>Figma:</strong> "Kurv" som tekstlink med tal-badge.</p>
@@ -792,17 +774,6 @@ if (items.length === 0) return &lt;p className={styles.empty}&gt;Ingen retter fu
 <p><strong>Figma:</strong> Hvide kort-modaler ved order/kontakt-bekræftelse.</p>
 <p><strong>Implementeret:</strong> Dedikerede sider (<code>/order-confirmation</code>, <code>/contact/tak</code>) med pizza-headerbilledet som fuld-skærms baggrund og hvid tekst.</p>
 <p><strong>Begrundelse:</strong> En dedikeret route er mere stabil end en modal (ingen scroll-position-problemer), og den visuelle "brand moment" med pizza-baggrunden matcher sitedesignet bedre end et hvidt kort.</p>
-
-<div class="grid-2" style="margin-top:12px;">
-  <figure>
-    <img src="docs/screenshots/order-confirmation-mobile.png" alt="Ordrebekræftelse, mobil" />
-    <figcaption>Ordrebekræftelse (mobil)</figcaption>
-  </figure>
-  <figure>
-    <img src="docs/screenshots/contact-mobile.png" alt="Kontaktformular, mobil" />
-    <figcaption>Kontaktformular (mobil)</figcaption>
-  </figure>
-</div>
 
 <hr />
 
@@ -1053,9 +1024,9 @@ npm run dev</code></pre>
 Mobil: screenshots vist i Chrome DevTools mobilvisning.<br />
 Desktop: 1440 px viewport.</p>
 
-<h4>Mobil — Menu og Navigation</h4>
+<h4>Mobil — Offentlige sider</h4>
 
-<div class="grid-2">
+<div class="grid-3">
   <figure>
     <img src="docs/screenshots/menu-mobile.png" alt="Vores Menu — mobil" />
     <figcaption>Vores Menu — mobil</figcaption>
@@ -1063,6 +1034,10 @@ Desktop: 1440 px viewport.</p>
   <figure>
     <img src="docs/screenshots/employees-mobile.png" alt="Mød Holdet — mobil" />
     <figcaption>Mød Holdet — mobil</figcaption>
+  </figure>
+  <figure>
+    <img src="docs/screenshots/contact-mobile.png" alt="Kontaktformular — mobil" />
+    <figcaption>Kontaktformular — mobil</figcaption>
   </figure>
 </div>
 
@@ -1089,19 +1064,6 @@ Desktop: 1440 px viewport.</p>
   <figure>
     <img src="docs/screenshots/order-confirmation-mobile.png" alt="Ordrebekræftelse" />
     <figcaption>Ordrebekræftelse</figcaption>
-  </figure>
-</div>
-
-<h4>Mobil — Øvrige sider</h4>
-
-<div class="grid-2">
-  <figure>
-    <img src="docs/screenshots/contact-mobile.png" alt="Kontaktformular — mobil" />
-    <figcaption>Kontaktformular — mobil</figcaption>
-  </figure>
-  <figure>
-    <img src="docs/screenshots/order-confirmation-mobile.png" alt="Ordrebekræftelse — mobil" />
-    <figcaption>Ordrebekræftelse — mobil</figcaption>
   </figure>
 </div>
 
