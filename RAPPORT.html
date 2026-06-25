@@ -27,13 +27,13 @@
 
     body {
       font-family: "Segoe UI", "Inter", Arial, Helvetica, sans-serif;
-      font-size: 10.5pt;
-      line-height: 1.7;
+      font-size: 11pt;
+      line-height: 1.8;
       color: #222;
       background: #fff;
-      max-width: 900px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 2rem;
+      padding: 3rem 4rem;
     }
 
     /* ── Title block ── */
@@ -56,7 +56,7 @@
       background: #4A4A4A;
       padding: 6px 14px;
       border-radius: 4px;
-      margin: 2.2em 0 0.7em 0;
+      margin: 2.8em 0 0.9em 0;
       page-break-after: avoid;
       letter-spacing: 0.01em;
     }
@@ -65,7 +65,7 @@
       font-size: 11pt;
       font-weight: 600;
       color: #4A4A4A;
-      margin: 1.5em 0 0.4em 0;
+      margin: 1.8em 0 0.5em 0;
       padding-bottom: 3px;
       border-bottom: 1.5px solid #e8e3e0;
       page-break-after: avoid;
@@ -131,7 +131,7 @@
 
     th {
       color: #fff;
-      padding: 8px 13px;
+      padding: 10px 16px;
       text-align: left;
       font-weight: 600;
       font-size: 9pt;
@@ -139,7 +139,7 @@
     }
 
     td {
-      padding: 6px 13px;
+      padding: 8px 16px;
       border-bottom: 1px solid #ece9e6;
       vertical-align: top;
       color: #333;
@@ -169,6 +169,10 @@
     }
 
     li { margin-bottom: 0.25em; }
+
+    p {
+      margin: 0 0 0.9em 0;
+    }
 
     /* ── Bold / inline ── */
     strong { font-weight: 600; color: #111; }
@@ -214,7 +218,7 @@
     .grid-3 {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
+      gap: 14px;
       margin: 12px 0;
       page-break-inside: avoid;
     }
@@ -222,7 +226,7 @@
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 16px;
       margin: 12px 0;
       page-break-inside: avoid;
     }
@@ -230,33 +234,33 @@
     .grid-2-tall {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 16px;
       margin: 12px 0;
       page-break-inside: avoid;
     }
 
     .img-mobile {
-      height: 320px;
-    }
-
-    .img-mobile-tall {
-      height: 480px;
-    }
-
-    .img-mobile-retteside {
-      height: 560px;
-    }
-
-    .img-desktop {
       height: 380px;
     }
 
+    .img-mobile-tall {
+      height: 540px;
+    }
+
+    .img-mobile-retteside {
+      height: 620px;
+    }
+
+    .img-desktop {
+      height: 440px;
+    }
+
     .img-desktop-wide {
-      height: 420px;
+      height: 480px;
     }
 
     .img-backoffice {
-      height: 340px;
+      height: 400px;
     }
 
     /* ── Section label above content ── */
@@ -272,7 +276,9 @@
 
     /* ── Title block meta ── */
     .title-block {
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid #4A4A4A;
     }
 
     .title-block .meta {
