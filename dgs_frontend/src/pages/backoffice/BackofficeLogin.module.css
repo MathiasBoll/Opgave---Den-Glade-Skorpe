@@ -16,6 +16,21 @@
   max-width: 400px;
 }
 
+.backLink {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #777;
+  text-decoration: none;
+  margin-bottom: var(--spacing-sm);
+  transition: color 0.2s;
+}
+
+.backLink:hover {
+  color: var(--color-dark);
+  text-decoration: underline;
+}
+
 .title {
   font-size: 3rem;
   text-align: center;

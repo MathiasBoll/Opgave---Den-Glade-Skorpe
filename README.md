@@ -2,7 +2,7 @@
 
 Fagprøveprojekt — Den Glade Skorpe er en moderne pizzarestaurant med mobil-first hjemmeside, online bestilling og backoffice/admin-panel.
 
-- **Eksamenrapport:** [`RAPPORT.html`](./RAPPORT.html) — åbn i browser
+- **Eksamenrapport:** [`RAPPORT.pdf`](./RAPPORT.pdf) — åbn direkte som PDF (ingen browser/VS Code nødvendig)
 - **Frontend-dokumentation:** [`dgs_frontend/README.md`](./dgs_frontend/README.md)
 - **Backend-dokumentation:** [`mcd_web_dengladeskorpe_server/readme.md`](./mcd_web_dengladeskorpe_server/readme.md)
 
@@ -11,7 +11,8 @@ Fagprøveprojekt — Den Glade Skorpe er en moderne pizzarestaurant med mobil-fi
 ## Repo-struktur
 
 ```
-RAPPORT.html                     ← Eksamensrapport (åbn i browser)
+RAPPORT.pdf                      ← Eksamensrapport (åbn direkte som PDF)
+RAPPORT.html                     ← Samme rapport som HTML (kilde til PDF'en)
 docs/screenshots/                ← FireShot-skærmbilleder af appen
 mcd_web_dengladeskorpe_server/   ← Backend API (Node.js / Express / MongoDB)
 dgs_frontend/                    ← Frontend (React 19 + Vite)

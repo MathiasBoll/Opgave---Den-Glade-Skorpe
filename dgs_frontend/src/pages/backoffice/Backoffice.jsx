@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import styles from './Backoffice.module.css'
 
@@ -16,6 +16,7 @@ export default function Backoffice() {
       <nav className={styles.nav}>
         <div className={styles.navInner}>
           <span className={styles.logo}>Backoffice</span>
+          <Link to="/" className={styles.siteLink}>← Se hjemmesiden</Link>
           <NavLink
             to="/backoffice/employees"
             className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}

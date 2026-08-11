@@ -216,7 +216,8 @@ css: |
 **Hold:** WebH125-2  
 **Skole:** Media College Denmark  
 **Afleveringsdato:** 26-06-2026  
-**Fremlæggelse:** Uge 32–35 (3. aug – 30. aug 2026)
+**Fremlæggelse:** Uge 32–35 (3. aug – 30. aug 2026)  
+**Opdateret:** 11-08-2026 — se [tillæg efter sommerferien](#opdateringer-efter-sommerferien-11-08-2026) i afsnit 1
 
 ---
 
@@ -279,6 +280,20 @@ Projektet har givet mig solid erfaring med:
 - Mobile-first CSS med CSS Modules og custom design tokens
 - Git-disciplin: hyppige, beskrivende commits og GitHub Issues som projektstyringsværktøj
 
+### Opdateringer efter sommerferien (11-08-2026)
+
+Efter aflevering i juni har jeg brugt tiden op til fremlæggelsen på en systematisk gennemgang af hele applikationen for at fange resterende fejl og polere brugeroplevelsen før fremvisning:
+
+- **Duplikeret seed-data ryddet op** — seed-scriptet (`seed.helper.js`) opretter data uden at tjekke om det allerede findes, så gentagne kørsler af `npm run "Opret Database"` havde skabt duplikerede ingredienser og kontaktbeskeder i databasen (fx samme ingrediens registreret 2–3 gange, hvilket også gav en React-advarsel om dubletter i `key`-props). Begge kollektioner er ryddet op via et engangs-script, så antallet nu matcher seed-datas oprindelige indhold.
+- **Toast-notifikationer ved "Læg i kurv"** — gentagne klik på samme ret gav tidligere ingen synlig feedback ud over kurv-badgen. Der er nu en toast-besked med løbende antal ("✓ Spaghetti Galaxi tilføjet — 2 stk. i kurven"), implementeret via en global `ToastContext`.
+- **Tydeligere CTA-knapper** — "Tilføj til kurv", "Afgiv ordre", "Send besked" og "Gem"-knapperne i backoffice brugte tidligere kun en flad mørk farve med opacity-hover. De har nu en dedikeret accentfarve (`--color-accent`), skygge, hover-løft og en `:focus-visible`-ring for tastaturbrugere.
+- **Bekræftelsesmodal ved sletning i backoffice** — den tidligere inline advarselsboks (som skubbede tabellen ned) er erstattet af en genbrugelig `ConfirmModal`-komponent, brugt konsekvent på alle fire backoffice-sider (medarbejdere, retter, ordrer, beskeder).
+- **Favicon matcher logoet** — browserfanens ikon var tidligere et generisk standard-SVG-ikon og er nu det samme pizza-logo som vises i headeren.
+- **"Tilbage til hjemmesiden"-link i backoffice** — både login-siden og den autentificerede backoffice-navigation manglede en synlig vej tilbage til den offentlige side; der er nu tilføjet et link begge steder.
+- **Dokumentation ryddet op** — den overordnede `README.md` indeholdt flere generationer af duplikeret indhold fra løbende redigeringer (samme afsnit gentaget 3–4 gange med forskellige, delvist forældede versioner). Den er nu konsolideret til ét gennemgående dokument, og `dgs_frontend/README.md` er rettet så rute-navne og login-oplysninger matcher den faktiske applikation.
+
+Ingen af disse ændringer påvirker de funktionelle krav eller tilvalgsopgaverne — det er udelukkende fejlrettelser og polish af eksisterende funktionalitet.
+
 ---
 
 ## 2. Tidsplan og proces
@@ -324,7 +339,7 @@ Issues fordelt i grupper:
 
 | Teknologi | Rolle | Begrundelse |
 |-----------|-------|-------------|
-| **React 18** | UI-framework | Komponent-baseret arkitektur matcher kravene om genanvendelige komponenter. Hooks giver ren tilstandsstyring. |
+| **React 19** | UI-framework | Komponent-baseret arkitektur matcher kravene om genanvendelige komponenter. Hooks giver ren tilstandsstyring. |
 | **Vite** | Bundler og dev-server | Hurtig HMR vs. CRA. Officielt anbefalet til nye React-projekter. |
 | **React Router v6** | Klient-routing | Deklarativ routing. `RequireAuth`-wrapper beskytter backoffice-routes. `useNavigate` og `useParams` bruges i flow. |
 | **CSS Modules** | Scoped styling | Automatisk navne-scoping forhindrer stilklasser i at lække på tværs af komponenter. Ren CSS — ingen ekstra dependency. |
@@ -635,7 +650,7 @@ Al kode er gennemlæst og godkendt af mig. Jeg er bevidst om indholdet af hvert 
 
 | Type | Oplysning |
 |------|-----------|
-| Frontend URL | http://localhost:5174 |
+| Frontend URL | http://localhost:5173 (kan variere til 5174 hvis porten er optaget) |
 | Backend URL | http://localhost:3042 |
 | Admin login | admin@mediacollege.dk / admin |
 | Guest login | guest@mediacollege.dk / guest |

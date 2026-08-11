@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import styles from './BackofficeLogin.module.css'
 
@@ -18,6 +18,7 @@ export default function BackofficeLogin() {
   return (
     <main className={styles.main}>
       <div className={styles.card}>
+        <Link to="/" className={styles.backLink}>← Tilbage til forsiden</Link>
         <h1 className={styles.title}>Backoffice</h1>
         <p className={styles.sub}>Log ind for at fortsætte</p>
 

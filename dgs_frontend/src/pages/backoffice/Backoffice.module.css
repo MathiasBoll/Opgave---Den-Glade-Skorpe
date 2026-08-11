@@ -18,6 +18,22 @@
   margin-right: auto;
 }
 
+.siteLink {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  padding-right: var(--spacing-sm);
+  margin-right: var(--spacing-xs);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  transition: color 0.2s;
+}
+
+.siteLink:hover {
+  color: var(--color-white);
+  text-decoration: underline;
+}
+
 .navLink {
   font-family: var(--font-heading);
   font-size: 1.2rem;

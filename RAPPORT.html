@@ -427,7 +427,8 @@
   <div class="meta">
     <strong>Navn:</strong> Mathias Boll &nbsp;&nbsp;
     <strong>Afleveringsdato:</strong> 26-06-2026 &nbsp;&nbsp;
-    <strong>Fremlæggelse:</strong> Uge 32–35 (3. aug – 30. aug 2026)
+    <strong>Fremlæggelse:</strong> Uge 32–35 (3. aug – 30. aug 2026) &nbsp;&nbsp;
+    <strong>Opdateret:</strong> 11-08-2026
   </div>
 </div>
 
@@ -513,6 +514,21 @@
   <li>Mobile-first CSS med CSS Modules og custom design tokens</li>
   <li>Git-disciplin: hyppige, beskrivende commits og GitHub Issues som projektstyringsværktøj</li>
 </ul>
+
+<h3 id="opdateringer-efter-sommerferien-11-08-2026">Opdateringer efter sommerferien (11-08-2026)</h3>
+
+<p>Efter aflevering i juni har jeg brugt tiden op til fremlæggelsen på en systematisk gennemgang af hele applikationen for at fange resterende fejl og polere brugeroplevelsen før fremvisning:</p>
+<ul>
+  <li><strong>Duplikeret seed-data ryddet op</strong> — seed-scriptet (<code class="tip" data-tooltip="Backend-fil der opretter seed-testdata i databasen.">seed.helper.js</code>) opretter data uden at tjekke om det allerede findes, så gentagne kørsler af <code>npm run "Opret Database"</code> havde skabt duplikerede ingredienser og kontaktbeskeder i databasen (fx samme ingrediens registreret 2–3 gange, hvilket også gav en React-advarsel om dubletter i <code>key</code>-props). Begge kollektioner er ryddet op via et engangs-script, så antallet nu matcher seed-datas oprindelige indhold.</li>
+  <li><strong>Toast-notifikationer ved "Læg i kurv"</strong> — gentagne klik på samme ret gav tidligere ingen synlig feedback ud over kurv-badgen. Der er nu en toast-besked med løbende antal ("✓ Spaghetti Galaxi tilføjet — 2 stk. i kurven"), implementeret via en global <code>ToastContext</code>.</li>
+  <li><strong>Tydeligere CTA-knapper</strong> — "Tilføj til kurv", "Afgiv ordre", "Send besked" og "Gem"-knapperne i backoffice brugte tidligere kun en flad mørk farve med opacity-hover. De har nu en dedikeret accentfarve, skygge, hover-løft og en <code>:focus-visible</code>-ring for tastaturbrugere.</li>
+  <li><strong>Bekræftelsesmodal ved sletning i backoffice</strong> — den tidligere inline advarselsboks (som skubbede tabellen ned) er erstattet af en genbrugelig <code>ConfirmModal</code>-komponent, brugt konsekvent på alle fire backoffice-sider (medarbejdere, retter, ordrer, beskeder).</li>
+  <li><strong>Favicon matcher logoet</strong> — browserfanens ikon var tidligere et generisk standard-SVG-ikon og er nu det samme pizza-logo som vises i headeren.</li>
+  <li><strong>"Tilbage til hjemmesiden"-link i backoffice</strong> — både login-siden og den autentificerede backoffice-navigation manglede en synlig vej tilbage til den offentlige side; der er nu tilføjet et link begge steder.</li>
+  <li><strong>Dokumentation ryddet op</strong> — den overordnede <code>README.md</code> indeholdt flere generationer af duplikeret indhold fra løbende redigeringer (samme afsnit gentaget 3–4 gange med forskellige, delvist forældede versioner). Den er nu konsolideret til ét gennemgående dokument, og <code>dgs_frontend/README.md</code> er rettet så rute-navne og login-oplysninger matcher den faktiske applikation.</li>
+</ul>
+
+<p>Ingen af disse ændringer påvirker de funktionelle krav eller tilvalgsopgaverne — det er udelukkende fejlrettelser og polish af eksisterende funktionalitet.</p>
 
 <hr />
 
@@ -630,7 +646,7 @@
   </thead>
   <tbody>
     <tr>
-      <td><strong>React 18</strong></td>
+      <td><strong>React 19</strong></td>
       <td>UI-framework</td>
       <td>Komponent-baseret arkitektur matcher kravene om genanvendelige komponenter. Hooks giver ren tilstandsstyring.</td>
     </tr>
@@ -1077,7 +1093,7 @@ useEffect(() =&gt; {
   <tbody>
     <tr>
       <td>Frontend URL</td>
-      <td>http://localhost:5174</td>
+      <td>http://localhost:5173 (kan variere til 5174 hvis porten er optaget)</td>
     </tr>
     <tr>
       <td>Backend URL</td>
