@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useBasket } from '../context/BasketContext'
 import styles from './Header.module.css'
 
@@ -12,13 +12,56 @@ const navLinks = [
 export default function Header() {
   const { count } = useBasket()
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const headerRef = useRef(null)
+  const location = useLocation()
 
   function close() {
     setOpen(false)
   }
 
+  // Headeren er fixed og ligger ovenpå sidens indhold. Så længe den mørke hero
+  // (billede med sort overlay) er synlig bag headeren, skal nav/burger være hvid.
+  // Når heroen er scrollet væk og lysere indhold (cream-baggrund) ligger bag
+  // headeren i stedet, skifter vi til mørk tekst så den stadig kan læses.
+  useEffect(() => {
+    let intersectionObserver
+    let mutationObserver
+
+    function attachHeroObserver(heroEl) {
+      const headerHeight = headerRef.current?.offsetHeight ?? 80
+      intersectionObserver = new IntersectionObserver(
+        ([entry]) => setScrolled(!entry.isIntersecting),
+        { rootMargin: `-${headerHeight}px 0px 0px 0px`, threshold: 0 }
+      )
+      intersectionObserver.observe(heroEl)
+    }
+
+    const heroEl = document.querySelector('main [class*="hero" i]')
+    if (heroEl) {
+      attachHeroObserver(heroEl)
+    } else {
+      // Siden viser stadig en loading-tilstand, så heroen findes ikke i DOM'en
+      // endnu. Vent på at den dukker op, når data er hentet færdig.
+      setScrolled(false)
+      mutationObserver = new MutationObserver(() => {
+        const el = document.querySelector('main [class*="hero" i]')
+        if (el) {
+          mutationObserver.disconnect()
+          attachHeroObserver(el)
+        }
+      })
+      mutationObserver.observe(document.body, { childList: true, subtree: true })
+    }
+
+    return () => {
+      intersectionObserver?.disconnect()
+      mutationObserver?.disconnect()
+    }
+  }, [location.pathname])
+
   return (
-    <header className={styles.header}>
+    <header ref={headerRef} className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.inner}>
         <Link to="/" className={styles.logo} onClick={close}>
           <img src="/logo.png" alt="Den Glade Skorpe" className={styles.logoImg} />

@@ -79,9 +79,29 @@ export default function BackofficeOrders() {
                 </td>
                 <td>
                   {order.dishes?.map((d, i) => (
-                    <div key={i} style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', lineHeight: '1.5' }}>
+                    <div key={i} style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', lineHeight: '1.5', marginBottom: '0.4rem' }}>
                       {d.amount} × {d.dish?.title || d.dish}
                       {d.size && <span style={{ color: '#888' }}> ({d.size === 'family' ? 'Familie' : 'Alm.'})</span>}
+                      {d.extraIngredients?.length > 0 && (
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.25rem', marginTop: '0.25rem' }}>
+                          {d.extraIngredients.map((ing) => (
+                            <span
+                              key={ing}
+                              style={{
+                                display: 'inline-block',
+                                background: 'var(--color-accent)',
+                                color: '#fff',
+                                fontSize: '0.7rem',
+                                fontWeight: 600,
+                                padding: '0.1rem 0.55rem',
+                                borderRadius: '999px',
+                              }}
+                            >
+                              + {ing}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </td>

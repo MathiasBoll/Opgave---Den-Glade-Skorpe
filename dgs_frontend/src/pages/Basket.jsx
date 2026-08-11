@@ -9,6 +9,13 @@ import styles from './Basket.module.css'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
 
+// Ingredienser som er tilføjet UD OVER rettens standard-ingredienser —
+// det er dem der skal fremhæves, så køkken og kunde begge kan se afvigelsen.
+function getAddedExtras(item) {
+  const base = (item.ingredients ?? []).map((i) => (typeof i === 'string' ? i : i.name))
+  return (item.selectedExtras ?? []).filter((e) => !base.includes(e))
+}
+
 export default function Basket() {
   usePageTitle('Din Kurv')
   const { items, removeItem, updateQuantity, clearBasket, total } = useBasket()
@@ -25,7 +32,12 @@ export default function Basket() {
     setError(null)
     try {
       await postOrder({
-        dishes: items.map((i) => ({ dish: i._id, amount: i.quantity, size: i.selectedSize })),
+        dishes: items.map((i) => ({
+          dish: i._id,
+          amount: i.quantity,
+          size: i.selectedSize,
+          extraIngredients: getAddedExtras(i),
+        })),
         comment,
         totalPrice: total,
       })
@@ -64,7 +76,7 @@ export default function Basket() {
                   ? item.image.startsWith('http') ? item.image : `${BASE_URL}/${item.image}`
                   : null
                 const price = (item.selectedPrice ?? item.price?.normal ?? 0) * item.quantity
-                const extras = item.selectedExtras?.filter(Boolean) ?? []
+                const addedExtras = getAddedExtras(item)
                 const sizeName = item.selectedSize === 'family' ? 'Familie' : 'Almindelig'
 
                 return (
@@ -77,7 +89,14 @@ export default function Basket() {
                     </div>
                     <div className={styles.itemInfo}>
                       <p className={styles.itemTitle}>{item.title}</p>
-                      {extras.length > 0 && <p className={styles.itemMeta}>Ekstra: {extras.join(', ')}</p>}
+                      {addedExtras.length > 0 && (
+                        <p className={styles.itemExtras}>
+                          <span className={styles.extrasLabel}>+ Ekstra:</span>
+                          {addedExtras.map((ex) => (
+                            <span key={ex} className={styles.extraBadge}>{ex}</span>
+                          ))}
+                        </p>
+                      )}
                       <p className={styles.itemMeta}>Størrelse: {sizeName}</p>
                       <p className={styles.itemMeta}>Pris: {price},-</p>
                       <div className={styles.qtyRow}>

@@ -6,6 +6,12 @@
   left: 0;
   right: 0;
   z-index: 200;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.scrolled {
+  background-color: var(--color-cream);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .inner {
@@ -46,7 +52,7 @@
   font-size: 1.25rem;
   color: var(--color-white);
   opacity: 0.75;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, color 0.25s;
   padding-bottom: 2px;
   border-bottom: 2px solid transparent;
 }
@@ -58,6 +64,14 @@
 .navActive {
   opacity: 1;
   border-bottom-color: var(--color-cream);
+}
+
+.scrolled .navLink {
+  color: var(--color-dark);
+}
+
+.scrolled .navActive {
+  border-bottom-color: var(--color-accent);
 }
 
 .basketLink {
@@ -103,6 +117,12 @@
   font-weight: bold;
   line-height: 1;
   pointer-events: none;
+  transition: background-color 0.25s, color 0.25s;
+}
+
+.scrolled .badge {
+  background: var(--color-accent);
+  color: var(--color-white);
 }
 
 /* ── Burger button ── */
@@ -125,7 +145,11 @@
   height: 2px;
   background-color: var(--color-white);
   border-radius: 2px;
-  transition: transform 0.25s, opacity 0.25s;
+  transition: transform 0.25s, opacity 0.25s, background-color 0.25s;
+}
+
+.scrolled .bar {
+  background-color: var(--color-dark);
 }
 
 /* X animation */
