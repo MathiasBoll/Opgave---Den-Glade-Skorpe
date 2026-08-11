@@ -10,6 +10,11 @@ import styles from './DishDetail.module.css'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
 
+// Sorteret ingrediensliste sikrer samme nøgle uanset i hvilken rækkefølge de blev valgt
+function buildBasketKey(dishId, size, extras) {
+  return `${dishId}-${size}-${[...extras].sort().join('|')}`
+}
+
 export default function DishDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -59,10 +64,11 @@ export default function DishDetail() {
   }
 
   // Bygger kurv-objektet og tilføjer det til BasketContext.
-  // basketKey kombinerer ret-id og størrelse så Normal og Familie er separate linjer.
+  // basketKey kombinerer ret-id, størrelse og valgte ingredienser, så Normal/Familie
+  // og forskellige ingredienskombinationer af samme ret er separate linjer.
   // Viser altid det faktiske antal af retten i kurven, så gentagne klik ikke går ubemærket hen.
   function handleAdd() {
-    const basketKey = `${dish._id}-${selectedSize}`
+    const basketKey = buildBasketKey(dish._id, selectedSize, selectedExtras)
     addItem({
       ...dish,
       selectedSize,
@@ -83,7 +89,7 @@ export default function DishDetail() {
   const imgSrc = dish.image ? (dish.image.startsWith('http') ? dish.image : `${BASE_URL}/${dish.image}`) : null
   const hasFamily = !!dish.price?.family
   const ingredients = dish.ingredients?.map((i) => (typeof i === 'string' ? i : i.name)) ?? []
-  const currentQuantity = items.find((i) => i.basketKey === `${dish._id}-${selectedSize}`)?.quantity ?? 0
+  const currentQuantity = items.find((i) => i.basketKey === buildBasketKey(dish._id, selectedSize, selectedExtras))?.quantity ?? 0
 
   return (
     <main className={styles.main}>

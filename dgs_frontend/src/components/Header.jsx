@@ -24,39 +24,43 @@ export default function Header() {
           <img src="/logo.png" alt="Den Glade Skorpe" className={styles.logoImg} />
         </Link>
 
-        {/* Desktop nav */}
-        <nav className={styles.nav}>
-          {navLinks.map(({ to, label, end }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={end}
-              className={({ isActive }) =>
-                `${styles.navLink} ${isActive ? styles.navActive : ''}`
-              }
-            >
-              {label}
-            </NavLink>
-          ))}
-          <Link to="/basket" className={styles.basketLink}>
+        <div className={styles.actions}>
+          {/* Desktop nav */}
+          <nav className={styles.nav}>
+            {navLinks.map(({ to, label, end }) => (
+              <NavLink
+                key={to}
+                to={to}
+                end={end}
+                className={({ isActive }) =>
+                  `${styles.navLink} ${isActive ? styles.navActive : ''}`
+                }
+              >
+                {label}
+              </NavLink>
+            ))}
+          </nav>
+
+          {/* Basket icon: shown at every breakpoint, next to the burger button on mobile */}
+          <Link to="/basket" className={styles.basketLink} onClick={close}>
             <span className={styles.basketIconWrap}>
               <img src="/logo.png" alt="Kurv" className={styles.basketIcon} />
               {count > 0 && <span className={styles.badge}>{count}</span>}
             </span>
           </Link>
-        </nav>
 
-        {/* Burger button (mobile) */}
-        <button
-          className={styles.burgerBtn}
-          onClick={() => setOpen((o) => !o)}
-          aria-label={open ? 'Luk menu' : 'Åbn menu'}
-          aria-expanded={open}
-        >
-          <span className={`${styles.bar} ${open ? styles.barTop : ''}`} />
-          <span className={`${styles.bar} ${open ? styles.barMid : ''}`} />
-          <span className={`${styles.bar} ${open ? styles.barBot : ''}`} />
-        </button>
+          {/* Burger button (mobile) */}
+          <button
+            className={styles.burgerBtn}
+            onClick={() => setOpen((o) => !o)}
+            aria-label={open ? 'Luk menu' : 'Åbn menu'}
+            aria-expanded={open}
+          >
+            <span className={`${styles.bar} ${open ? styles.barTop : ''}`} />
+            <span className={`${styles.bar} ${open ? styles.barMid : ''}`} />
+            <span className={`${styles.bar} ${open ? styles.barBot : ''}`} />
+          </button>
+        </div>
       </div>
 
       {/* Mobile full-screen overlay */}
