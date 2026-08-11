@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getOrders, updateOrder, deleteOrder } from '../../services/api'
+import ConfirmModal from '../../components/ConfirmModal'
 import styles from './Backoffice.module.css'
 import empStyles from './BackofficeEmployees.module.css'
 
@@ -47,17 +48,12 @@ export default function BackofficeOrders() {
       {error && <p className={empStyles.errorMsg}>{error}</p>}
 
       {deleteConfirm && (
-        <div className={empStyles.confirmBox}>
-          <p>Er du sikker på at du vil slette denne ordre?</p>
-          <div className={empStyles.confirmActions}>
-            <button className={empStyles.deleteConfirmBtn} onClick={() => handleDelete(deleteConfirm)}>
-              Ja, slet
-            </button>
-            <button className={empStyles.cancelBtn} onClick={() => setDeleteConfirm(null)}>
-              Annuller
-            </button>
-          </div>
-        </div>
+        <ConfirmModal
+          title="Slet ordre"
+          message="Er du sikker på at du vil slette denne ordre?"
+          onConfirm={() => handleDelete(deleteConfirm)}
+          onCancel={() => setDeleteConfirm(null)}
+        />
       )}
 
       <div className={styles.tableWrap}>

@@ -3,6 +3,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { BasketProvider } from './context/BasketContext'
 import { AuthProvider } from './context/AuthContext'
+import { ToastProvider } from './context/ToastContext'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import RequireAuth from './components/RequireAuth'
@@ -38,32 +39,34 @@ export default function App() {
   return (
     <AuthProvider>
       <BasketProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
-            <Route path="/dish/:id" element={<PublicLayout><DishDetail /></PublicLayout>} />
-            <Route path="/employees" element={<PublicLayout><Employees /></PublicLayout>} />
-            <Route path="/contact" element={<PublicLayout><Contact /></PublicLayout>} />
-            <Route path="/contact/tak" element={<PublicLayout><ContactConfirmation /></PublicLayout>} />
-            <Route path="/basket" element={<PublicLayout><Basket /></PublicLayout>} />
-            <Route path="/order-confirmation" element={<PublicLayout><OrderConfirmation /></PublicLayout>} />
+        <ToastProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
+              <Route path="/dish/:id" element={<PublicLayout><DishDetail /></PublicLayout>} />
+              <Route path="/employees" element={<PublicLayout><Employees /></PublicLayout>} />
+              <Route path="/contact" element={<PublicLayout><Contact /></PublicLayout>} />
+              <Route path="/contact/tak" element={<PublicLayout><ContactConfirmation /></PublicLayout>} />
+              <Route path="/basket" element={<PublicLayout><Basket /></PublicLayout>} />
+              <Route path="/order-confirmation" element={<PublicLayout><OrderConfirmation /></PublicLayout>} />
 
-            {/* Backoffice — login is public, rest requires auth */}
-            <Route path="/backoffice/login" element={<BackofficeLogin />} />
-            <Route
-              path="/backoffice"
-              element={<RequireAuth><Backoffice /></RequireAuth>}
-            >
-              <Route index element={<BackofficeEmployees />} />
-              <Route path="employees" element={<BackofficeEmployees />} />
-              <Route path="messages" element={<BackofficeMessages />} />
-              <Route path="orders" element={<BackofficeOrders />} />
-              <Route path="dishes" element={<BackofficeDishes />} />
-            </Route>
+              {/* Backoffice — login is public, rest requires auth */}
+              <Route path="/backoffice/login" element={<BackofficeLogin />} />
+              <Route
+                path="/backoffice"
+                element={<RequireAuth><Backoffice /></RequireAuth>}
+              >
+                <Route index element={<BackofficeEmployees />} />
+                <Route path="employees" element={<BackofficeEmployees />} />
+                <Route path="messages" element={<BackofficeMessages />} />
+                <Route path="orders" element={<BackofficeOrders />} />
+                <Route path="dishes" element={<BackofficeDishes />} />
+              </Route>
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </ToastProvider>
       </BasketProvider>
     </AuthProvider>
   )

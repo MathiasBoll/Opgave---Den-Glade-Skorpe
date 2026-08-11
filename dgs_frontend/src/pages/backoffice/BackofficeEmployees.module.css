@@ -75,21 +75,23 @@
 }
 
 .saveBtn {
-  background-color: var(--color-dark);
+  background-color: var(--color-accent);
   color: var(--color-white);
   padding: 0.5rem 1.4rem;
   border-radius: 999px;
   font-size: 1rem;
-  transition: opacity 0.2s;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(192, 57, 43, 0.3);
+  transition: background-color 0.2s, transform 0.15s;
 }
 
-.saveBtn:hover:not(:disabled) {
-  opacity: 0.8;
-}
+.saveBtn:hover:not(:disabled) { background-color: var(--color-accent-hover); transform: translateY(-1px); }
+.saveBtn:focus-visible { outline: 3px solid var(--color-dark); outline-offset: 2px; }
 
 .saveBtn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .cancelBtn {

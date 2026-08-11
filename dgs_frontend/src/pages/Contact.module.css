@@ -106,17 +106,21 @@
 }
 
 .submitBtn {
-  background-color: var(--color-dark);
+  background-color: var(--color-accent);
   color: var(--color-white);
   padding: 0.85rem 1.5rem;
   border-radius: 999px;
   font-size: 1.3rem;
-  transition: opacity 0.2s;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(192, 57, 43, 0.35);
+  transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
   margin-top: var(--spacing-xs);
 }
 
-.submitBtn:hover { opacity: 0.85; }
-.submitBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+.submitBtn:hover:not(:disabled) { background-color: var(--color-accent-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(192, 57, 43, 0.4); }
+.submitBtn:active:not(:disabled) { transform: translateY(0); }
+.submitBtn:focus-visible { outline: 3px solid var(--color-dark); outline-offset: 2px; }
+.submitBtn:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none; }
 
 /* Thank-you modal */
 .modalOverlay {

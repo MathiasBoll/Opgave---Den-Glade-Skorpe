@@ -280,43 +280,42 @@
 /* Add button */
 .addBtn {
   width: 100%;
-  background-color: var(--color-dark);
+  background-color: var(--color-accent);
   color: var(--color-white);
   padding: 0.85rem 1.5rem;
   border-radius: 999px;
   font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
   letter-spacing: 0.02em;
   text-align: center;
-  transition: opacity 0.2s;
+  box-shadow: 0 4px 12px rgba(192, 57, 43, 0.35);
+  transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
   margin-bottom: var(--spacing-md);
 }
 
-.addBtn:hover { opacity: 0.85; }
+.addBtn:hover { background-color: var(--color-accent-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(192, 57, 43, 0.4); }
+.addBtn:active { transform: translateY(0); }
+.addBtn:focus-visible { outline: 3px solid var(--color-dark); outline-offset: 2px; }
 
-.addBtn.added { background-color: #4caf50; }
+.addBtn.added { background-color: #4caf50; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.35); }
 
-.goToBasket {
-  display: block;
+.quantityNote {
   text-align: center;
-  margin-top: 0.6rem;
-  margin-bottom: 1.2rem;
-  padding: 0.55rem 1.2rem;
-  background: #fff;
-  color: var(--color-dark);
-  border: 2px solid var(--color-dark);
-  border-radius: 999px;
   font-family: var(--font-body);
   font-size: 0.95rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 0.18s, color 0.18s;
+  color: var(--color-dark);
+  margin-bottom: 1.2rem;
+}
+
+.goToBasket {
+  color: var(--color-dark);
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 .goToBasket:hover {
-  background: var(--color-dark);
-  color: #fff;
+  opacity: 0.75;
 }
 
 .status {

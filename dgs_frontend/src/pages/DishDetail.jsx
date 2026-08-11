@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getDish, getIngredients } from '../services/api'
 import { useBasket } from '../context/BasketContext'
+import { useToast } from '../context/ToastContext'
 import { usePageTitle } from '../hooks/usePageTitle'
 import styles from './DishDetail.module.css'
 
@@ -12,7 +13,8 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
 export default function DishDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { addItem } = useBasket()
+  const { items, addItem } = useBasket()
+  const { showToast } = useToast()
   const [dish, setDish] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -58,16 +60,21 @@ export default function DishDetail() {
 
   // Bygger kurv-objektet og tilføjer det til BasketContext.
   // basketKey kombinerer ret-id og størrelse så Normal og Familie er separate linjer.
+  // Viser altid det faktiske antal af retten i kurven, så gentagne klik ikke går ubemærket hen.
   function handleAdd() {
+    const basketKey = `${dish._id}-${selectedSize}`
     addItem({
       ...dish,
       selectedSize,
       selectedPrice,
       selectedExtras,
-      basketKey: `${dish._id}-${selectedSize}`,
+      basketKey,
     })
+    const existing = items.find((i) => i.basketKey === basketKey)
+    const newQuantity = (existing?.quantity ?? 0) + 1
     setAdded(true)
-    setTimeout(() => setAdded(false), 5000)
+    showToast(`✓ ${dish.title} tilføjet — ${newQuantity} stk. i kurven`)
+    setTimeout(() => setAdded(false), 2000)
   }
 
   if (loading) return <main className={styles.main}><p className={styles.status}>Henter ret…</p></main>
@@ -76,6 +83,7 @@ export default function DishDetail() {
   const imgSrc = dish.image ? (dish.image.startsWith('http') ? dish.image : `${BASE_URL}/${dish.image}`) : null
   const hasFamily = !!dish.price?.family
   const ingredients = dish.ingredients?.map((i) => (typeof i === 'string' ? i : i.name)) ?? []
+  const currentQuantity = items.find((i) => i.basketKey === `${dish._id}-${selectedSize}`)?.quantity ?? 0
 
   return (
     <main className={styles.main}>
@@ -151,10 +159,11 @@ export default function DishDetail() {
         >
           {added ? '✓ Tilføjet!' : `Tilføj ${dish.title} til kurven`}
         </button>
-        {added && (
-          <Link to="/basket" className={styles.goToBasket}>
-            Gå til kurv →
-          </Link>
+        {currentQuantity > 0 && (
+          <p className={styles.quantityNote}>
+            Du har <strong>{currentQuantity}</strong> stk. af denne ret i kurven.{' '}
+            <Link to="/basket" className={styles.goToBasket}>Gå til kurv →</Link>
+          </p>
         )}
 
         {/* Extras toggle — shows ALL available ingredients */}

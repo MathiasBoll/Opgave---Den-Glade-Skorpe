@@ -4,6 +4,9 @@
   --color-white: #ffffff;
   --color-black: #000000;
 
+  --color-accent: #c0392b;
+  --color-accent-hover: #a5281c;
+
   --font-heading: 'Just Another Hand', cursive;
   --font-body: 'Kurale', serif;
 

@@ -1,5 +1,6 @@
 ﻿import { useState, useEffect, useRef } from 'react'
 import { getDishes, getCategories, createDish, updateDish, deleteDish } from '../../services/api'
+import ConfirmModal from '../../components/ConfirmModal'
 import styles from './Backoffice.module.css'
 import empStyles from './BackofficeEmployees.module.css'
 import dishStyles from './BackofficeDishes.module.css'
@@ -146,13 +147,12 @@ export default function BackofficeDishes() {
       {error && <p className={empStyles.errorMsg}>{error}</p>}
 
       {deleteConfirm && (
-        <div className={empStyles.confirmBox}>
-          <p>Er du sikker på at du vil slette denne ret?</p>
-          <div className={empStyles.confirmActions}>
-            <button className={empStyles.deleteConfirmBtn} onClick={() => handleDelete(deleteConfirm)}>Ja, slet</button>
-            <button className={empStyles.cancelBtn} onClick={() => setDeleteConfirm(null)}>Annuller</button>
-          </div>
-        </div>
+        <ConfirmModal
+          title="Slet ret"
+          message="Er du sikker på at du vil slette denne ret?"
+          onConfirm={() => handleDelete(deleteConfirm)}
+          onCancel={() => setDeleteConfirm(null)}
+        />
       )}
 
       <div className={dishStyles.formGrid}>

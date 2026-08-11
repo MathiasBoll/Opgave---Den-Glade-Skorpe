@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
 
 export default function Footer() {
@@ -10,6 +11,9 @@ export default function Footer() {
           <span>Tlf: 12343678</span>
           <span>Adresse: Skorpevej 42, 1234 Pizzabyen</span>
         </div>
+        <Link to="/backoffice/login" className={styles.staffLink}>
+          Personale-login
+        </Link>
       </div>
     </footer>
   )

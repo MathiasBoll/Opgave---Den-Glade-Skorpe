@@ -85,17 +85,16 @@ src/
 |---|---|---|
 | `/` | `Home` | Forside med hero-banner og rettekort-grid med kategorifilter |
 | `/dish/:id` | `DishDetail` | Retteside med størrelsesvælger, ingredienspanel og "Læg i kurv" |
-| `/kurv` | `Basket` | Kurv med mængdekontrol, extras og ordreafgivelse til serveren |
-| `/ordre-bekraeftelse` | `OrderConfirmation` | Vist efter afgivet ordre med ordrenummer |
-| `/medarbejdere` | `Employees` | Offentlig medarbejder-side hentet fra API |
-| `/kontakt` | `Contact` | Kontaktformular med klient-side validering og POST til server |
-| `/kontakt/tak` | `ContactConfirmation` | Bekræftelse efter sendt kontaktbesked |
+| `/basket` | `Basket` | Kurv med mængdekontrol, extras og ordreafgivelse til serveren |
+| `/order-confirmation` | `OrderConfirmation` | Vist efter afgivet ordre med ordrenummer |
+| `/employees` | `Employees` | Offentlig medarbejder-side hentet fra API |
+| `/contact` | `Contact` | Kontaktformular med klient-side validering og POST til server |
+| `/contact/tak` | `ContactConfirmation` | Bekræftelse efter sendt kontaktbesked |
 | `/backoffice/login` | `BackofficeLogin` | Login-side til backoffice |
-| `/backoffice` | `Backoffice` + `RequireAuth` | Backoffice-shell, kræver gyldigt JWT |
-| `/backoffice/medarbejdere` | `BackofficeEmployees` | CRUD medarbejdere med billede-upload |
-| `/backoffice/retter` | `BackofficeDishes` | CRUD retter med billede-upload |
-| `/backoffice/ordrer` | `BackofficeOrders` | Visning af indkomne ordrer |
-| `/backoffice/beskeder` | `BackofficeMessages` | Visning af kontaktbeskeder |
+| `/backoffice/employees` | `BackofficeEmployees` | CRUD medarbejdere med billede-upload |
+| `/backoffice/dishes` | `BackofficeDishes` | CRUD retter med billede-upload |
+| `/backoffice/orders` | `BackofficeOrders` | Visning og statusskift af indkomne ordrer |
+| `/backoffice/messages` | `BackofficeMessages` | Visning og statusskift af kontaktbeskeder |
 | `*` | `NotFound` | 404-side for alle ukendte URL'er |
 
 ---
@@ -185,16 +184,16 @@ Breakpoints:
 
 ## Backoffice
 
-Backoffice kræver login med brugernavn og adgangskode. Test-credentials:
+Backoffice kræver login. Et "Personale-login"-link findes i sidefoden på alle offentlige sider, eller tilgå direkte via `/backoffice/login`. Test-credentials:
 
-| Felt | Værdi |
-|---|---|
-| Brugernavn | `admin` |
-| Adgangskode | `admin` |
+| Rolle | Email | Adgangskode |
+|---|---|---|
+| Admin | admin@mediacollege.dk | admin |
+| Guest | guest@mediacollege.dk | guest |
 
 JWT-tokenet gemmes i `localStorage` under nøglen `bo_token` og sendes som `Authorization: Bearer <token>` header på alle beskyttede kald.
 
-Sæt `USE_JWT=false` i serverens `.env` for at deaktivere JWT-krav under udvikling.
+Sæt `USE_JWT=false` i serverens `.env.local` for at deaktivere JWT-krav under udvikling.
 
 ---
 

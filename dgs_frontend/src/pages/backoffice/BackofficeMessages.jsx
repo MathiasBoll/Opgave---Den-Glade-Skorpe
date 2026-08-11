@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getMessages, updateMessage, deleteMessage } from '../../services/api'
+import ConfirmModal from '../../components/ConfirmModal'
 import styles from './Backoffice.module.css'
 import empStyles from './BackofficeEmployees.module.css'
 
@@ -50,17 +51,12 @@ export default function BackofficeMessages() {
 
       {/* Delete confirmation */}
       {deleteConfirm && (
-        <div className={empStyles.confirmBox}>
-          <p>Er du sikker på at du vil slette denne besked?</p>
-          <div className={empStyles.confirmActions}>
-            <button className={empStyles.deleteConfirmBtn} onClick={() => handleDelete(deleteConfirm)}>
-              Ja, slet
-            </button>
-            <button className={empStyles.cancelBtn} onClick={() => setDeleteConfirm(null)}>
-              Annuller
-            </button>
-          </div>
-        </div>
+        <ConfirmModal
+          title="Slet besked"
+          message="Er du sikker på at du vil slette denne besked?"
+          onConfirm={() => handleDelete(deleteConfirm)}
+          onCancel={() => setDeleteConfirm(null)}
+        />
       )}
 
       <div className={styles.tableWrap}>
