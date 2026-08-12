@@ -333,13 +333,16 @@ GitHub repository: https://github.com/MathiasBoll/Opgave---Den-Glade-Skorpe
 | Dag 8 — API-fejlretning | Response-envelope mismatch, FormData-håndtering, endpoints verificeret i Postman | ~3 t |
 | Dag 9 — UX-polish | 404-side, loading/error/empty states, document.title hooks, responsivt CSS (alle breakpoints) | ~2 t |
 | Dag 10 — Tilvalg + rapport | Extra ingredienser (pill-chip), pizza-ikon badge, mængdekontrol i kurv, designfixes, RAPPORT.md | ~2 t |
-| **Total** | | **~27 t** |
+| Dag 11 — Efterfølgende gennemgang (11-08-2026) | Oprydning af duplikeret seed-data, toast-notifikationer, CTA-styling, ConfirmModal, favicon, dokumentationsoprydning | ~3 t |
+| Dag 12 — Sikkerhed + rettelser (12-08-2026) | Datafejl i seed-data, idempotent seed-script, ordrearkivering med kalendervisning, succesbeskeder, europæisk datoformat, besked-email-fix, adgangskontrol- og HTTP-statuskoderettelser, RAPPORT/screenshots opdateret | ~5 t |
+| **Total** | | **~35 t** |
 
 ### Estimat vs. faktisk tid
 
 Overordnet holdt estimaterne. De faser der tog længere:
 - **API-fejlretning** (+1 t) — Mismatch i response-format på tværs af endpoints
 - **Auth-flow** (+1 t) — JWT-headers, 401-håndtering og token-persistens krævede mere end forventet
+- **Efterfølgende sikkerhedsgennemgang** (+2 t) — En ekstra gennemgang af det faktiske API-kodegrundlag (ikke kun UI'et) afdækkede manglende `auth`-middleware på fire endpoints og forkerte HTTP-statuskoder (login der altid svarede 200, og 17 steder der intet svar gav ved et ugyldigt id) — mere tidskrævende end en almindelig polish-runde, men vurderet nødvendigt inden fremvisning
 
 ### Projektstyringsværktøj
 

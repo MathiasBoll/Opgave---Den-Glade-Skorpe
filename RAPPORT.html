@@ -621,9 +621,19 @@
       <td>~2 t</td>
     </tr>
     <tr>
+      <td>Dag 11 — Efterfølgende gennemgang (11-08-2026)</td>
+      <td>Oprydning af duplikeret seed-data, toast-notifikationer, CTA-styling, ConfirmModal, favicon, dokumentationsoprydning</td>
+      <td>~3 t</td>
+    </tr>
+    <tr>
+      <td>Dag 12 — Sikkerhed + rettelser (12-08-2026)</td>
+      <td>Datafejl i seed-data, idempotent seed-script, ordrearkivering med kalendervisning, succesbeskeder, europæisk datoformat, besked-email-fix, adgangskontrol- og HTTP-statuskoderettelser, RAPPORT/screenshots opdateret</td>
+      <td>~5 t</td>
+    </tr>
+    <tr>
       <td><strong>Total</strong></td>
       <td></td>
-      <td><strong>~27 t</strong></td>
+      <td><strong>~35 t</strong></td>
     </tr>
   </tbody>
 </table>
@@ -634,6 +644,7 @@
 <ul>
   <li><strong>API-fejlretning</strong> (+1 t) — Mismatch i response-format på tværs af endpoints</li>
   <li><strong>Auth-flow</strong> (+1 t) — JWT-headers, 401-håndtering og token-persistens krævede mere end forventet</li>
+  <li><strong>Efterfølgende sikkerhedsgennemgang</strong> (+2 t) — En ekstra gennemgang af det faktiske API-kodegrundlag (ikke kun UI'et) afdækkede manglende <code>auth</code>-middleware på fire endpoints og forkerte HTTP-statuskoder (login der altid svarede 200, og 17 steder der intet svar gav ved et ugyldigt id) — mere tidskrævende end en almindelig polish-runde, men vurderet nødvendigt inden fremvisning</li>
 </ul>
 
 <h3>Projektstyringsværktøj</h3>
