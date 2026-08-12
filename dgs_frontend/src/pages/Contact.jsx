@@ -5,7 +5,7 @@ import styles from './Contact.module.css'
 
 export default function Contact() {
   usePageTitle('Kontakt Os')
-  const [form, setForm] = useState({ name: '', subject: '', description: '' })
+  const [form, setForm] = useState({ name: '', email: '', subject: '', description: '' })
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState(null)
   const [submitted, setSubmitted] = useState(false)
@@ -16,7 +16,7 @@ export default function Contact() {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    if (!form.name.trim() || !form.subject.trim() || !form.description.trim()) {
+    if (!form.name.trim() || !form.email.trim() || !form.subject.trim() || !form.description.trim()) {
       setError('Udfyld venligst alle felter.')
       return
     }
@@ -57,6 +57,20 @@ export default function Contact() {
               onChange={handleChange}
               required
               autoComplete="name"
+            />
+          </div>
+
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor="email">E-mail</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className={styles.input}
+              value={form.email}
+              onChange={handleChange}
+              required
+              autoComplete="email"
             />
           </div>
 

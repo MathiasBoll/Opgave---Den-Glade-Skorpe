@@ -51,6 +51,17 @@ export default function BackofficeMessages() {
     }
   }
 
+  function formatDate(value) {
+    if (!value) return '—'
+    return new Date(value).toLocaleDateString('da-DK', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+  }
+
+  function replyMailto(msg) {
+    const subject = encodeURIComponent(`Re: ${msg.subject}`)
+    const body = encodeURIComponent(`Hej ${msg.name},\n\n\n\n---\nDu skrev:\n${msg.description}`)
+    return `mailto:${msg.email}?subject=${subject}&body=${body}`
+  }
+
   if (loading) return <p className={styles.status}>Henter beskeder…</p>
 
   return (
@@ -77,19 +88,23 @@ export default function BackofficeMessages() {
           <thead>
             <tr>
               <th>Navn</th>
+              <th>Email</th>
               <th>Emne</th>
+              <th>Modtaget</th>
               <th>Status</th>
               <th>Handlinger</th>
             </tr>
           </thead>
           <tbody>
             {messages.length === 0 && (
-              <tr><td colSpan={4} className={styles.noData}>Ingen beskeder endnu</td></tr>
+              <tr><td colSpan={6} className={styles.noData}>Ingen beskeder endnu</td></tr>
             )}
             {messages.map((msg) => (
               <tr key={msg._id} style={{ opacity: msg.status === 'read' ? 0.6 : 1 }}>
                 <td>{msg.name}</td>
+                <td>{msg.email || '—'}</td>
                 <td>{msg.subject}</td>
+                <td>{formatDate(msg.created)}</td>
                 <td>
                   <span className={msg.status === 'read' ? empStyles.statusRead : empStyles.statusUnread}>
                     {msg.status === 'read' ? 'Læst' : 'Ulæst'}
@@ -117,11 +132,21 @@ export default function BackofficeMessages() {
           <div className={empStyles.msgModal} onClick={(e) => e.stopPropagation()}>
             <button className={empStyles.msgModalClose} onClick={() => setOpenMsg(null)}>✕</button>
             <h3 className={empStyles.msgModalTitle}>{openMsg.subject}</h3>
-            <p className={empStyles.msgModalMeta}>Fra: <strong>{openMsg.name}</strong></p>
+            <p className={empStyles.msgModalMeta}>
+              Fra: <strong>{openMsg.name}</strong>
+              {openMsg.email && <> &middot; <a href={`mailto:${openMsg.email}`}>{openMsg.email}</a></>}
+              <br />
+              Modtaget: {formatDate(openMsg.created)}
+            </p>
             <p className={empStyles.msgModalBody}>{openMsg.description}</p>
             <div className={empStyles.formActions} style={{ marginTop: '1rem' }}>
+              {openMsg.email && (
+                <a className={empStyles.saveBtn} href={replyMailto(openMsg)}>
+                  Svar via e-mail
+                </a>
+              )}
               <button
-                className={empStyles.saveBtn}
+                className={empStyles.cancelBtn}
                 onClick={() => { handleToggleStatus(openMsg); setOpenMsg(null) }}
               >
                 Markér som {openMsg.status === 'read' ? 'ulæst' : 'læst'}

@@ -20,18 +20,18 @@ const isValidObjectId = (id) => {
 // POST / CREATE
 messageRoute.post("/message", async (req, res) => {
   try {
-    const { name, subject, description } = req.body;
+    const { name, email, subject, description } = req.body;
 
-    if (!name || !subject || !description) {
+    if (!name || !email || !subject || !description) {
       return res.status(400).send({
         status: "error",
         message:
-          "Please provide all required fields (name, subject, description)",
+          "Please provide all required fields (name, email, subject, description)",
         data: [],
       });
     }
 
-    const model = { name, subject, description };
+    const model = { name, email, subject, description };
     const result = await addMessage(model);
 
     if (result.status === "error") {
@@ -52,7 +52,7 @@ messageRoute.post("/message", async (req, res) => {
 // PUT / UPDATE
 messageRoute.put("/message", async (req, res) => {
   try {
-    const { id, name, subject, description, status } = req.body;
+    const { id, name, email, subject, description, status } = req.body;
 
     if (!id) {
       return res.status(400).send({
@@ -64,16 +64,16 @@ messageRoute.put("/message", async (req, res) => {
 
     if (!isValidObjectId(id)) return;
 
-    if (!name && !subject && !description && !status) {
+    if (!name && !email && !subject && !description && !status) {
       return res.status(400).send({
         status: "error",
         message:
-          "At least one field (name, subject, or description) must be provided for update",
+          "At least one field (name, email, subject, or description) must be provided for update",
         data: [],
       });
     }
 
-    const model = { id, name, subject, description, status };
+    const model = { id, name, email, subject, description, status };
 
     const result = await updateMessage(model);
 

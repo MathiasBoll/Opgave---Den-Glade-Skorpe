@@ -130,11 +130,13 @@ export const stubDishes = [
 export const stubMessages = [
   {
     name: "Name 1",
+    email: "name1@example.com",
     subject: "About 1 Something",
     description: "Message 1 description",
   },
   {
     name: "Name 2",
+    email: "name2@example.com",
     subject: "About 2 Something",
     description: "Message 2 description",
   },
