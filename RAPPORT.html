@@ -428,7 +428,7 @@
     <strong>Navn:</strong> Mathias Boll &nbsp;&nbsp;
     <strong>Afleveringsdato:</strong> 26-06-2026 &nbsp;&nbsp;
     <strong>Fremlæggelse:</strong> Uge 32–35 (3. aug – 30. aug 2026) &nbsp;&nbsp;
-    <strong>Opdateret:</strong> 11-08-2026
+    <strong>Opdateret:</strong> 12-08-2026
   </div>
 </div>
 
@@ -529,6 +529,19 @@
 </ul>
 
 <p>Ingen af disse ændringer påvirker de funktionelle krav eller tilvalgsopgaverne — det er udelukkende fejlrettelser og polish af eksisterende funktionalitet.</p>
+
+<h3 id="opdateringer-efter-sommerferien-12-08-2026">Opdateringer efter sommerferien (12-08-2026)</h3>
+
+<p>En yderligere gennemgang af data og brugerfeedback afdækkede og løste følgende:</p>
+<ul>
+  <li><strong>Datafejl i seed-data rettet</strong> — retten "The Stuffed Smile" havde en forkert sammensat ingrediensliste (to ingredienser i ét array-element i stedet for to separate), og demo-ordrernes størrelsesfelt brugte dansk stavemåde (<code>"Familie"</code>) i stedet for appens interne konvention (<code>"family"</code>), hvilket fik familie-ordrer til fejlagtigt at blive vist som "Alm." i backoffice. Begge er rettet ved kilden og på den allerede seedede data.</li>
+  <li><strong>Ingrediens-trimning ved oprettelse/redigering af retter</strong> — når ingredienser indtastes som kommasepareret tekst, trimmes hvert element nu for mellemrum, så fx <code>"Kødsauce, Parmesan"</code> ikke længere giver en ingrediens med et indledende mellemrum.</li>
+  <li><strong>Seed-scriptet gjort idempotent</strong> — hver seed-funktion tjekker nu om data allerede findes i databasen, før den opretter noget, så <code>npm run "Opret Database"</code> trygt kan køres flere gange uden at duplikere retter, medarbejdere, kategorier, ingredienser, beskeder eller ordrer.</li>
+  <li><strong>Ordrearkivering</strong> — i stedet for at slette afsendte ordrer (som ellers ville forhindre sammenligning år-til-år eller en senere audit af data), er der tilføjet et <code>archived</code>-felt på ordrer samt en "Arkiver/Genskab"-knap i backoffice, så afsendte ordrer kan skjules fra den aktive liste uden at miste historikken.</li>
+  <li><strong>Succesbeskeder i backoffice</strong> — alle fire backoffice-sider (Medarbejdere, Retter, Ordrer, Beskeder) viste tidligere kun fejlbeskeder ved mislykkede handlinger. Der er nu tilføjet en tilsvarende grøn succesbesked (fx "Ret tilføjet.", "Medarbejder slettet.", "Ordre arkiveret."), som vises efter enhver vellykket opret-, opdater-, slet- eller statusændring og forsvinder automatisk efter 3 sekunder.</li>
+</ul>
+
+<p>Ingen af disse ændringer påvirker design eller layout — det er datafejl og manglende brugerfeedback, der nu er rettet.</p>
 
 <hr />
 
