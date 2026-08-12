@@ -217,7 +217,7 @@ css: |
 **Skole:** Media College Denmark  
 **Afleveringsdato:** 26-06-2026  
 **Fremlæggelse:** Uge 32–35 (3. aug – 30. aug 2026)  
-**Opdateret:** 11-08-2026 — se [tillæg efter sommerferien](#opdateringer-efter-sommerferien-11-08-2026) i afsnit 1
+**Opdateret:** 12-08-2026 — se [tillæg efter sommerferien](#opdateringer-efter-sommerferien-12-08-2026) i afsnit 1
 
 ---
 
@@ -293,6 +293,18 @@ Efter aflevering i juni har jeg brugt tiden op til fremlæggelsen på en systema
 - **Dokumentation ryddet op** — den overordnede `README.md` indeholdt flere generationer af duplikeret indhold fra løbende redigeringer (samme afsnit gentaget 3–4 gange med forskellige, delvist forældede versioner). Den er nu konsolideret til ét gennemgående dokument, og `dgs_frontend/README.md` er rettet så rute-navne og login-oplysninger matcher den faktiske applikation.
 
 Ingen af disse ændringer påvirker de funktionelle krav eller tilvalgsopgaverne — det er udelukkende fejlrettelser og polish af eksisterende funktionalitet.
+
+### Opdateringer efter sommerferien (12-08-2026)
+
+En yderligere gennemgang af data og brugerfeedback afdækkede og løste følgende:
+
+- **Datafejl i seed-data rettet** — retten "The Stuffed Smile" havde en forkert sammensat ingrediensliste (to ingredienser i ét array-element i stedet for to separate), og demo-ordrernes størrelsesfelt brugte dansk stavemåde (`"Familie"`) i stedet for appens interne konvention (`"family"`), hvilket fik familie-ordrer til fejlagtigt at blive vist som "Alm." i backoffice. Begge er rettet ved kilden og på den allerede seedede data.
+- **Ingrediens-trimning ved oprettelse/redigering af retter** — når ingredienser indtastes som kommasepareret tekst, trimmes hvert element nu for mellemrum, så fx `"Kødsauce, Parmesan"` ikke længere giver en ingrediens med et indledende mellemrum.
+- **Seed-scriptet gjort idempotent** — hver seed-funktion tjekker nu om data allerede findes i databasen, før den opretter noget, så `npm run "Opret Database"` trygt kan køres flere gange uden at duplikere retter, medarbejdere, kategorier, ingredienser, beskeder eller ordrer.
+- **Ordrearkivering** — i stedet for at slette afsendte ordrer (som ellers ville forhindre sammenligning år-til-år eller en senere audit af data), er der tilføjet et `archived`-felt på ordrer samt en "Arkiver/Genskab"-knap i backoffice, så afsendte ordrer kan skjules fra den aktive liste uden at miste historikken.
+- **Succesbeskeder i backoffice** — alle fire backoffice-sider (Medarbejdere, Retter, Ordrer, Beskeder) viste tidligere kun fejlbeskeder ved mislykkede handlinger. Der er nu tilføjet en tilsvarende grøn succesbesked (fx "Ret tilføjet.", "Medarbejder slettet.", "Ordre arkiveret."), som vises efter enhver vellykket opret-, opdater-, slet- eller statusændring og forsvinder automatisk efter 3 sekunder.
+
+Ingen af disse ændringer påvirker design eller layout — det er datafejl og manglende brugerfeedback, der nu er rettet.
 
 ---
 
@@ -790,7 +802,7 @@ Desktop: 1440 × 900 px · viewport-snapshot.
 </figure>
 
 <figure>
-<img src="docs/screenshots/404-mobile.png" style="width:100%;height:320px;object-fit:cover;object-position:top;" />
+<img src="docs/screenshots/404-desktop.png" style="width:100%;height:320px;object-fit:cover;object-position:top;" />
 <figcaption>404 – Siden findes ikke</figcaption>
 </figure>
 
@@ -808,8 +820,8 @@ Desktop: 1440 × 900 px · viewport-snapshot.
 </figure>
 
 <figure>
-<img src="docs/screenshots/home-desktop-dishes.png" style="width:100%;height:420px;object-fit:cover;object-position:top;" />
-<figcaption>Forside – rettegrid og kategorifilter (desktop)</figcaption>
+<img src="docs/screenshots/menu-desktop.png" style="width:100%;height:420px;object-fit:cover;object-position:top;" />
+<figcaption>Vores Menu – rettegrid og kategorifilter (desktop)</figcaption>
 </figure>
 
 </div>
@@ -817,8 +829,8 @@ Desktop: 1440 × 900 px · viewport-snapshot.
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;">
 
 <figure>
-<img src="docs/screenshots/dish-detail-desktop.png" style="width:100%;height:380px;object-fit:cover;object-position:top;" />
-<figcaption>Retteside (desktop)</figcaption>
+<img src="docs/screenshots/basket-desktop.png" style="width:100%;height:380px;object-fit:cover;object-position:top;" />
+<figcaption>Kurv (desktop)</figcaption>
 </figure>
 
 <figure>
