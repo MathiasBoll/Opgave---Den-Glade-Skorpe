@@ -7,7 +7,7 @@ authRouter.post("/auth/signin", async (req, res) => {
   
     const result = await signInUser(req.body);
 
-    return res.status(200).send(
+    return res.status(result.status === 'ok' ? 200 : 401).send(
         { 
             ...result
         }

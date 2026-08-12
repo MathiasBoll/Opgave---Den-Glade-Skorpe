@@ -25,7 +25,7 @@ authTokenRouter.post("/auth/token", upload.single('file'), async (req, res) => {
     const result = await signInWithToken(req.body.token);
    
 
-    return res.status(200).send(
+    return res.status(result.status === 'ok' ? 200 : 401).send(
         { ...result }
     );
 

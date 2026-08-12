@@ -26,6 +26,11 @@ export function AuthProvider({ children }) {
     try {
       const data = await apiLogin({ email, password })
       const tok = data?.token
+      // Ekstra sikkerhedsnet: hvis serveren mod forventning svarer 200 uden et token, må det ikke tælle som login.
+      if (!tok) {
+        setError('Forkert e-mail eller adgangskode.')
+        return false
+      }
       setToken(tok)
       setUser({ email })
       localStorage.setItem('bo_token', tok)

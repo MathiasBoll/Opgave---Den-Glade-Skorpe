@@ -75,7 +75,13 @@ orderRoute.put("/order", auth, async (req, res) => {
       });
     }
 
-    if (!isValidObjectId(id)) return;
+    if (!isValidObjectId(id)) {
+      return res.status(400).send({
+        status: "error",
+        message: "Invalid order ID",
+        data: [],
+      });
+    }
 
     if (
       !dishes &&
@@ -128,7 +134,13 @@ orderRoute.delete("/order/:id", auth, async (req, res) => {
       });
     }
 
-    if (!isValidObjectId(id)) return;
+    if (!isValidObjectId(id)) {
+      return res.status(400).send({
+        status: "error",
+        message: "Invalid order ID",
+        data: {},
+      });
+    }
 
     const result = await deleteOrder(id);
 
