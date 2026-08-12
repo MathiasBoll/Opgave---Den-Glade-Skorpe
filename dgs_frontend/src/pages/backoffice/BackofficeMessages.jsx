@@ -10,6 +10,7 @@ export default function BackofficeMessages() {
   const [openMsg, setOpenMsg] = useState(null)
   const [deleteConfirm, setDeleteConfirm] = useState(null)
   const [error, setError] = useState(null)
+  const [success, setSuccess] = useState(null)
 
   function load() {
     setLoading(true)
@@ -21,10 +22,17 @@ export default function BackofficeMessages() {
 
   useEffect(load, [])
 
+  useEffect(() => {
+    if (!success) return
+    const timer = setTimeout(() => setSuccess(null), 3000)
+    return () => clearTimeout(timer)
+  }, [success])
+
   async function handleToggleStatus(msg) {
     const next = msg.status === 'read' ? 'unread' : 'read'
     try {
       await updateMessage(msg._id, next)
+      setSuccess(next === 'read' ? 'Besked markeret som læst.' : 'Besked markeret som ulæst.')
       load()
     } catch {
       setError('Kunne ikke opdatere status.')
@@ -35,6 +43,7 @@ export default function BackofficeMessages() {
     try {
       await deleteMessage(id)
       setDeleteConfirm(null)
+      setSuccess('Besked slettet.')
       load()
     } catch {
       setError('Kunne ikke slette beskeden.')
@@ -48,6 +57,7 @@ export default function BackofficeMessages() {
     <section>
       <h2 className={styles.pageTitle}>Beskeder</h2>
       {error && <p className={empStyles.errorMsg}>{error}</p>}
+      {success && <p className={empStyles.successMsg}>{success}</p>}
 
       {/* Delete confirmation */}
       {deleteConfirm && (

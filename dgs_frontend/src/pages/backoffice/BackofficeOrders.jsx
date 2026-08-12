@@ -9,6 +9,7 @@ export default function BackofficeOrders() {
   const [loading, setLoading] = useState(true)
   const [deleteConfirm, setDeleteConfirm] = useState(null)
   const [error, setError] = useState(null)
+  const [success, setSuccess] = useState(null)
   const [showArchived, setShowArchived] = useState(false)
 
   function load() {
@@ -21,9 +22,16 @@ export default function BackofficeOrders() {
 
   useEffect(load, [])
 
+  useEffect(() => {
+    if (!success) return
+    const timer = setTimeout(() => setSuccess(null), 3000)
+    return () => clearTimeout(timer)
+  }, [success])
+
   async function handleStatusChange(order, shipped) {
     try {
       await updateOrder(order._id, shipped)
+      setSuccess(shipped ? 'Ordre markeret som afsendt.' : 'Ordre markeret som modtaget.')
       load()
     } catch {
       setError('Kunne ikke opdatere status.')
@@ -33,6 +41,7 @@ export default function BackofficeOrders() {
   async function handleArchiveToggle(order) {
     try {
       await archiveOrder(order._id, !order.archived)
+      setSuccess(order.archived ? 'Ordre genskabt.' : 'Ordre arkiveret.')
       load()
     } catch {
       setError('Kunne ikke arkivere ordren.')
@@ -43,6 +52,7 @@ export default function BackofficeOrders() {
     try {
       await deleteOrder(id)
       setDeleteConfirm(null)
+      setSuccess('Ordre slettet.')
       load()
     } catch {
       setError('Kunne ikke slette ordren.')
@@ -59,6 +69,7 @@ export default function BackofficeOrders() {
     <section>
       <h2 className={styles.pageTitle}>Ordrer</h2>
       {error && <p className={empStyles.errorMsg}>{error}</p>}
+      {success && <p className={empStyles.successMsg}>{success}</p>}
 
       <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-body)', fontSize: '0.9rem', marginBottom: '1rem' }}>
         <input

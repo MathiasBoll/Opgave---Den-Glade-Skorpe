@@ -22,6 +22,7 @@ export default function BackofficeDishes() {
   const [editSaving, setEditSaving] = useState(false)
   const [deleteConfirm, setDeleteConfirm] = useState(null)
   const [error, setError] = useState(null)
+  const [success, setSuccess] = useState(null)
   const addFileRef = useRef(null)
   const editFileRef = useRef(null)
 
@@ -34,6 +35,12 @@ export default function BackofficeDishes() {
   }
 
   useEffect(load, [])
+
+  useEffect(() => {
+    if (!success) return
+    const timer = setTimeout(() => setSuccess(null), 3000)
+    return () => clearTimeout(timer)
+  }, [success])
 
   function handleAddChange(e) {
     setAddForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -77,6 +84,7 @@ export default function BackofficeDishes() {
       setAddForm(EMPTY_FORM)
       setAddImage(null)
       if (addFileRef.current) addFileRef.current.value = ''
+      setSuccess('Ret tilføjet.')
       load()
     } catch {
       setError('Noget gik galt. Prøv igen.')
@@ -107,6 +115,7 @@ export default function BackofficeDishes() {
       setEditTarget(null)
       setEditForm(EMPTY_FORM)
       setEditImage(null)
+      setSuccess('Ret opdateret.')
       load()
     } catch {
       setError('Noget gik galt. Prøv igen.')
@@ -120,6 +129,7 @@ export default function BackofficeDishes() {
       await deleteDish(id)
       setDeleteConfirm(null)
       if (editTarget?._id === id) setEditTarget(null)
+      setSuccess('Ret slettet.')
       load()
     } catch {
       setError('Kunne ikke slette retten.')
@@ -145,6 +155,7 @@ export default function BackofficeDishes() {
     <section>
       <h2 className={styles.pageTitle}>Retter</h2>
       {error && <p className={empStyles.errorMsg}>{error}</p>}
+      {success && <p className={empStyles.successMsg}>{success}</p>}
 
       {deleteConfirm && (
         <ConfirmModal
