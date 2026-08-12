@@ -11,6 +11,7 @@ export default function BackofficeOrders() {
   const [error, setError] = useState(null)
   const [success, setSuccess] = useState(null)
   const [showArchived, setShowArchived] = useState(false)
+  const [dateFilter, setDateFilter] = useState('')
 
   function load() {
     setLoading(true)
@@ -60,10 +61,49 @@ export default function BackofficeOrders() {
     }
   }
 
+  // Lokal dato-nøgle (YYYY-MM-DD) — undgår at UTC-konvertering flytter ordren til forkert dag.
+  function dayKey(dateValue) {
+    const d = new Date(dateValue)
+    const y = d.getFullYear()
+    const m = String(d.getMonth() + 1).padStart(2, '0')
+    const day = String(d.getDate()).padStart(2, '0')
+    return `${y}-${m}-${day}`
+  }
+
+  function formatDay(key) {
+    const [y, m, d] = key.split('-').map(Number)
+    return new Date(y, m - 1, d).toLocaleDateString('da-DK', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+  }
+
+  function formatTime(dateValue) {
+    return new Date(dateValue).toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' })
+  }
+
+  function groupByDay(list) {
+    const groups = new Map()
+    for (const order of list) {
+      const key = dayKey(order.created)
+      if (!groups.has(key)) groups.set(key, [])
+      groups.get(key).push(order)
+    }
+    return [...groups.entries()]
+      .sort((a, b) => (a[0] < b[0] ? 1 : -1))
+      .map(([key, dayOrders]) => ({
+        key,
+        orders: dayOrders.sort((a, b) => new Date(b.created) - new Date(a.created)),
+        count: dayOrders.length,
+        revenue: dayOrders.reduce((sum, o) => sum + (o.totalPrice || 0), 0),
+      }))
+  }
+
   if (loading) return <p className={styles.status}>Henter ordrer…</p>
 
-  const visibleOrders = orders.filter((o) => showArchived || !o.archived)
-  const archivedCount = orders.filter((o) => o.archived).length
+  const visibleOrders = orders.filter((o) => !o.archived)
+  const archivedOrders = orders.filter((o) => o.archived)
+  const archivedCount = archivedOrders.length
+  const archivedFiltered = dateFilter ? archivedOrders.filter((o) => dayKey(o.created) === dateFilter) : archivedOrders
+  const archiveGroups = groupByDay(archivedFiltered)
+  const archiveTotalRevenue = archivedOrders.reduce((sum, o) => sum + (o.totalPrice || 0), 0)
 
   return (
     <section>
@@ -80,7 +120,7 @@ export default function BackofficeOrders() {
           checked={showArchived}
           onChange={(e) => setShowArchived(e.target.checked)}
         />
-        Vis arkiverede ordrer ({archivedCount})
+        Vis arkiv ({archivedCount})
       </label>
 
       {deleteConfirm && (
@@ -97,6 +137,7 @@ export default function BackofficeOrders() {
           <thead>
             <tr>
               <th>ID</th>
+              <th>Dato</th>
               <th>Retter</th>
               <th>Kommentar</th>
               <th>Total</th>
@@ -106,12 +147,15 @@ export default function BackofficeOrders() {
           </thead>
           <tbody>
             {visibleOrders.length === 0 && (
-              <tr><td colSpan={6} className={styles.noData}>Ingen ordrer endnu</td></tr>
+              <tr><td colSpan={7} className={styles.noData}>Ingen ordrer endnu</td></tr>
             )}
             {visibleOrders.map((order) => (
-              <tr key={order._id} style={order.archived ? { opacity: 0.55 } : undefined}>
+              <tr key={order._id}>
                 <td style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: '#666' }}>
                   {order._id.slice(-6)}
+                </td>
+                <td style={{ whiteSpace: 'nowrap', fontFamily: 'var(--font-body)', fontSize: '0.85rem' }}>
+                  {formatTime(order.created)}<br />{dayKey(order.created)}
                 </td>
                 <td>
                   {order.dishes?.map((d, i) => (
@@ -158,7 +202,7 @@ export default function BackofficeOrders() {
                 <td>
                   <div className={empStyles.rowActions}>
                     <button className={empStyles.deleteBtn} onClick={() => handleArchiveToggle(order)}>
-                      {order.archived ? 'Genskab' : 'Arkiver'}
+                      Arkiver
                     </button>
                     <button className={empStyles.deleteBtn} onClick={() => setDeleteConfirm(order._id)}>
                       Slet
@@ -170,6 +214,94 @@ export default function BackofficeOrders() {
           </tbody>
         </table>
       </div>
+
+      {showArchived && (
+        <div className={empStyles.inlineFormSection} style={{ marginTop: '2rem' }}>
+          <h3 className={empStyles.inlineFormTitle}>📦 Arkiv</h3>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', alignItems: 'center', marginBottom: '1.25rem' }}>
+            <label className={empStyles.label} style={{ flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+              Vælg dag:
+              <input
+                type="date"
+                className={empStyles.input}
+                value={dateFilter}
+                onChange={(e) => setDateFilter(e.target.value)}
+                style={{ width: 'auto' }}
+              />
+            </label>
+            {dateFilter && (
+              <button type="button" className={empStyles.cancelBtn} onClick={() => setDateFilter('')}>
+                Ryd dato
+              </button>
+            )}
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.9rem', color: '#666', marginLeft: 'auto' }}>
+              I alt arkiveret: <strong>{archivedCount}</strong> ordrer · <strong>{archiveTotalRevenue} kr.</strong>
+            </p>
+          </div>
+
+          {archiveGroups.length === 0 && (
+            <p style={{ fontFamily: 'var(--font-body)', color: '#888' }}>
+              {dateFilter ? 'Ingen arkiverede ordrer denne dag.' : 'Ingen arkiverede ordrer endnu.'}
+            </p>
+          )}
+
+          {archiveGroups.map((group) => (
+            <div key={group.key} style={{ marginBottom: '1.75rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'baseline', gap: '0.5rem', borderBottom: '2px solid var(--color-dark)', paddingBottom: '0.4rem', marginBottom: '0.6rem' }}>
+                <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.4rem', letterSpacing: '0.02em', textTransform: 'capitalize' }}>
+                  🗓️ {formatDay(group.key)}
+                </h4>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.9rem', color: '#555' }}>
+                  <strong>{group.count}</strong> {group.count === 1 ? 'ordre' : 'ordrer'} · <strong>{group.revenue} kr.</strong> i alt
+                </p>
+              </div>
+
+              <div className={styles.tableWrap}>
+                <table className={styles.table}>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Tid</th>
+                      <th>Retter</th>
+                      <th>Total</th>
+                      <th>Status</th>
+                      <th>Handlinger</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {group.orders.map((order) => (
+                      <tr key={order._id}>
+                        <td style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: '#666' }}>
+                          {order._id.slice(-6)}
+                        </td>
+                        <td style={{ whiteSpace: 'nowrap' }}>{formatTime(order.created)}</td>
+                        <td style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem' }}>
+                          {order.dishes?.map((d, i) => (
+                            <div key={i}>{d.amount} × {d.dish?.title || d.dish}</div>
+                          ))}
+                        </td>
+                        <td style={{ whiteSpace: 'nowrap' }}>{order.totalPrice} kr.</td>
+                        <td>{order.shipped ? 'Afsendt' : 'Modtaget'}</td>
+                        <td>
+                          <div className={empStyles.rowActions}>
+                            <button className={empStyles.editBtn} onClick={() => handleArchiveToggle(order)}>
+                              Genskab
+                            </button>
+                            <button className={empStyles.deleteBtn} onClick={() => setDeleteConfirm(order._id)}>
+                              Slet
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   )
 }
