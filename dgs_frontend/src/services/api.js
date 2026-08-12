@@ -56,6 +56,14 @@ export const updateMessage = (id, status) =>
     body: JSON.stringify({ id, status }),
   }).then((r) => r.data)
 
+// Bruges til at eftertilføje en email på ældre beskeder der blev indsendt før email-feltet fandtes
+export const updateMessageEmail = (id, email) =>
+  request('/message', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    body: JSON.stringify({ id, email }),
+  }).then((r) => r.data)
+
 export const deleteMessage = (id) =>
   request(`/message/${id}`, {
     method: 'DELETE',

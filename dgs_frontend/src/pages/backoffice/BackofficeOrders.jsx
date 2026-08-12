@@ -79,6 +79,11 @@ export default function BackofficeOrders() {
     return new Date(dateValue).toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' })
   }
 
+  // Europæisk visningsformat (dd.mm.åååå) — dayKey() bruges kun internt til gruppering/filtrering.
+  function formatShortDate(dateValue) {
+    return new Date(dateValue).toLocaleDateString('da-DK', { day: '2-digit', month: '2-digit', year: 'numeric' })
+  }
+
   function groupByDay(list) {
     const groups = new Map()
     for (const order of list) {
@@ -155,7 +160,7 @@ export default function BackofficeOrders() {
                   {order._id.slice(-6)}
                 </td>
                 <td style={{ whiteSpace: 'nowrap', fontFamily: 'var(--font-body)', fontSize: '0.85rem' }}>
-                  {formatTime(order.created)}<br />{dayKey(order.created)}
+                  {formatShortDate(order.created)}<br />{formatTime(order.created)}
                 </td>
                 <td>
                   {order.dishes?.map((d, i) => (
@@ -224,6 +229,7 @@ export default function BackofficeOrders() {
               Vælg dag:
               <input
                 type="date"
+                lang="da"
                 className={empStyles.input}
                 value={dateFilter}
                 onChange={(e) => setDateFilter(e.target.value)}

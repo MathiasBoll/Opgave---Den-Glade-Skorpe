@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getMessages, updateMessage, deleteMessage } from '../../services/api'
+import { getMessages, updateMessage, updateMessageEmail, deleteMessage } from '../../services/api'
 import ConfirmModal from '../../components/ConfirmModal'
 import styles from './Backoffice.module.css'
 import empStyles from './BackofficeEmployees.module.css'
@@ -11,6 +11,7 @@ export default function BackofficeMessages() {
   const [deleteConfirm, setDeleteConfirm] = useState(null)
   const [error, setError] = useState(null)
   const [success, setSuccess] = useState(null)
+  const [emailDraft, setEmailDraft] = useState('')
 
   function load() {
     setLoading(true)
@@ -48,6 +49,20 @@ export default function BackofficeMessages() {
     } catch {
       setError('Kunne ikke slette beskeden.')
       setDeleteConfirm(null)
+    }
+  }
+
+  // Ældre beskeder blev indsendt før email-feltet fandtes — giver admin mulighed for at eftertilføje den, så der kan svares.
+  async function handleSaveEmail(msg) {
+    if (!emailDraft.trim()) return
+    try {
+      const updated = await updateMessageEmail(msg._id, emailDraft.trim())
+      setSuccess('Email tilføjet.')
+      setOpenMsg(updated)
+      setEmailDraft('')
+      load()
+    } catch {
+      setError('Kunne ikke gemme emailen.')
     }
   }
 
@@ -112,7 +127,7 @@ export default function BackofficeMessages() {
                 </td>
                 <td>
                   <div className={empStyles.rowActions}>
-                    <button className={empStyles.editBtn} onClick={() => setOpenMsg(msg)}>
+                    <button className={empStyles.editBtn} onClick={() => { setOpenMsg(msg); setEmailDraft('') }}>
                       Åbn
                     </button>
                     <button className={empStyles.deleteBtn} onClick={() => setDeleteConfirm(msg._id)}>
@@ -139,6 +154,23 @@ export default function BackofficeMessages() {
               Modtaget: {formatDate(openMsg.created)}
             </p>
             <p className={empStyles.msgModalBody}>{openMsg.description}</p>
+
+            {!openMsg.email && (
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginTop: '0.75rem' }}>
+                <input
+                  type="email"
+                  className={empStyles.input}
+                  placeholder="Tilføj afsenders email for at kunne svare"
+                  value={emailDraft}
+                  onChange={(e) => setEmailDraft(e.target.value)}
+                  style={{ flex: 1 }}
+                />
+                <button className={empStyles.saveBtn} onClick={() => handleSaveEmail(openMsg)}>
+                  Gem email
+                </button>
+              </div>
+            )}
+
             <div className={empStyles.formActions} style={{ marginTop: '1rem' }}>
               {openMsg.email && (
                 <a className={empStyles.saveBtn} href={replyMailto(openMsg)}>
