@@ -303,8 +303,13 @@ En yderligere gennemgang af data og brugerfeedback afdækkede og løste følgend
 - **Seed-scriptet gjort idempotent** — hver seed-funktion tjekker nu om data allerede findes i databasen, før den opretter noget, så `npm run "Opret Database"` trygt kan køres flere gange uden at duplikere retter, medarbejdere, kategorier, ingredienser, beskeder eller ordrer.
 - **Ordrearkivering** — i stedet for at slette afsendte ordrer (som ellers ville forhindre sammenligning år-til-år eller en senere audit af data), er der tilføjet et `archived`-felt på ordrer samt en "Arkiver/Genskab"-knap i backoffice, så afsendte ordrer kan skjules fra den aktive liste uden at miste historikken.
 - **Succesbeskeder i backoffice** — alle fire backoffice-sider (Medarbejdere, Retter, Ordrer, Beskeder) viste tidligere kun fejlbeskeder ved mislykkede handlinger. Der er nu tilføjet en tilsvarende grøn succesbesked (fx "Ret tilføjet.", "Medarbejder slettet.", "Ordre arkiveret."), som vises efter enhver vellykket opret-, opdater-, slet- eller statusændring og forsvinder automatisk efter 3 sekunder.
+- **Arkiv-kalender med dags-totaler** — arkiverede ordrer i backoffice grupperes nu pr. dag (overskrift, antal ordrer og samlet omsætning for dagen) med et datofilter, i stedet for én lang flad liste.
+- **Europæisk datoformat i ordreoversigten** — ordredatoen blev tidligere vist som et rå ISO-tidsstempel (`2026-06-16`); vises nu som `dd.mm.åååå` ligesom resten af sitet.
+- **Svar på ældre kontaktbeskeder** — beskeder oprettet før e-mail-feltet blev tilføjet manglede en afsender-e-mail, hvilket skjulte "Svar via e-mail"-knappen. Admin kan nu manuelt tilføje en e-mail på en eksisterende besked for at låse svarfunktionen op.
+- **Adgangskontrol rettet på API'et** — `GET /messages`, `GET /orders`, `PUT /message` og `PUT /order` manglede `auth`-middleware og kunne tilgås af hvem som helst uden login, selvom frontend allerede sendte et token. Alle fire kræver nu gyldig auth. Samtidig returnerede auth-middlewaren fejlagtigt status 200 ved manglende/ugyldigt token — den svarer nu korrekt med 401.
+- **HTTP-statuskoder rettet på tværs af API'et** — `POST /auth/signin` og `POST /auth/token` svarede altid 200, også ved forkert login, så en fejlslået indtastning så ud til at lykkes for frontend; svarer nu 401 ved fejl. Derudover fik alle PUT/DELETE/GET-by-id endpoints (retter, medarbejdere, ordrer, beskeder, kategorier, ingredienser, brugere) tidligere intet svar overhovedet ved et ugyldigt id-format — requesten hang bare til den timede ud. De returnerer nu korrekt 400 Bad Request.
 
-Ingen af disse ændringer påvirker design eller layout — det er datafejl og manglende brugerfeedback, der nu er rettet.
+Ingen af disse ændringer påvirker design eller layout — det er datafejl, manglende brugerfeedback og et par reelle backend-fejl (adgangskontrol og forkerte statuskoder), der nu er rettet.
 
 ---
 
