@@ -1016,6 +1016,53 @@ if (items.length === 0) return &lt;p className={styles.empty}&gt;Ingen retter fu
   </tbody>
 </table>
 
+<h3>Ekstra funktionalitet (ud over opgavebeskrivelsen)</h3>
+
+<p>Udover de 7 tilvalgsopgaver har jeg tilføjet følgende, som ikke var en del af opgavebeskrivelsen eller GitHub-issues:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Beskrivelse</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ordrearkivering med kalendervisning</td>
+      <td>Backoffice-ordrer kan arkiveres og gennemses i en kalendervisning grupperet efter dato — tilvalg 5 krævede kun en simpel tabelvisning.</td>
+    </tr>
+    <tr>
+      <td>Toast-notifikationer</td>
+      <td>Et centralt toast-system giver visuel feedback ved opret/rediger/slet, i stedet for kun statisk tekst.</td>
+    </tr>
+    <tr>
+      <td>Custom bekræftelsesdialog (ConfirmModal)</td>
+      <td>Erstatter browserens indbyggede <code>confirm()</code> med en designet modal der matcher app'ens visuelle stil.</td>
+    </tr>
+    <tr>
+      <td>E-mail-vedhæftning på ældre beskeder</td>
+      <td>Beskeder sendt før e-mail-feltet fandtes på kontaktformularen kan nu få en e-mail tilknyttet direkte i backoffice, så de stadig kan besvares.</td>
+    </tr>
+    <tr>
+      <td>Europæisk datoformat</td>
+      <td>Alle datoer i backoffice vises konsekvent som <code>dd.mm.åååå tt.mm</code> i stedet for browserens lokale/amerikanske standardformat.</td>
+    </tr>
+    <tr>
+      <td>Favicon</td>
+      <td>Tilføjet brand-ikon i browserfanen.</td>
+    </tr>
+    <tr>
+      <td>Idempotent seed-script</td>
+      <td>Seed-scriptet kan køres flere gange uden at oprette dubletter — nyttigt under udvikling og demo.</td>
+    </tr>
+    <tr>
+      <td>HTTP-statuskode-hærdning</td>
+      <td>Gennemgik hele API'et for korrekte statuskoder — fx login der fejlagtigt altid svarede 200 uanset resultat, og 17 endpoints der ikke svarede ved et ugyldigt id-format. Ingen synlig feature, men en kvalitetsforbedring ud over kravene.</td>
+    </tr>
+  </tbody>
+</table>
+
 <h3>Uddybning: Extra ingredienser (tilvalg 2)</h3>
 
 <pre><code>// DishDetail.jsx — henter dish og ingredienser parallelt

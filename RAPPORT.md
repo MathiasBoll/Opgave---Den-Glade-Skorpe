@@ -603,6 +603,21 @@ Alle 7 tilvalgsopgaver er implementeret (minimum 1 krævet).
 | 6 | Afgiv ordre via serveren (POST) | ✅ | Kurv sender POST /order med retter, størrelser og total. Kurv tømmes → redirect til /order-confirmation. |
 | 7 | Authentication — backoffice login | ✅ | JWT via POST /auth/signin. Token i localStorage. RequireAuth beskytter alle /backoffice-routes. 401 logger ud automatisk. |
 
+### Ekstra funktionalitet (ud over opgavebeskrivelsen)
+
+Udover de 7 tilvalgsopgaver har jeg tilføjet følgende, som ikke var en del af opgavebeskrivelsen eller GitHub-issues:
+
+| Feature | Beskrivelse |
+|---|---|
+| Ordrearkivering med kalendervisning | Backoffice-ordrer kan arkiveres og gennemses i en kalendervisning grupperet efter dato — tilvalg 5 krævede kun en simpel tabelvisning. |
+| Toast-notifikationer | Et centralt toast-system giver visuel feedback ved opret/rediger/slet, i stedet for kun statisk tekst. |
+| Custom bekræftelsesdialog (ConfirmModal) | Erstatter browserens indbyggede `confirm()` med en designet modal der matcher app'ens visuelle stil. |
+| E-mail-vedhæftning på ældre beskeder | Beskeder sendt før e-mail-feltet fandtes på kontaktformularen kan nu få en e-mail tilknyttet direkte i backoffice, så de stadig kan besvares. |
+| Europæisk datoformat | Alle datoer i backoffice vises konsekvent som `dd.mm.åååå tt.mm` i stedet for browserens lokale/amerikanske standardformat. |
+| Favicon | Tilføjet brand-ikon i browserfanen. |
+| Idempotent seed-script | Seed-scriptet kan køres flere gange uden at oprette dubletter — nyttigt under udvikling og demo. |
+| HTTP-statuskode-hærdning | Gennemgik hele API'et for korrekte statuskoder — fx login der fejlagtigt altid svarede 200 uanset resultat, og 17 endpoints der ikke svarede ved et ugyldigt id-format. Ingen synlig feature, men en kvalitetsforbedring ud over kravene. |
+
 ### Uddybning: Extra ingredienser (tilvalg 2)
 
 ```jsx
