@@ -50,7 +50,7 @@ messageRoute.post("/message", async (req, res) => {
 });
 
 // PUT / UPDATE
-messageRoute.put("/message", async (req, res) => {
+messageRoute.put("/message", auth, async (req, res) => {
   try {
     const { id, name, email, subject, description, status } = req.body;
 

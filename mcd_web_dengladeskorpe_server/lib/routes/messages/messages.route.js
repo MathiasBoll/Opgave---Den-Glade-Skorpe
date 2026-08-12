@@ -1,8 +1,9 @@
 import express from "express";
+import auth from "../../middleware/auth.middleware.js";
 import { getMessages } from "../../handlers/messages/messages.handler.js";
 
 const messagesRouter = express.Router();
-messagesRouter.get("/messages", async (req, res) => {
+messagesRouter.get("/messages", auth, async (req, res) => {
   try {
     const result = await getMessages();
 

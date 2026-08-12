@@ -10,7 +10,7 @@ const auth = (req, res, next) => {
 
     if (!tokenHeader) {
     
-      return res.json({'status' : 'error', 'message' : 'No access without token.'});
+      return res.status(401).json({'status' : 'error', 'message' : 'No access without token.'});
   
     }
     try {
@@ -23,7 +23,7 @@ const auth = (req, res, next) => {
     } catch (err) {
   
       console.log('Error', err);
-      return res.json({'status' : 'error', 'message' : 'Not a valid Token - are you signed in?'});
+      return res.status(401).json({'status' : 'error', 'message' : 'Not a valid Token - are you signed in?'});
   
     }
   }

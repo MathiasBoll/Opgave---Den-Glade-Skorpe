@@ -63,7 +63,7 @@ orderRoute.post("/order", async (req, res) => {
 });
 
 // PUT / UPDATE
-orderRoute.put("/order", async (req, res) => {
+orderRoute.put("/order", auth, async (req, res) => {
   try {
     const { id, dishes, comment, totalPrice, shipped, archived } = req.body;
 

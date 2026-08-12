@@ -1,8 +1,9 @@
 import express from "express";
+import auth from "../../middleware/auth.middleware.js";
 import { getOrders } from "../../handlers/orders/orders.handler.js";
 
 const ordersRouter = express.Router();
-ordersRouter.get("/orders", async (req, res) => {
+ordersRouter.get("/orders", auth, async (req, res) => {
   try {
     const result = await getOrders();
 
