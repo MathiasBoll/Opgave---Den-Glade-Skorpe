@@ -3,7 +3,6 @@ import { getDishes, getCategories, createDish, updateDish, deleteDish } from '..
 import ConfirmModal from '../../components/ConfirmModal'
 import styles from './Backoffice.module.css'
 import empStyles from './BackofficeEmployees.module.css'
-import dishStyles from './BackofficeDishes.module.css'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3042'
 
@@ -153,7 +152,10 @@ export default function BackofficeDishes() {
 
   return (
     <section>
-      <h2 className={styles.pageTitle}>Retter</h2>
+      <div className={styles.pageHead}>
+        <h2 className={styles.pageTitle}>🍕 Retter</h2>
+        <p className={styles.pageSubtitle}>Opret, rediger og slet retter på menuen.</p>
+      </div>
       {error && <p className={empStyles.errorMsg}>{error}</p>}
       {success && <p className={empStyles.successMsg}>{success}</p>}
 
@@ -165,49 +167,6 @@ export default function BackofficeDishes() {
           onCancel={() => setDeleteConfirm(null)}
         />
       )}
-
-      <div className={dishStyles.formGrid}>
-        {/* Add dish */}
-        <div className={empStyles.inlineFormSection}>
-          <h3 className={empStyles.inlineFormTitle}>Tilføj ret</h3>
-          <form onSubmit={handleAdd} className={empStyles.form}>
-            <label className={empStyles.label}>Titel<input name="title" type="text" className={empStyles.input} value={addForm.title} onChange={handleAddChange} required /></label>
-            <label className={empStyles.label}>Billede (valgfrit)<input ref={addFileRef} type="file" accept="image/*" className={empStyles.fileInput} onChange={(e) => setAddImage(e.target.files[0] || null)} /></label>
-            <label className={empStyles.label}>Ingredienser (kommasepareret)<input name="ingredients" type="text" className={empStyles.input} value={addForm.ingredients} onChange={handleAddChange} required placeholder="Tomat, Ost, Kylling" /></label>
-            <label className={empStyles.label}>Normal pris (kr.)<input name="priceNormal" type="number" min="1" className={empStyles.input} value={addForm.priceNormal} onChange={handleAddChange} required /></label>
-            <label className={empStyles.label}>Familie pris (valgfrit)<input name="priceFamily" type="number" min="1" className={empStyles.input} value={addForm.priceFamily} onChange={handleAddChange} /></label>
-            <label className={empStyles.label}>Kategori<CategorySelect name="category" value={addForm.category} onChange={handleAddChange} /></label>
-            <div className={empStyles.formActions}>
-              <button type="submit" className={empStyles.saveBtn} disabled={addSaving}>{addSaving ? 'Gemmer…' : 'Tilføj ret'}</button>
-            </div>
-          </form>
-        </div>
-
-        {/* Update dish */}
-        <div className={empStyles.inlineFormSection}>
-          {editTarget ? (
-            <>
-              <h3 className={empStyles.inlineFormTitle}>Rediger: {editTarget.title}</h3>
-              <form onSubmit={handleEdit} className={empStyles.form}>
-                <label className={empStyles.label}>Titel<input name="title" type="text" className={empStyles.input} value={editForm.title} onChange={handleEditChange} required /></label>
-                <label className={empStyles.label}>Billede (valgfrit)<input ref={editFileRef} type="file" accept="image/*" className={empStyles.fileInput} onChange={(e) => setEditImage(e.target.files[0] || null)} /></label>
-                <label className={empStyles.label}>Ingredienser (kommasepareret)<input name="ingredients" type="text" className={empStyles.input} value={editForm.ingredients} onChange={handleEditChange} required /></label>
-                <label className={empStyles.label}>Normal pris (kr.)<input name="priceNormal" type="number" min="1" className={empStyles.input} value={editForm.priceNormal} onChange={handleEditChange} required /></label>
-                <label className={empStyles.label}>Familie pris (valgfrit)<input name="priceFamily" type="number" min="1" className={empStyles.input} value={editForm.priceFamily} onChange={handleEditChange} /></label>
-                <label className={empStyles.label}>Kategori<CategorySelect name="category" value={editForm.category} onChange={handleEditChange} /></label>
-                <div className={empStyles.formActions}>
-                  <button type="submit" className={empStyles.saveBtn} disabled={editSaving}>{editSaving ? 'Gemmer…' : 'Gem ændringer'}</button>
-                  <button type="button" className={empStyles.cancelBtn} onClick={() => setEditTarget(null)}>Annuller</button>
-                </div>
-              </form>
-            </>
-          ) : (
-            <p style={{ fontFamily: 'var(--font-body)', color: '#888', marginTop: '0.5rem' }}>
-              Klik "Rediger" på en ret i tabellen for at opdatere den.
-            </p>
-          )}
-        </div>
-      </div>
 
       <div className={styles.tableWrap}>
         <table className={styles.table}>
@@ -255,6 +214,38 @@ export default function BackofficeDishes() {
             })}
           </tbody>
         </table>
+      </div>
+
+      <div className={empStyles.inlineFormSection} style={{ marginTop: '2rem', maxWidth: '520px' }}>
+        <h3 className={empStyles.inlineFormTitle}>
+          {editTarget ? `Rediger: ${editTarget.title}` : 'Tilføj ret'}
+        </h3>
+        {editTarget ? (
+          <form onSubmit={handleEdit} className={empStyles.form}>
+            <label className={empStyles.label}>Titel<input name="title" type="text" className={empStyles.input} value={editForm.title} onChange={handleEditChange} required /></label>
+            <label className={empStyles.label}>Billede (valgfrit)<input ref={editFileRef} type="file" accept="image/*" className={empStyles.fileInput} onChange={(e) => setEditImage(e.target.files[0] || null)} /></label>
+            <label className={empStyles.label}>Ingredienser (kommasepareret)<input name="ingredients" type="text" className={empStyles.input} value={editForm.ingredients} onChange={handleEditChange} required /></label>
+            <label className={empStyles.label}>Normal pris (kr.)<input name="priceNormal" type="number" min="1" className={empStyles.input} value={editForm.priceNormal} onChange={handleEditChange} required /></label>
+            <label className={empStyles.label}>Familie pris (valgfrit)<input name="priceFamily" type="number" min="1" className={empStyles.input} value={editForm.priceFamily} onChange={handleEditChange} /></label>
+            <label className={empStyles.label}>Kategori<CategorySelect name="category" value={editForm.category} onChange={handleEditChange} /></label>
+            <div className={empStyles.formActions}>
+              <button type="submit" className={empStyles.saveBtn} disabled={editSaving}>{editSaving ? 'Gemmer…' : 'Gem ændringer'}</button>
+              <button type="button" className={empStyles.cancelBtn} onClick={() => setEditTarget(null)}>Annuller</button>
+            </div>
+          </form>
+        ) : (
+          <form onSubmit={handleAdd} className={empStyles.form}>
+            <label className={empStyles.label}>Titel<input name="title" type="text" className={empStyles.input} value={addForm.title} onChange={handleAddChange} required /></label>
+            <label className={empStyles.label}>Billede (valgfrit)<input ref={addFileRef} type="file" accept="image/*" className={empStyles.fileInput} onChange={(e) => setAddImage(e.target.files[0] || null)} /></label>
+            <label className={empStyles.label}>Ingredienser (kommasepareret)<input name="ingredients" type="text" className={empStyles.input} value={addForm.ingredients} onChange={handleAddChange} required placeholder="Tomat, Ost, Kylling" /></label>
+            <label className={empStyles.label}>Normal pris (kr.)<input name="priceNormal" type="number" min="1" className={empStyles.input} value={addForm.priceNormal} onChange={handleAddChange} required /></label>
+            <label className={empStyles.label}>Familie pris (valgfrit)<input name="priceFamily" type="number" min="1" className={empStyles.input} value={addForm.priceFamily} onChange={handleAddChange} /></label>
+            <label className={empStyles.label}>Kategori<CategorySelect name="category" value={addForm.category} onChange={handleAddChange} /></label>
+            <div className={empStyles.formActions}>
+              <button type="submit" className={empStyles.saveBtn} disabled={addSaving}>{addSaving ? 'Gemmer…' : 'Tilføj ret'}</button>
+            </div>
+          </form>
+        )}
       </div>
     </section>
   )

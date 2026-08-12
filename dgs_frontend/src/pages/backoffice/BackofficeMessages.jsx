@@ -55,7 +55,10 @@ export default function BackofficeMessages() {
 
   return (
     <section>
-      <h2 className={styles.pageTitle}>Beskeder</h2>
+      <div className={styles.pageHead}>
+        <h2 className={styles.pageTitle}>✉️ Beskeder</h2>
+        <p className={styles.pageSubtitle}>Beskeder indsendt via kontaktformularen.</p>
+      </div>
       {error && <p className={empStyles.errorMsg}>{error}</p>}
       {success && <p className={empStyles.successMsg}>{success}</p>}
 

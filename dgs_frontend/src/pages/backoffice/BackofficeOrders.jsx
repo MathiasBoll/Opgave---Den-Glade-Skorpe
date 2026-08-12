@@ -67,7 +67,10 @@ export default function BackofficeOrders() {
 
   return (
     <section>
-      <h2 className={styles.pageTitle}>Ordrer</h2>
+      <div className={styles.pageHead}>
+        <h2 className={styles.pageTitle}>🧾 Ordrer</h2>
+        <p className={styles.pageSubtitle}>Overblik over indkomne ordrer og status.</p>
+      </div>
       {error && <p className={empStyles.errorMsg}>{error}</p>}
       {success && <p className={empStyles.successMsg}>{success}</p>}
 

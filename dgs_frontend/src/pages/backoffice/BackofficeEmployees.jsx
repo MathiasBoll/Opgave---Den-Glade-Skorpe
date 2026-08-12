@@ -125,7 +125,10 @@ export default function BackofficeEmployees() {
 
   return (
     <section>
-      <h2 className={styles.pageTitle}>Medarbejdere</h2>
+      <div className={styles.pageHead}>
+        <h2 className={styles.pageTitle}>👥 Medarbejdere</h2>
+        <p className={styles.pageSubtitle}>Opret, rediger og slet medarbejdere på den offentlige side.</p>
+      </div>
       {error && <p className={empStyles.errorMsg}>{error}</p>}
       {success && <p className={empStyles.successMsg}>{success}</p>}
 
