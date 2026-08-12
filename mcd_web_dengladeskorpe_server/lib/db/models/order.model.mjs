@@ -13,6 +13,9 @@ const orderSchema = new Schema({
   comment: { type: String },
   totalPrice: { type: Number, required: true },
   shipped: { type: Boolean, default: false },
+  // Arkiverede ordrer skjules fra den aktive ordreliste, men slettes ikke -
+  // så data stadig kan bruges til årssammenligning/audit senere.
+  archived: { type: Boolean, default: false },
   created: { type: Date, default: Date.now },
 });
 

@@ -80,7 +80,7 @@ export const stubDishes = [
     title: "The Stuffed Smile",
     price: { normal: 95 },
     image: "/dishes/seed_smile.png",
-    ingredients: ["Kødsauce, Parmesan", "Champignon"],
+    ingredients: ["Kødsauce", "Parmesan", "Champignon"],
     category: "Indbagte pizzaer",
   },
   {
@@ -303,7 +303,7 @@ export const stubOrders = [
       {
         dish: "dish_id_here",
         quantity: 2,
-        size: "Familie",
+        size: "family",
         extraIngredients: ["Pepperoni", "Rucola"],
       },
     ],
@@ -316,7 +316,7 @@ export const stubOrders = [
       {
         dish: "dish_id_here",
         quantity: 2,
-        size: "Familie",
+        size: "family",
         extraIngredients: ["Pepperoni", "Rucola"],
       },
     ],

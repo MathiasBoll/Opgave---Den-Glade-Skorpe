@@ -55,8 +55,8 @@ dishRoute.post("/dish", auth, upload.single("file"), async (req, res) => {
       });
     }
     let parsedIngredients = Array.isArray(ingredients)
-      ? ingredients
-      : ingredients.split(",");
+      ? ingredients.map((i) => i.trim()).filter(Boolean)
+      : ingredients.split(",").map((i) => i.trim()).filter(Boolean);
 
     const model = {
       title,
@@ -117,8 +117,8 @@ dishRoute.put("/dish", auth, upload.single("file"), async (req, res) => {
     }
 
     let parsedIngredients = Array.isArray(ingredients)
-      ? ingredients
-      : ingredients.split(",");
+      ? ingredients.map((i) => i.trim()).filter(Boolean)
+      : ingredients.split(",").map((i) => i.trim()).filter(Boolean);
 
     const model = {
       ...req.body,

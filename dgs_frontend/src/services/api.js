@@ -80,6 +80,15 @@ export const updateOrder = (id, shipped) =>
     body: JSON.stringify({ id, shipped }),
   }).then((r) => r.data)
 
+// Arkiverer/genskaber en ordre - ordren beholdes i databasen (til audit/årssammenligning),
+// den skjules blot fra den aktive ordreliste i backoffice.
+export const archiveOrder = (id, archived) =>
+  request('/order', {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...authHeaders() },
+    body: JSON.stringify({ id, archived }),
+  }).then((r) => r.data)
+
 export const deleteOrder = (id) =>
   request(`/order/${id}`, {
     method: 'DELETE',

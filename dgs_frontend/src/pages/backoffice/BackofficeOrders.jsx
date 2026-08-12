@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getOrders, updateOrder, deleteOrder } from '../../services/api'
+import { getOrders, updateOrder, deleteOrder, archiveOrder } from '../../services/api'
 import ConfirmModal from '../../components/ConfirmModal'
 import styles from './Backoffice.module.css'
 import empStyles from './BackofficeEmployees.module.css'
@@ -9,6 +9,7 @@ export default function BackofficeOrders() {
   const [loading, setLoading] = useState(true)
   const [deleteConfirm, setDeleteConfirm] = useState(null)
   const [error, setError] = useState(null)
+  const [showArchived, setShowArchived] = useState(false)
 
   function load() {
     setLoading(true)
@@ -29,6 +30,15 @@ export default function BackofficeOrders() {
     }
   }
 
+  async function handleArchiveToggle(order) {
+    try {
+      await archiveOrder(order._id, !order.archived)
+      load()
+    } catch {
+      setError('Kunne ikke arkivere ordren.')
+    }
+  }
+
   async function handleDelete(id) {
     try {
       await deleteOrder(id)
@@ -42,10 +52,22 @@ export default function BackofficeOrders() {
 
   if (loading) return <p className={styles.status}>Henter ordrer…</p>
 
+  const visibleOrders = orders.filter((o) => showArchived || !o.archived)
+  const archivedCount = orders.filter((o) => o.archived).length
+
   return (
     <section>
       <h2 className={styles.pageTitle}>Ordrer</h2>
       {error && <p className={empStyles.errorMsg}>{error}</p>}
+
+      <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-body)', fontSize: '0.9rem', marginBottom: '1rem' }}>
+        <input
+          type="checkbox"
+          checked={showArchived}
+          onChange={(e) => setShowArchived(e.target.checked)}
+        />
+        Vis arkiverede ordrer ({archivedCount})
+      </label>
 
       {deleteConfirm && (
         <ConfirmModal
@@ -69,11 +91,11 @@ export default function BackofficeOrders() {
             </tr>
           </thead>
           <tbody>
-            {orders.length === 0 && (
+            {visibleOrders.length === 0 && (
               <tr><td colSpan={6} className={styles.noData}>Ingen ordrer endnu</td></tr>
             )}
-            {orders.map((order) => (
-              <tr key={order._id}>
+            {visibleOrders.map((order) => (
+              <tr key={order._id} style={order.archived ? { opacity: 0.55 } : undefined}>
                 <td style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: '#666' }}>
                   {order._id.slice(-6)}
                 </td>
@@ -121,6 +143,9 @@ export default function BackofficeOrders() {
                 </td>
                 <td>
                   <div className={empStyles.rowActions}>
+                    <button className={empStyles.deleteBtn} onClick={() => handleArchiveToggle(order)}>
+                      {order.archived ? 'Genskab' : 'Arkiver'}
+                    </button>
                     <button className={empStyles.deleteBtn} onClick={() => setDeleteConfirm(order._id)}>
                       Slet
                     </button>

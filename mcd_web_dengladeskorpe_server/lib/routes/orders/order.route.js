@@ -65,7 +65,7 @@ orderRoute.post("/order", async (req, res) => {
 // PUT / UPDATE
 orderRoute.put("/order", async (req, res) => {
   try {
-    const { id, dishes, comment, totalPrice, shipped } = req.body;
+    const { id, dishes, comment, totalPrice, shipped, archived } = req.body;
 
     if (!id) {
       return res.status(400).send({
@@ -81,17 +81,18 @@ orderRoute.put("/order", async (req, res) => {
       !dishes &&
       !comment &&
       totalPrice === undefined &&
-      shipped === undefined
+      shipped === undefined &&
+      archived === undefined
     ) {
       return res.status(400).send({
         status: "error",
         message:
-          "At least one field (dishes, comment, totalPrice, or shipped) must be provided for update",
+          "At least one field (dishes, comment, totalPrice, shipped, or archived) must be provided for update",
         data: [],
       });
     }
 
-    const model = { id, dishes, comment, totalPrice, shipped };
+    const model = { id, dishes, comment, totalPrice, shipped, archived };
 
     const result = await updateOrder(model);
 
