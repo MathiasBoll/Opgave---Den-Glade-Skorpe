@@ -2,6 +2,8 @@
 
 Fagprøveprojekt — Den Glade Skorpe er en moderne pizzarestaurant med mobil-first hjemmeside, online bestilling og backoffice/admin-panel.
 
+> **OBS til bedømmer:** Dette GitHub-repo er opdateret efter den oprindelige aflevering (25-06-2026) med rettelser og polish frem mod fremlæggelsen — se `RAPPORT.md` afsnit "Opdateringer efter sommerferien" for en fuld liste over ændringer. Denne live repo-version er den endelige og korrekte version af projektet, uanset hvilken zip-fil der måtte være vedhæftet i den oprindelige indsendelse.
+
 - **Eksamenrapport:** [`RAPPORT.pdf`](./RAPPORT.pdf) — åbn direkte som PDF (ingen browser/VS Code nødvendig)
 - **Frontend-dokumentation:** [`dgs_frontend/README.md`](./dgs_frontend/README.md)
 - **Backend-dokumentation:** [`mcd_web_dengladeskorpe_server/readme.md`](./mcd_web_dengladeskorpe_server/readme.md)
