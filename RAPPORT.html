@@ -505,6 +505,17 @@
 
 <p>Jeg ville også gennemgå Figma-designet for alle sider systematisk fra start — inklusive backoffice-frames — frem for én side ad gangen.</p>
 
+<h3>Kendte begrænsninger / videre arbejde</h3>
+
+<p>Bestillingsflowet dækker det obligatoriske og tilvalgte scope fra opgavebeskrivelsen (se <a href="#103-opgavebeskrivelse">bilag 10.3</a>): afgiv ordre fra kurv, bekræftelse og visning i backoffice. Et par ting, som en rigtig pizzeria-hjemmeside i produktion ville have, er bevidst ikke en del af opgaven og derfor ikke implementeret:</p>
+<ul>
+  <li><strong>Leveringsadresse</strong> — der indsamles ingen adresse ved bestilling; ordren indeholder kun retter, ingredienser og antal.</li>
+  <li><strong>Betaling</strong> — der er intet betalingstrin; ordren afgives og bekræftes uden kortbetaling eller MobilePay-integration.</li>
+  <li><strong>Leveringstidspunkt</strong> — brugeren kan ikke vælge et ønsket leverings- eller afhentningstidspunkt, og der er ingen mulighed for at forudbestille til f.eks. næste dag.</li>
+  <li><strong>Åbningstider</strong> — systemet validerer ikke om restauranten reelt har åbent, så en ordre kan i princippet afgives når som helst på døgnet.</li>
+</ul>
+<p>Disse punkter er naturlige næste skridt for en produktionsklar version af sitet, men lå uden for den opgivne opgavebeskrivelse og er derfor fravalgt af hensyn til tidsramme og scope.</p>
+
 <h3>Faglig udvikling</h3>
 
 <p>Projektet har givet mig solid erfaring med:</p>

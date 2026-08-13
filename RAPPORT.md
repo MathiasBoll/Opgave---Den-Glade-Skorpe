@@ -272,6 +272,17 @@ Jeg ville kortlægge alle API-endpointernes eksakte responsformat (wrapped/ikke-
 
 Jeg ville også gennemgå Figma-designet for alle sider systematisk fra start — inklusive backoffice-frames — frem for én side ad gangen.
 
+### Kendte begrænsninger / videre arbejde
+
+Bestillingsflowet dækker det obligatoriske og tilvalgte scope fra opgavebeskrivelsen (se [bilag 10.3](#103-opgavebeskrivelse)): afgiv ordre fra kurv, bekræftelse og visning i backoffice. Et par ting, som en rigtig pizzeria-hjemmeside i produktion ville have, er bevidst ikke en del af opgaven og derfor ikke implementeret:
+
+- **Leveringsadresse** — der indsamles ingen adresse ved bestilling; ordren indeholder kun retter, ingredienser og antal.
+- **Betaling** — der er intet betalingstrin; ordren afgives og bekræftes uden kortbetaling eller MobilePay-integration.
+- **Leveringstidspunkt** — brugeren kan ikke vælge et ønsket leverings- eller afhentningstidspunkt, og der er ingen mulighed for at forudbestille til f.eks. næste dag.
+- **Åbningstider** — systemet validerer ikke om restauranten reelt har åbent, så en ordre kan i princippet afgives når som helst på døgnet.
+
+Disse punkter er naturlige næste skridt for en produktionsklar version af sitet, men lå uden for den opgivne opgavebeskrivelse og er derfor fravalgt af hensyn til tidsramme og scope.
+
 ### Faglig udvikling
 
 Projektet har givet mig solid erfaring med:
